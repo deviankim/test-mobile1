@@ -47,4 +47,7 @@ dependencies {
 
     // for Crawling
     implementation 'org.jsoup:jsoup:1.15.1'
+
+    // for Coroutine Test
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.2'
 }

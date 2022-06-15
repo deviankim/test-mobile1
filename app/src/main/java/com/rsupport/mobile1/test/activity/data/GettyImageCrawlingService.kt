@@ -1,0 +1,28 @@
+package com.rsupport.mobile1.test.activity.data
+
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import org.jsoup.Jsoup
+
+class GettyImageCrawlingService {
+    suspend fun getThumbnailUrlList(query: String = DEFAULT_QUERY): Result<List<String>> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val searchUrl = "$BASE_URL$query"
+                Jsoup.connect(searchUrl).get()
+                    .select(THUMBNAIL_TAG_CLASS_ID)
+                    .map { it.attr(THUMBNAIL_URL_ATTRIBUTE) }
+                    .let { Result.success(it) }
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
+        }
+    }
+
+    companion object {
+        private const val BASE_URL = "https://www.gettyimages.com/photos/"
+        private const val DEFAULT_QUERY = "collaboration"
+        private const val THUMBNAIL_TAG_CLASS_ID = "img.MosaicAsset-module__thumb___yvFP5"
+        private const val THUMBNAIL_URL_ATTRIBUTE = "src"
+    }
+}
