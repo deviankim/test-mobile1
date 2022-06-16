@@ -3,8 +3,9 @@ package com.rsupport.mobile1.test.activity.data
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
+import javax.inject.Inject
 
-class GettyImageCrawlingService {
+class GettyImageCrawlingService @Inject constructor() {
     suspend fun getThumbnailUrlList(query: String = DEFAULT_QUERY): Result<List<String>> {
         return withContext(Dispatchers.IO) {
             try {
