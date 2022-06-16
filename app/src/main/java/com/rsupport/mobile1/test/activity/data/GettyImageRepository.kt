@@ -1,9 +1,8 @@
 package com.rsupport.mobile1.test.activity.data
 
 import kotlinx.coroutines.flow.MutableSharedFlow
-import javax.inject.Inject
 
-class GettyRepository @Inject constructor(
+class GettyImageRepository(
     private val service: GettyImageCrawlingService
 ) {
     val gettySearchResultStream = MutableSharedFlow<List<String>>(1)
