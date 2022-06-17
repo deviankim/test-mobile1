@@ -1,4 +1,4 @@
-package com.rsupport.mobile1.test.activity
+package com.rsupport.mobile1.test.ui
 
 import android.os.Bundle
 import android.view.Menu
@@ -6,8 +6,6 @@ import android.widget.SearchView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.rsupport.mobile1.test.R
-import com.rsupport.mobile1.test.activity.ui.GettyImageViewModel
-import com.rsupport.mobile1.test.activity.ui.UiAction
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

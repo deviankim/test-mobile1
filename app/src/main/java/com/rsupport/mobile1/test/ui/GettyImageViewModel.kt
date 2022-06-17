@@ -1,7 +1,7 @@
-package com.rsupport.mobile1.test.activity.ui
+package com.rsupport.mobile1.test.ui
 
 import androidx.lifecycle.*
-import com.rsupport.mobile1.test.activity.data.GettyImageRepository
+import com.rsupport.mobile1.test.data.GettyImageRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package com.rsupport.mobile1.test.activity
+package com.rsupport.mobile1.test
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

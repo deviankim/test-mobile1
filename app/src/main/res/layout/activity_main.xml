@@ -4,11 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
-    android:gravity="center">
+    android:gravity="center"
+    tools:context=".ui.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/gettyImageListFragment"
-        android:name="com.rsupport.mobile1.test.activity.ui.GettyImageListFragment"
+        android:name="com.rsupport.mobile1.test.ui.GettyImageListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout="@layout/fragment_getty_image_list" />

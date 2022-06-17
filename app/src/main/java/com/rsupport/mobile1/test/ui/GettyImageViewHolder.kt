@@ -1,9 +1,9 @@
-package com.rsupport.mobile1.test.activity.ui
+package com.rsupport.mobile1.test.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.rsupport.mobile1.test.activity.utils.RemoteImageLoader
+import com.rsupport.mobile1.test.utils.RemoteImageLoader
 import com.rsupport.mobile1.test.databinding.ListItemGettyImageBinding
 
 class GettyImageViewHolder(

@@ -1,9 +1,9 @@
-package com.rsupport.mobile1.test.activity.ui
+package com.rsupport.mobile1.test.ui
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.rsupport.mobile1.test.activity.utils.RemoteImageLoader
+import com.rsupport.mobile1.test.utils.RemoteImageLoader
 
 class GettyImageListAdapter : ListAdapter<String, GettyImageViewHolder>(COMPARATOR) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GettyImageViewHolder {

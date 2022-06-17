@@ -1,4 +1,4 @@
-package com.rsupport.mobile1.test.activity.ui
+package com.rsupport.mobile1.test.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.rsupport.mobile1.test.activity.utils
+package com.rsupport.mobile1.test.utils
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory

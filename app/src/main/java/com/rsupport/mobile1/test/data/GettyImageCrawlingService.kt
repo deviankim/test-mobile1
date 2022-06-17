@@ -1,4 +1,4 @@
-package com.rsupport.mobile1.test.activity.data
+package com.rsupport.mobile1.test.data
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

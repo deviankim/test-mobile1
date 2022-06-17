@@ -1,7 +1,7 @@
-package com.rsupport.mobile1.test.activity.di
+package com.rsupport.mobile1.test.di
 
-import com.rsupport.mobile1.test.activity.data.GettyImageCrawlingService
-import com.rsupport.mobile1.test.activity.data.GettyImageRepository
+import com.rsupport.mobile1.test.data.GettyImageCrawlingService
+import com.rsupport.mobile1.test.data.GettyImageRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

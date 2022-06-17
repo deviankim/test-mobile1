@@ -1,6 +1,6 @@
 package com.rsupport.mobile1.test
 
-import com.rsupport.mobile1.test.activity.data.GettyImageCrawlingService
+import com.rsupport.mobile1.test.data.GettyImageCrawlingService
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
