@@ -46,6 +46,7 @@ class GettyImageListFragment : Fragment() {
         }
 
         viewModel.showProgress.observe(viewLifecycleOwner) { binding.progressBar.isVisible = it }
+        viewModel.showNoImage.observe(viewLifecycleOwner) { binding.tvNoResult.isVisible = it }
     }
 
     override fun onDestroyView() {

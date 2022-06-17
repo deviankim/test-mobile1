@@ -1,9 +1,6 @@
 package com.rsupport.mobile1.test.activity.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.rsupport.mobile1.test.activity.data.GettyImageRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -22,6 +19,12 @@ class GettyImageViewModel @Inject constructor(
         .distinctUntilChanged()
         .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), 1)
         .onStart { search(DEFAULT_QUERY) }
+
+    val showNoImage = repository.gettySearchResultStream
+        .map { it.isEmpty() }
+        .distinctUntilChanged()
+        .asLiveData()
+
 
     val uiActionCallback: (UiAction) -> Unit = { uiAction ->
         if (uiAction is UiAction.Search) {

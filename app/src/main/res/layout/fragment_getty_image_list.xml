@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:background="@android:color/black"
+    tools:context=".activity.ui.GettyImageListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/thumbnailList"
@@ -10,6 +13,19 @@
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="3" />
+
+    <TextView
+        android:id="@+id/tvNoResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이런!! 이미지를 찾을 수 없어요.. 😥"
+        android:textColor="@android:color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
     <ProgressBar
         android:id="@+id/progressBar"
