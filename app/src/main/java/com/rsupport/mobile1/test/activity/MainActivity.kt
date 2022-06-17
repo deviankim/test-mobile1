@@ -1,15 +1,19 @@
 package com.rsupport.mobile1.test.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.widget.SearchView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.rsupport.mobile1.test.R
+import com.rsupport.mobile1.test.activity.ui.GettyImageViewModel
+import com.rsupport.mobile1.test.activity.ui.UiAction
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    private val viewModel: GettyImageViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,16 +31,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private inner class OnQueryTextListenerImpl : SearchView.OnQueryTextListener {
+        private var cachedQuery = ""
+
         override fun onQueryTextSubmit(p0: String?): Boolean {
-            // TODO: 해당 검색어로 Getty 이미지 크롤링 요청
-            Log.d(TAG, "onQueryTextSubmit: $p0")
+            if (cachedQuery != p0) {
+                p0?.trim()?.also { viewModel.uiActionCallback(UiAction.Search(it)) }
+            }
+
+            cachedQuery = p0 ?: ""
+
             return true
         }
 
         override fun onQueryTextChange(p0: String?): Boolean = true
-    }
-
-    companion object {
-        private const val TAG = "MainActivity"
     }
 }
