@@ -33,12 +33,12 @@ class MainActivity : AppCompatActivity() {
     private inner class OnQueryTextListenerImpl : SearchView.OnQueryTextListener {
         private var cachedQuery = ""
 
-        override fun onQueryTextSubmit(p0: String?): Boolean {
-            if (cachedQuery != p0) {
-                p0?.trim()?.also { viewModel.uiActionCallback(UiAction.Search(it)) }
+        override fun onQueryTextSubmit(text: String?): Boolean {
+            val trimmedText = text?.trim()
+            if (cachedQuery != trimmedText && trimmedText != null) {
+                viewModel.uiActionCallback(UiAction.Search(trimmedText))
             }
-
-            cachedQuery = p0 ?: ""
+            cachedQuery = trimmedText ?: ""
 
             return true
         }

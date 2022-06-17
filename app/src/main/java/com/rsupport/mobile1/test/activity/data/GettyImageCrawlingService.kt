@@ -8,14 +8,11 @@ import javax.inject.Inject
 class GettyImageCrawlingService @Inject constructor() {
     suspend fun getThumbnailUrlList(query: String = DEFAULT_QUERY): Result<List<String>> {
         return withContext(Dispatchers.IO) {
-            try {
+            kotlin.runCatching {
                 val searchUrl = "$BASE_URL$query"
                 Jsoup.connect(searchUrl).get()
                     .select(THUMBNAIL_TAG_CLASS_ID)
                     .map { it.attr(THUMBNAIL_URL_ATTRIBUTE) }
-                    .let { Result.success(it) }
-            } catch (e: Exception) {
-                Result.failure(e)
             }
         }
     }
