@@ -3,6 +3,7 @@ package com.rsupport.mobile1.test.activity.ui
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import com.rsupport.mobile1.test.activity.utils.RemoteImageLoader
 
 class GettyImageListAdapter : ListAdapter<String, GettyImageViewHolder>(COMPARATOR) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GettyImageViewHolder {
@@ -11,6 +12,13 @@ class GettyImageListAdapter : ListAdapter<String, GettyImageViewHolder>(COMPARAT
 
     override fun onBindViewHolder(holder: GettyImageViewHolder, position: Int) {
         holder.bind(getItem(position))
+    }
+
+    override fun onCurrentListChanged(
+        previousList: MutableList<String>,
+        currentList: MutableList<String>
+    ) {
+        RemoteImageLoader.clearCache()
     }
 
     companion object {

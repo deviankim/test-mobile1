@@ -57,8 +57,10 @@ class RemoteImageLoader {
     }
 
     companion object {
-        // Cache를 하지 않을경우 Recycler View Scroll 시 매번 Bitmap을 생성해야 함.
-        // 현재는 하드코딩 된 검색어의 결과만 저장하지만, 검색 기능 제공시에는 Clear 기능 필요.
         private val drawableCache = mutableMapOf<String, Bitmap>()
+
+        fun clearCache() {
+            drawableCache.clear()
+        }
     }
 }
