@@ -52,6 +52,7 @@ class RemoteImageLoader {
         setImageDrawable(null)
     }
 
+    @Synchronized
     private fun Bitmap.cache(key: String) {
         drawableCache[key] = this
     }
@@ -59,6 +60,7 @@ class RemoteImageLoader {
     companion object {
         private val drawableCache = mutableMapOf<String, Bitmap>()
 
+        @Synchronized
         fun clearCache() {
             drawableCache.clear()
         }
