@@ -4,10 +4,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.rsupport.mobile1.test.activity.domain.GettyImageRepositoryImpl
 import com.rsupport.mobile1.test.activity.domain.GettyImageResponse
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 class MainViewModel(private val gettyImageRepository: GettyImageRepositoryImpl) : ViewModel(), CoroutineScope {
@@ -19,7 +16,7 @@ class MainViewModel(private val gettyImageRepository: GettyImageRepositoryImpl) 
     val gettyImageList: LiveData<List<GettyImageResponse>>
         get() = _gettyImageList
 
-    fun requestImage() = launch(coroutineContext + Dispatchers.IO + CoroutineExceptionHandler { coroutineContext, throwable ->
+    fun requestImage() = launch (coroutineContext + Dispatchers.IO + CoroutineExceptionHandler { coroutineContext, throwable ->
         Log.e(MainActivity.TAG, "Coroutine Exception : ${throwable.message}")
         Log.e(MainActivity.TAG, "Coroutine Exception : ${throwable.stackTrace}")
     }) {

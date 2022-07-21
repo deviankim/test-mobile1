@@ -1,5 +1,8 @@
 package com.rsupport.mobile1.test.activity.domain
 
+import com.rsupport.mobile1.test.activity.data.GettyImage
+import kotlinx.coroutines.Deferred
+
 interface GettyImageRepository {
-    fun getImage(): List<GettyImageResponse>
+    suspend fun getImage(): List<GettyImage>?
 }
