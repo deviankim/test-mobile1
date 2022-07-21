@@ -11,7 +11,7 @@ class MainViewModel : ViewModel() {
     val gettyImageList: LiveData<List<Any>>
         get() = _gettyImageList
 
-    fun getImage() {
+    fun requestImage() {
         // TODO : 이미지 데이터 수신부 구현 예정
         Log.d(MainActivity.TAG, "TEST OK")
     }
