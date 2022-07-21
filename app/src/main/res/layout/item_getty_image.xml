@@ -36,7 +36,7 @@
             android:id="@+id/ivProfile"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            app:profileImg="@{image.thumbnailUrl}"
+            app:thumbnailImg="@{image.thumbnailUrl}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/llText"
