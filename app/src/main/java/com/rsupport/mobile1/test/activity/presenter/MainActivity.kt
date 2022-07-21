@@ -26,7 +26,5 @@ class MainActivity : AppCompatActivity() {
         viewModel.gettyImageList.observe(this) {
             Log.d(TAG, it.toString())
         }
-
-        viewModel.requestImage()
     }
 }

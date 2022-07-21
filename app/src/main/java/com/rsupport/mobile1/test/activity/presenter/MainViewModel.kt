@@ -18,7 +18,11 @@ class MainViewModel @Inject constructor(private val gettyImageRepository: GettyI
     val gettyImageList: LiveData<List<GettyImageResponse>?>
         get() = _gettyImageList
 
-    fun requestImage() = launch (coroutineContext + Dispatchers.IO + CoroutineExceptionHandler { coroutineContext, throwable ->
+    init {
+        requestImage()
+    }
+
+    private fun requestImage() = launch (coroutineContext + Dispatchers.IO + CoroutineExceptionHandler { coroutineContext, throwable ->
         Log.e(MainActivity.TAG, "Coroutine Exception : ${throwable.message}")
         Log.e(MainActivity.TAG, "Coroutine Exception : ${throwable.stackTrace}")
     }) {
