@@ -10,6 +10,7 @@
             android:icon="@mipmap/ic_launcher"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
+            android:name=".activity.MyApplication"
             android:usesCleartextTraffic="true"
             android:theme="@style/Theme.Mobile1TestApp">
         <activity android:name=".activity.presenter.MainActivity"
