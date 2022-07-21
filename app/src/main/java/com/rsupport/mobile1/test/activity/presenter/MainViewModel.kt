@@ -20,7 +20,13 @@ class MainViewModel(private val gettyImageRepository: GettyImageRepositoryImpl) 
         Log.e(MainActivity.TAG, "Coroutine Exception : ${throwable.message}")
         Log.e(MainActivity.TAG, "Coroutine Exception : ${throwable.stackTrace}")
     }) {
-        gettyImageRepository.getImage()
+        val result = gettyImageRepository.getImage()
+        if (result != null) {
+            _gettyImageList.postValue(result)
+            Log.d(MainActivity.TAG, result.toString())
+        } else {
+            Log.e(MainActivity.TAG, "result data is empty")
+        }
     }
 
 
