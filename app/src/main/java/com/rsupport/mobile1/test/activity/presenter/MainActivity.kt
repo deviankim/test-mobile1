@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.rsupport.mobile1.test.R
-import com.rsupport.mobile1.test.activity.data.GettyImageWebImpl
+import com.rsupport.mobile1.test.activity.data.GettyImageDataSourceImpl
 import com.rsupport.mobile1.test.activity.domain.GettyImageRepositoryImpl
 import com.rsupport.mobile1.test.databinding.ActivityMainBinding
 
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val viewModel: MainViewModel by lazy {
-        val repository = GettyImageRepositoryImpl(GettyImageWebImpl())
+        val repository = GettyImageRepositoryImpl(GettyImageDataSourceImpl())
         val factory = MainViewModel.Factory(repository)
         ViewModelProvider(this, factory).get(MainViewModel::class.java)
     }

@@ -1,6 +1,6 @@
 package com.rsupport.mobile1.test.activity.data
 
 
-interface GettyImageWeb {
+interface GettyImageDataSource {
     suspend fun requestGettyImage(): List<GettyImage>?
 }

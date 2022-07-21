@@ -9,7 +9,7 @@ import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
 import java.io.IOException
 
-class GettyImageWebImpl: GettyImageWeb {
+class GettyImageDataSourceImpl: GettyImageDataSource {
 
     private val url = "https://www.gettyimages.com/photos/collaboration"
 
