@@ -12,7 +12,8 @@
             android:supportsRtl="true"
             android:usesCleartextTraffic="true"
             android:theme="@style/Theme.Mobile1TestApp">
-        <activity android:name=".activity.presenter.MainActivity">
+        <activity android:name=".activity.presenter.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
