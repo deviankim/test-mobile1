@@ -12,6 +12,7 @@ class GettyImageWebImpl: GettyImageWeb {
     private val url = "https://www.gettyimages.com/photos/collaboration"
 
     override fun requestGettyImage(): Any {
+
         object : Thread() {
             override fun run() {
                 try {
@@ -22,8 +23,9 @@ class GettyImageWebImpl: GettyImageWeb {
                     Log.d(MainActivity.TAG, "isNull? : $isEmpty")
                     Log.d(MainActivity.TAG, "size : ${elements.size}")
 
-                    if (!isEmpty) {
+                    val innerGettyImageList: ArrayList<GettyImage> = arrayListOf()
 
+                    if (!isEmpty) {
                         elements[0].select("article.MosaicAsset-module__container___YN2eK").forEachIndexed { index, it ->
                             val authorContent = it.select("meta[itemprop=author]").attr("content")
                             val captionContent = it.select("meta[itemprop=caption]").attr("content")
@@ -44,9 +46,24 @@ class GettyImageWebImpl: GettyImageWeb {
                             Log.d(MainActivity.TAG, "thumbnailUrlContent : $thumbnailUrlContent")
                             Log.d(MainActivity.TAG, "uploadDateContent : $uploadDateContent")
 
+                            innerGettyImageList.add(
+                                GettyImage(
+                                    author = authorContent,
+                                    caption = captionContent,
+                                    contentUrl = contentUrlContent,
+                                    creditText = creditTextContent,
+                                    description = descriptionContent,
+                                    name = nameContent,
+                                    thumbnailUrl = thumbnailUrlContent,
+                                    uploadDate = uploadDateContent,
+                                )
+                            )
+
                         }
                     }
                 } catch (e: IOException) {
+                    e.printStackTrace()
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }
