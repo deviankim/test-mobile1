@@ -1,6 +1,5 @@
 package com.rsupport.mobile1.test.activity
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,8 +11,7 @@ class MainViewModel : ViewModel() {
         get() = _gettyImageList
 
     fun requestImage() {
-        // TODO : 이미지 데이터 수신부 구현 예정
-        Log.d(MainActivity.TAG, "TEST OK")
+        GettyImageRepositoryImpl().getImage()
     }
 
 }
