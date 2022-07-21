@@ -1,6 +1,7 @@
 package com.rsupport.mobile1.test.activity.presenter
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -24,6 +25,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        viewModel.gettyImageList.observe(this) {
+            Log.d(TAG, it.toString())
+        }
+
         viewModel.requestImage()
     }
 }
