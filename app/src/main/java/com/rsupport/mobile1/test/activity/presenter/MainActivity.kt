@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         binding.rvGettyImage.layoutManager = LinearLayoutManager(this)
 
         viewModel.gettyImageList.observe(this) { list ->
-            list?.let(gettyImageAdapter::setData)
+            list?.let(gettyImageAdapter::submitList)
         }
     }
 }
