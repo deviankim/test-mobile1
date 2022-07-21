@@ -1,4 +1,4 @@
-package com.rsupport.mobile1.test.activity
+package com.rsupport.mobile1.test.activity.presenter
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

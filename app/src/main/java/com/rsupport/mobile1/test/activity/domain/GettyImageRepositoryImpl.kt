@@ -1,6 +1,7 @@
-package com.rsupport.mobile1.test.activity
+package com.rsupport.mobile1.test.activity.domain
 
 import android.util.Log
+import com.rsupport.mobile1.test.activity.presenter.MainActivity
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
