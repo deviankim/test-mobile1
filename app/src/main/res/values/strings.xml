@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Mobile1TestApp</string>
+
+    <string name="id">id : %s</string>
+    <string name="like">좋아요 : %s</string>
+    <string name="author">author : %s</string>
 </resources>
