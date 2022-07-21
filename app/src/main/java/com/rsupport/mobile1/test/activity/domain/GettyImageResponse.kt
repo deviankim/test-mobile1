@@ -3,6 +3,7 @@ package com.rsupport.mobile1.test.activity.domain
 import com.rsupport.mobile1.test.activity.data.GettyImage
 
 data class GettyImageResponse(
+    val assetId: String = "",
     val author: String = "",
     val caption: String = "",
     val contentUrl: String = "",
@@ -14,6 +15,7 @@ data class GettyImageResponse(
 )
 
 fun GettyImage.mapper() = GettyImageResponse(
+    assetId = this.assetId,
     author = this.author,
     caption = this.caption,
     contentUrl = this.contentUrl,
