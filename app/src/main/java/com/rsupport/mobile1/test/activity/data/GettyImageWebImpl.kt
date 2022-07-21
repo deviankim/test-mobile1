@@ -26,17 +26,21 @@ class GettyImageWebImpl: GettyImageWeb {
                     val innerGettyImageList: ArrayList<GettyImage> = arrayListOf()
 
                     if (!isEmpty) {
-                        elements[0].select("article.MosaicAsset-module__container___YN2eK").forEachIndexed { index, it ->
-                            val authorContent = it.select("meta[itemprop=author]").attr("content")
-                            val captionContent = it.select("meta[itemprop=caption]").attr("content")
-                            val contentUrlContent = it.select("meta[itemprop=contentUrl]").attr("content")
-                            val creditTextContent = it.select("meta[itemprop=creditText]").attr("content")
-                            val descriptionContent = it.select("meta[itemprop=description]").attr("content")
-                            val nameContent = it.select("meta[itemprop=name]").attr("content")
-                            val thumbnailUrlContent = it.select("meta[itemprop=thumbnailUrl]").attr("content")
-                            val uploadDateContent = it.select("meta[itemprop=uploadDate]").attr("content")
+
+                        elements[0].select("div .MosaicAsset-module__galleryMosaicAsset____wxTl").forEachIndexed { index, it ->
+
+                            val assetId = it.attr("data-asset-id")
+                            val authorContent = it.select("article.MosaicAsset-module__container___YN2eK").select("meta[itemprop=author]").attr("content")
+                            val captionContent = it.select("article.MosaicAsset-module__container___YN2eK").select("meta[itemprop=caption]").attr("content")
+                            val contentUrlContent = it.select("article.MosaicAsset-module__container___YN2eK").select("meta[itemprop=contentUrl]").attr("content")
+                            val creditTextContent = it.select("article.MosaicAsset-module__container___YN2eK").select("meta[itemprop=creditText]").attr("content")
+                            val descriptionContent = it.select("article.MosaicAsset-module__container___YN2eK").select("meta[itemprop=description]").attr("content")
+                            val nameContent = it.select("article.MosaicAsset-module__container___YN2eK").select("meta[itemprop=name]").attr("content")
+                            val thumbnailUrlContent = it.select("article.MosaicAsset-module__container___YN2eK").select("meta[itemprop=thumbnailUrl]").attr("content")
+                            val uploadDateContent = it.select("article.MosaicAsset-module__container___YN2eK").select("meta[itemprop=uploadDate]").attr("content")
 
                             Log.d(MainActivity.TAG, "$index : ${it.tagName()}")
+                            Log.d(MainActivity.TAG, "assetId : $assetId")
                             Log.d(MainActivity.TAG, "authorContent : $authorContent")
                             Log.d(MainActivity.TAG, "captionContent : $captionContent")
                             Log.d(MainActivity.TAG, "contentUrlContent : $contentUrlContent")
@@ -48,6 +52,7 @@ class GettyImageWebImpl: GettyImageWeb {
 
                             innerGettyImageList.add(
                                 GettyImage(
+                                    assetId = assetId,
                                     author = authorContent,
                                     caption = captionContent,
                                     contentUrl = contentUrlContent,
@@ -58,7 +63,6 @@ class GettyImageWebImpl: GettyImageWeb {
                                     uploadDate = uploadDateContent,
                                 )
                             )
-
                         }
                     }
                 } catch (e: IOException) {
