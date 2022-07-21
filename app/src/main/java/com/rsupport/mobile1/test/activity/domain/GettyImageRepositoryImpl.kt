@@ -11,7 +11,7 @@ class GettyImageRepositoryImpl: GettyImageRepository {
 
     private val url = "https://www.gettyimages.com/photos/collaboration"
 
-    override fun getImage(): List<Any> {
+    override fun getImage(): List<GettyImageResponse> {
 
         object : Thread() {
             override fun run() {

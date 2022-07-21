@@ -1,5 +1,5 @@
 package com.rsupport.mobile1.test.activity.domain
 
 interface GettyImageRepository {
-    fun getImage(): List<Any>
+    fun getImage(): List<GettyImageResponse>
 }
