@@ -4,4 +4,5 @@
     <string name="id">id : %s</string>
     <string name="like">좋아요 : %s</string>
     <string name="author">author : %s</string>
+    <string name="main_network_error">통신중 에러가 발생했습니다.</string>
 </resources>

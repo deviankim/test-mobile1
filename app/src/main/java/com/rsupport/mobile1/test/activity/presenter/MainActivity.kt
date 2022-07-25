@@ -2,6 +2,7 @@ package com.rsupport.mobile1.test.activity.presenter
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -35,6 +36,24 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.gettyImageList.observe(this) { list ->
             list?.let(gettyImageAdapter::submitList)
+        }
+
+        viewModel.progress.observe(this) { event ->
+            event?.getContentIfNotHandled()?.let { progress ->
+                if (progress) {
+                    loadingDialog?.show()
+                } else {
+                    loadingDialog?.dismiss()
+                }
+            }
+        }
+
+        viewModel.errorToast.observe(this) { event ->
+            event?.getContentIfNotHandled()?.let { progress ->
+                if (progress) {
+                    Toast.makeText(this, getString(R.string.main_network_error), Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 }
