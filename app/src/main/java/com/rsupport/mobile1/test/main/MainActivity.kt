@@ -21,13 +21,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setLayout() {
-        binding.listView.setTag(R.string.view_tag,)
+        binding.listView.setTag(R.string.view_tag,R.layout.getty_item)
         viewModel.gettingImage()
     }
 
     private fun observerData(){
+       viewModel.loadingLiveData.observe(this){
+           if(it) binding.progressBar.show() else binding.progressBar.hide()
+       }
+
        viewModel.gettyLiveData.observe(this){
-            Log.d("kjs-it",it.toString())
+            binding.model = it
        }
     }
 }

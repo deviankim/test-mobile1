@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/gettyText"
@@ -19,6 +19,7 @@
             android:textColor="@color/black"
             android:textSize="16dp"
             android:text="@{item.alt}"
+            android:layout_marginTop="@dimen/defaultMargin"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -27,7 +28,7 @@
             android:id="@+id/gettyImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="fitXY"
+            imageUrl="@{item.src}"
             android:layout_marginTop="@dimen/defaultMargin"
             android:layout_marginStart="@dimen/defaultMargin"
             android:layout_marginEnd="@dimen/defaultMargin"
