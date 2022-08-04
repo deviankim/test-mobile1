@@ -26,3 +26,11 @@
 3. 작업 완료 후, git push
 4. fork된 github의 Pull Requests 로 이동하여 PR 을 작성합니다.
 5. 생성된 PR 링크를 메일(jhsong@rsupport.com) 에 첨부합니다.
+
+WorkFlow
+[] Html 데이터 확인후 제목, 이미지 데이터 클래스 생성
+[] 리싸이클러뷰 어뎁터 생성
+[] Jsoup 게티 이미지 html 파싱
+[] 파싱 데이터 url list로 추가
+[] 페이징 처리 15개 카운트 
+[] 페이징 이미지 로딩 추가
