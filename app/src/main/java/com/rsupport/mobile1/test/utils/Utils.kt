@@ -1,8 +1,11 @@
 package com.rsupport.mobile1.test.utils
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,5 +47,18 @@ object Utils {
             }
             adapter.notifyDataSetChanged()
         }
+    }
+
+
+    fun dialog(message : String,context: Context){
+        AlertDialog.Builder(context).apply {
+            setMessage(message)
+                .setNegativeButton(R.string.confirm) { dialog, which ->
+                    (context as AppCompatActivity).finishAffinity()
+                }
+            if (message == context.getString(R.string.finish)){
+                setPositiveButton(R.string.cancel,null)
+            }
+        }.show()
     }
 }

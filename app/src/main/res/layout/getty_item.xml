@@ -29,7 +29,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/gettyImage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="280dp"
             imageUrl="@{item.src}"
             android:layout_marginTop="@dimen/defaultMargin"
             app:layout_constraintTop_toBottomOf="@id/gettyText"/>
