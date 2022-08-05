@@ -10,11 +10,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/defaultMargin"
+        android:paddingEnd="@dimen/defaultMargin">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/gettyText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="16dp"
@@ -30,8 +32,6 @@
             android:layout_height="wrap_content"
             imageUrl="@{item.src}"
             android:layout_marginTop="@dimen/defaultMargin"
-            android:layout_marginStart="@dimen/defaultMargin"
-            android:layout_marginEnd="@dimen/defaultMargin"
             app:layout_constraintTop_toBottomOf="@id/gettyText"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

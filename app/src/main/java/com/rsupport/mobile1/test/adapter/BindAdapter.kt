@@ -23,6 +23,7 @@ class BindAdapter<T> : RecyclerView.Adapter<BindAdapter.BindViewHolder>(){
         )!!
     )
 
+    override fun getItemViewType(position: Int) = position
 
     override fun onBindViewHolder(holder: BindViewHolder, position: Int) {
         when (holder.binding) {
