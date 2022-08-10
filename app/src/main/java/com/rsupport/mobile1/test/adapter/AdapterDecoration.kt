@@ -5,9 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.rsupport.mobile1.test.utils.Utils
 
-class AdapterDecoration(margin : Int) : RecyclerView.ItemDecoration(){
-
-    private val margin = margin
+class AdapterDecoration(private val margin: Int) : RecyclerView.ItemDecoration(){
 
     override fun getItemOffsets(
         outRect: Rect,
