@@ -10,29 +10,18 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/defaultMargin"
-        android:paddingEnd="@dimen/defaultMargin">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/gettyText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="16dp"
-            android:text="@{item.alt}"
-            android:layout_marginTop="@dimen/defaultMargin"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/gettyImage"
             android:layout_width="match_parent"
-            android:layout_height="280dp"
-            imageUrl="@{item.src}"
-            android:layout_marginTop="@dimen/defaultMargin"
-            app:layout_constraintTop_toBottomOf="@id/gettyText"/>
+            android:layout_height="130dp"
+            android:background="@color/white"
+            android:scaleType="centerCrop"
+            imageUrl="@{item}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

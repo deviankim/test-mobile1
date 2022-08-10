@@ -2,33 +2,31 @@ package com.rsupport.mobile1.test.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.drawable.Drawable
-import android.util.Log
+import android.util.TypedValue
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import com.rsupport.mobile1.test.R
 import com.rsupport.mobile1.test.adapter.BindAdapter
+import com.rsupport.mobile1.test.data.GettyData
 
 object Utils {
 
     const val DOMAIN = "https://www.gettyimages.com/photos/collaboration?"
+    const val IMAGE_URL = DOMAIN.plus("assettype=image&")
     const val GETTY_IMAGE = "div.GalleryItems-module__searchContent___DbMmK div article a figure picture img"
     const val SUCCESS = 200
+    const val MARGIN = 16
+    const val SPAN_COUNT = 3
 
     @JvmStatic
     @BindingAdapter("imageUrl")
-    fun imageUrl(imageView: AppCompatImageView, imageUrl: String) {
+    fun imageUrl(imageView: AppCompatImageView,item : GettyData) {
         Glide.with(imageView.context)
-            .load(imageUrl)
+            .load(item.src)
             .into(imageView)
     }
 
@@ -49,7 +47,6 @@ object Utils {
         }
     }
 
-
     fun dialog(message : String,context: Context){
         AlertDialog.Builder(context).apply {
             setMessage(message)
@@ -60,5 +57,10 @@ object Utils {
                 setPositiveButton(R.string.cancel,null)
             }
         }.show()
+    }
+
+    fun toDp(context: Context,value : Int) :Int {
+        val metrics = context.resources.displayMetrics
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,value.toFloat(),metrics).toInt()
     }
 }

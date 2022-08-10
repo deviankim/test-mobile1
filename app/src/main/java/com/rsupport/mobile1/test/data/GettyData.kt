@@ -6,5 +6,7 @@ data class GettyList(
 
 data class GettyData (
     val alt : String, // 내용
-    val src : String  // 이미지 주소
+    val src : String,  // 이미지 주소
+    val width : Int,  //이미지 넓이
+    val height : Int //이미지 높이
 )

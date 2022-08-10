@@ -4,9 +4,11 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rsupport.mobile1.test.R
+import com.rsupport.mobile1.test.adapter.AdapterDecoration
 import com.rsupport.mobile1.test.databinding.ActivityMainBinding
 import com.rsupport.mobile1.test.utils.Utils
 
@@ -23,10 +25,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setLayout() {
+        binding.progressBar.bringToFront()
+
         var page = 1
-        viewModel.gettingImage("image", page)
+        viewModel.gettingImage(page)
 
         binding.listView.apply {
+            layoutManager = GridLayoutManager(applicationContext,Utils.SPAN_COUNT)
+            addItemDecoration(AdapterDecoration(Utils.MARGIN))
             setTag(R.string.view_tag, R.layout.getty_item)
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -36,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                         val pastVisibleItems: Int = manager.findLastVisibleItemPosition()
 
                         if (pastVisibleItems + visibleItemCount >= totalItemCount && !viewModel.loadingLiveData.value!!) {
-                            viewModel.gettingImage("image", ++page)
+                            viewModel.gettingImage(++page)
                             return
                         }
                     }

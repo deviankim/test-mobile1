@@ -17,11 +17,11 @@ class MainViewModel  :  ViewModel(){
     var gettyLiveData : MutableLiveData<GettyList?> = MutableLiveData()
     var loadingLiveData : MutableLiveData<Boolean> = MutableLiveData()
 
-    fun gettingImage(type: String,page : Int) {
+    fun gettingImage(page : Int) {
         CoroutineScope(Dispatchers.IO).launch {
             loadingLiveData.postValue(true)
             runCatching {
-                val response = Jsoup.connect(Utils.DOMAIN.plus("assettype=${type}&page=${page}"))
+                val response = Jsoup.connect(Utils.IMAGE_URL.plus("page=${page}"))
                     .method(Connection.Method.GET)
                     .timeout(3000)
                     .execute()
@@ -31,9 +31,11 @@ class MainViewModel  :  ViewModel(){
                         val defaultList = ArrayList<GettyData>()
                         response.parse().select(Utils.GETTY_IMAGE).forEach { element ->
                             if (gettyLiveData.value == null){
-                                defaultList.add(GettyData(element.attr("alt"),element.attr("src")))
+                                defaultList.add(GettyData(element.attr("alt"),element.attr("src"),
+                                    element.attr("width").toInt(),element.attr("height").toInt()))
                             }else{
-                                gettyLiveData.value?.list?.add(GettyData(element.attr("alt"),element.attr("src")))
+                                gettyLiveData.value?.list?.add(GettyData(element.attr("alt"),element.attr("src"),
+                                    element.attr("width").toInt(),element.attr("height").toInt()))
                             }
                         }.run {
                             gettyLiveData.postValue(if (defaultList.size > 1) GettyList(defaultList) else gettyLiveData.value)
