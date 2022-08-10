@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.listView.apply {
             layoutManager = GridLayoutManager(applicationContext,Utils.SPAN_COUNT)
-            addItemDecoration(AdapterDecoration(Utils.MARGIN))
+            addItemDecoration(AdapterDecoration(Utils.MARGIN,Utils.SPAN_COUNT))
             setTag(R.string.view_tag, R.layout.getty_item)
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

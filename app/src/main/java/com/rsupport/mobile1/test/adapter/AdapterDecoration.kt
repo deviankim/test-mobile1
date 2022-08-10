@@ -5,7 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.rsupport.mobile1.test.utils.Utils
 
-class AdapterDecoration(private val margin: Int) : RecyclerView.ItemDecoration(){
+class AdapterDecoration(private val margin: Int,private val size : Int) : RecyclerView.ItemDecoration(){
 
     override fun getItemOffsets(
         outRect: Rect,
@@ -17,8 +17,8 @@ class AdapterDecoration(private val margin: Int) : RecyclerView.ItemDecoration()
         outRect.left = margin
         outRect.top = margin
 
-        if (postion % 3 == 2){
-           outRect.right = Utils.toDp(parent.context,margin)
+        if (postion % size == size.minus(1)){
+           outRect.right = margin
         }
 
     }
