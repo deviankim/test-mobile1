@@ -1,4 +1,4 @@
-package com.rsupport.mobile1.test.activity.util
+package com.rsupport.mobile1.test.util
 
 import android.util.Log
 

@@ -3,7 +3,7 @@ package com.rsupport.mobile1.test.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.rsupport.mobile1.test.R
-import com.rsupport.mobile1.test.activity.util.LogUtil
+import com.rsupport.mobile1.test.util.LogUtil
 
 class MainActivity : AppCompatActivity() {
 
