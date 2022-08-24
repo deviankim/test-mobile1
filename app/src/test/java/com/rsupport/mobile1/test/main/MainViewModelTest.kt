@@ -34,7 +34,7 @@ class MainViewModelTest {
     }
 
     @Test
-    fun test() = runTest {
+    fun `when getPhotosCollaboration then return galleryModel list`() = runTest {
         val gettyImages: GettyImages = getJsonString(this, "json/gettyImages.json").toInstance()
         coEvery { gettyImagesService.getPhotosCollaborationAsync() } returns async { gettyImages }
 
