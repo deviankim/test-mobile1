@@ -13,10 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mobile1TestApp"
         android:usesCleartextTraffic="true"
-        android:name=".BaseApplication"
+        android:name=".HiltBaseApplication"
         tools:targetApi="m">
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
