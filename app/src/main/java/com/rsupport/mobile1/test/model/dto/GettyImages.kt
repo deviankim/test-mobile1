@@ -5,8 +5,7 @@ data class GettyImages(
 )
 
 data class Gallery(
-    val pageSize: Int,
-    val assets: List<Asset>,
+    val assets: List<Asset>
 )
 
 data class Asset(

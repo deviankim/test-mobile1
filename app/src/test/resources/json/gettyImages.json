@@ -1,0 +1,90 @@
+{
+  "continent": "north_south_america",
+  "contributor": null,
+  "countryLanguagePrefix": null,
+  "dropboxApp": "Apps > Getty Images App",
+  "gallery": {
+    "name": null,
+    "clarifications": [ ],
+    "events": [ ],
+    "groupByEventCount": 0,
+    "groupByEventTotalAssets": null,
+    "page": 1,
+    "pageSize": 60,
+    "lastPage": 100,
+    "totalNumberOfResults": 1406890,
+    "queryCorrections": { },
+    "similarAsset": null,
+    "targetSearchMix": "293|877|11",
+    "queriedKeywordsByClause": [
+      {
+        "keyword_ids": [
+          60296
+        ]
+      }
+    ],
+    "parentEventName": null,
+    "assets": [
+      {
+        "altText": "aerial view of crowd connected by lines - collaboration stock pictures, royalty-free photos & images",
+        "id": "1180187740",
+        "agreement": null,
+        "agreements": [ ],
+        "agreementDetails": [ ],
+        "assetType": "image",
+        "family": "creative",
+        "editorialOnly": false,
+        "licenseType": "RF",
+        "quality": "Common",
+        "clipLength": null,
+        "cirActionCount": null,
+        "filmDefinition": null,
+        "seoDuration": null,
+        "filmPreviewUrl": null,
+        "istockCollection": null,
+        "eventName": null,
+        "eventId": null,
+        "eventDate": null,
+        "thumbUrl": "https://media.gettyimages.com/photos/aerial-view-of-crowd-connected-by-lines-picture-id1180187740?k=20&m=1180187740&s=612x612&w=0&h=s5vqexDzwt8irE-SC1wLWUUDompG9ehBDPrGTe5SsSU=",
+        "releaseCode": "NRR",
+        "mediaType": "Photography",
+        "dateSubmitted": "2019-10-10",
+        "slot": 1,
+        "isAnalogArchive": false,
+        "isCallForImage": false,
+        "isIstockSignature": false,
+        "title": "Aerial view of crowd connected by lines",
+        "shortTitle": "Aerial view of crowd connected by lines",
+        "caption": "Aerial view of crowd connected by lines",
+        "colorIndexes": [
+          "ffffff",
+          "9191b6",
+          "dadab6"
+        ],
+        "maxDimensions": {
+          "width": 4521,
+          "height": 3077
+        },
+        "people": "",
+        "artist": " Orbon Alija",
+        "collectionCode": "EPL",
+        "collectionName": "E+",
+        "contributorDisplayName": null,
+        "contributorMemberName": null,
+        "collapsedCount": null,
+        "landingUrl": "/detail/photo/aerial-view-of-crowd-connected-by-lines-royalty-free-image/1180187740",
+        "dateCreated": "July 27, 2019",
+        "is360": false,
+        "isOffline": false,
+        "isExclusiveContent": false,
+        "isEmbeddable": true,
+        "seoTitle": "Aerial view of crowd connected by lines",
+        "seoCaption": "Aerial view of crowd connected by lines",
+        "orientation": "Horizontal",
+        "topKeywords": null,
+        "usageInfo": "available for all permitted uses under our |license terms|.",
+        "uploadDate": "2019-07-27"
+      }
+    ]
+  }
+}
