@@ -7,6 +7,6 @@ import retrofit2.http.GET
 interface GettyImagesService {
 
     @GET("photos/collaboration")
-    fun getPhotosCollaborationAsync (): Deferred<GettyImages>
+    fun getPhotosCollaborationAsync(): Deferred<GettyImages>
 
 }

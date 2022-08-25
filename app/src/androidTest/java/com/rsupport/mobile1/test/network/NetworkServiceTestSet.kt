@@ -1,32 +1,18 @@
 package com.rsupport.mobile1.test.network
 
-import dagger.hilt.android.testing.HiltAndroidRule
-import dagger.hilt.android.testing.HiltAndroidTest
+import com.rsupport.mobile1.test.network.baseurl.BaseUrlFactoryImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertTrue
-import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-import javax.inject.Inject
 
-@HiltAndroidTest
 @ExperimentalCoroutinesApi
 class NetworkServiceTestSet {
 
-    @get:Rule
-    var hiltRule = HiltAndroidRule(this)
-
-    @Inject
-    lateinit var gettyImagesService: GettyImagesService
-
-    @Before
-    fun setup() {
-        hiltRule.inject()
-    }
+    private val gettyImagesService: GettyImagesService = NetworkService(BaseUrlFactoryImpl()).gettyImagesService
 
     @Test
-    fun getPhotosCollaborationAsyncTest() = runTest {
+    fun real_gettyImagesService_getPhotosCollaborationAsync_test() = runTest {
         val gettyImages = gettyImagesService.getPhotosCollaborationAsync().await()
         gettyImages.gallery.assets.forEach { asset ->
             assertTrue(asset.licenseType.isNotEmpty())

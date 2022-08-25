@@ -2,6 +2,7 @@ package com.rsupport.mobile1.test.di
 
 import com.rsupport.mobile1.test.network.GettyImagesService
 import com.rsupport.mobile1.test.network.NetworkService
+import com.rsupport.mobile1.test.network.baseurl.BaseUrlFactory
 import com.rsupport.mobile1.test.network.baseurl.BaseUrlFactoryImpl
 import dagger.Module
 import dagger.Provides
@@ -13,10 +14,14 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 open class NetworkModule {
 
+    open fun createBaseUrlFactory(): BaseUrlFactory {
+        return BaseUrlFactoryImpl()
+    }
+
     @Provides
     @Singleton
-    open fun provideNetworkService(): NetworkService {
-        return NetworkService(BaseUrlFactoryImpl())
+    fun provideNetworkService(): NetworkService {
+        return NetworkService(createBaseUrlFactory())
     }
 
     @Provides
