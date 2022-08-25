@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.rsupport.mobile1.test">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,10 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mobile1TestApp"
         android:usesCleartextTraffic="true"
-        android:name=".HiltBaseApplication"
-        tools:targetApi="m">
+        android:name=".HiltBaseApplication">
         <activity
-            android:name=".main.MainActivity"
+            android:name="com.rsupport.mobile1.test.view.gallery.GalleryActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

@@ -7,9 +7,8 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Inject
 
-class NetworkService @Inject constructor(
+class NetworkService constructor(
     baseUrlFactory: BaseUrlFactory
 ) {
 

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="gallery_space">2dp</dimen>
+    <dimen name="space_1unit">5dp</dimen>
+    <dimen name="thumbnail_override_size">100dp</dimen>
+</resources>
