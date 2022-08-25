@@ -20,7 +20,6 @@ class GalleryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         LogUtil.d("")
         super.onCreate(savedInstanceState)
-        val mainAdapter = MainAdapter()
         binding = ActivityMainBinding.inflate(layoutInflater).also {
             it.lifecycleOwner = this
             it.viewModel = viewModel
@@ -31,13 +30,14 @@ class GalleryActivity : AppCompatActivity() {
                     resources.getDimension(R.dimen.gallery_space).toInt()
                 ))
                 layoutManager = GridLayoutManager(this@GalleryActivity, GalleryViewModel.SPAN_COUNT)
-                adapter = mainAdapter
+                adapter = MainAdapter()
             }
             setContentView(it.root)
         }
     }
 
     override fun onStart() {
+        LogUtil.d("")
         super.onStart()
         viewModel.getPhotosCollaboration()
     }

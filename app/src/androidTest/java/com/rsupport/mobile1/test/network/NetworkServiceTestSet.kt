@@ -9,7 +9,8 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class NetworkServiceTestSet {
 
-    private val gettyImagesService: GettyImagesService = NetworkService(BaseUrlFactoryImpl()).gettyImagesService
+    private val gettyImagesService: GettyImagesService =
+        NetworkService(BaseUrlFactoryImpl()).gettyImagesService
 
     @Test
     fun real_gettyImagesService_getPhotosCollaborationAsync_test() = runTest {
