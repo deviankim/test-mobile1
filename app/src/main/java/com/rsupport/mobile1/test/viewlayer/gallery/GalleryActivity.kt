@@ -4,9 +4,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.rsupport.mobile1.test.R
 import com.rsupport.mobile1.test.databinding.ActivityMainBinding
@@ -48,12 +46,10 @@ class GalleryActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.galleryUiStateFlow.collectLatest { uiState ->
-                    binding.showUi(uiState.mask)
-                    if (uiState is GalleryUiState.Success) {
-                        (binding.galleryRv.adapter as MainAdapter).submitList(uiState.items)
-                    }
+            viewModel.galleryUiStateFlow.collectLatest { uiState ->
+                binding.showUi(uiState.mask)
+                if (uiState is GalleryUiState.Success) {
+                    (binding.galleryRv.adapter as MainAdapter).submitList(uiState.items)
                 }
             }
         }

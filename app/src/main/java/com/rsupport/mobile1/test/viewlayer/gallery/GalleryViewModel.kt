@@ -38,7 +38,7 @@ class GalleryViewModel @Inject constructor(
             LogUtil.d("request photos collaboration")
             try {
                 val gettyImages = gettyImagesRepository.getPhotosCollaboration()
-                gettyImages.gallery.assets.toGalleryUiModel().run {
+                gettyImages.gallery.assets.toGalleryUiStateSuccess().run {
                     _galleryUiStateFlow.emit(this)
                 }
             } catch (e: Exception) {
@@ -48,7 +48,7 @@ class GalleryViewModel @Inject constructor(
         }
     }
 
-    private fun List<Asset>.toGalleryUiModel(): GalleryUiState.Success {
+    private fun List<Asset>.toGalleryUiStateSuccess(): GalleryUiState.Success {
         return GalleryUiState.Success(this.map { it.toGalleyItem() })
     }
 
