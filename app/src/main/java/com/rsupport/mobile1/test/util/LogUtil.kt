@@ -17,6 +17,10 @@ object LogUtil {
         Log.d(LOG_TAG, message.toLog())
     }
 
+    fun e(tr: Throwable?) {
+        Log.e(LOG_TAG, tr?.message, tr)
+    }
+
     private fun String.toLog(): String {
         val ste = Thread.currentThread().stackTrace[4]
         return StringBuilder()

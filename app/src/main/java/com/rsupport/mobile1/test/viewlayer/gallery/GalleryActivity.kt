@@ -1,14 +1,20 @@
-package com.rsupport.mobile1.test.view.gallery
+package com.rsupport.mobile1.test.viewlayer.gallery
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.rsupport.mobile1.test.R
 import com.rsupport.mobile1.test.databinding.ActivityMainBinding
 import com.rsupport.mobile1.test.util.LogUtil
-import com.rsupport.mobile1.test.view.decoration.GalleryDecoration
+import com.rsupport.mobile1.test.viewlayer.decoration.GalleryDecoration
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class GalleryActivity : AppCompatActivity() {
@@ -16,6 +22,12 @@ class GalleryActivity : AppCompatActivity() {
     private val viewModel: GalleryViewModel by viewModels()
 
     private lateinit var binding: ActivityMainBinding
+
+    private fun ActivityMainBinding.showUi(mask: Int) {
+        circularPb.isVisible = GalleryUiState.MASK_LOADING and mask > 0
+        errorTv.isVisible = GalleryUiState.MASK_FAILURE and mask > 0
+        galleryRv.isVisible = GalleryUiState.MASK_SUCCESS and mask > 0
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         LogUtil.d("")
@@ -33,6 +45,17 @@ class GalleryActivity : AppCompatActivity() {
                 adapter = MainAdapter()
             }
             setContentView(it.root)
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.galleryUiStateFlow.collectLatest { uiState ->
+                    binding.showUi(uiState.mask)
+                    if (uiState is GalleryUiState.Success) {
+                        (binding.galleryRv.adapter as MainAdapter).submitList(uiState.items)
+                    }
+                }
+            }
         }
     }
 

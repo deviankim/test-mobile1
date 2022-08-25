@@ -12,9 +12,11 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import java.net.ConnectException
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
@@ -57,5 +59,14 @@ class GettyImagesRepositoryTest {
         }
     }
 
+    @Test
+    fun shutdown_test() = runTest(testDispatcher) {
+        mockServerRule.server.shutdown()
+        kotlin.runCatching {
+            gettyImagesRepository.getPhotosCollaboration()
+        }.onFailure {
+            assertTrue(it is ConnectException)
+        }
+    }
 
 }

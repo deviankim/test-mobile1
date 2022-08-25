@@ -14,7 +14,7 @@
         android:usesCleartextTraffic="true"
         android:name=".HiltBaseApplication">
         <activity
-            android:name="com.rsupport.mobile1.test.view.gallery.GalleryActivity"
+            android:name="com.rsupport.mobile1.test.viewlayer.gallery.GalleryActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

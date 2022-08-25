@@ -1,4 +1,4 @@
-package com.rsupport.mobile1.test.view.gallery
+package com.rsupport.mobile1.test.viewlayer.gallery
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

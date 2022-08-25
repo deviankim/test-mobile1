@@ -1,19 +1,10 @@
-package com.rsupport.mobile1.test.view.gallery
+package com.rsupport.mobile1.test.viewlayer.gallery
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.rsupport.mobile1.test.R
-import com.rsupport.mobile1.test.model.ui.GalleryUiModel
 import com.rsupport.mobile1.test.model.ui.ThumbnailInfo
-
-@BindingAdapter("uiModel")
-fun setUiModel(rv: RecyclerView, uiModel: GalleryUiModel) {
-    uiModel.items?.let {
-        (rv.adapter as MainAdapter).submitList(it)
-    }
-}
 
 @BindingAdapter("thumbnailInfo")
 fun setThumbnail(iv: ImageView, thumbnailInfo: ThumbnailInfo) {

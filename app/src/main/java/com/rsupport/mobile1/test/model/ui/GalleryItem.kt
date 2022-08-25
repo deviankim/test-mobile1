@@ -1,9 +1,5 @@
 package com.rsupport.mobile1.test.model.ui
 
-data class GalleryUiModel(
-    val items: List<GalleryItem>? = null
-)
-
 data class GalleryItem(
     val artist: String,
     val collectionName: String,

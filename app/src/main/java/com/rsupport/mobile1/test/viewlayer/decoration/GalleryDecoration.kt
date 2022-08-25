@@ -1,4 +1,4 @@
-package com.rsupport.mobile1.test.view.decoration
+package com.rsupport.mobile1.test.viewlayer.decoration
 
 import android.graphics.Rect
 import android.view.View

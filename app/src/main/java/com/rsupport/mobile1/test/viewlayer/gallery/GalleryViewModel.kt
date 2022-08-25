@@ -1,11 +1,10 @@
-package com.rsupport.mobile1.test.view.gallery
+package com.rsupport.mobile1.test.viewlayer.gallery
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rsupport.mobile1.test.R
 import com.rsupport.mobile1.test.model.dto.Asset
 import com.rsupport.mobile1.test.model.ui.GalleryItem
-import com.rsupport.mobile1.test.model.ui.GalleryUiModel
 import com.rsupport.mobile1.test.model.ui.ThumbnailInfo
 import com.rsupport.mobile1.test.repository.GettyImagesRepository
 import com.rsupport.mobile1.test.repository.ResourceRepository
@@ -26,8 +25,8 @@ class GalleryViewModel @Inject constructor(
         const val SPAN_COUNT = 3
     }
 
-    private val _galleryUiModelFlow = MutableStateFlow(GalleryUiModel())
-    val galleryUiModelFlow = _galleryUiModelFlow.asStateFlow()
+    private val _galleryUiStateFlow = MutableStateFlow<GalleryUiState>(GalleryUiState.Loading)
+    val galleryUiStateFlow = _galleryUiStateFlow.asStateFlow()
 
     init {
         LogUtil.d("init MainViewModel")
@@ -35,16 +34,22 @@ class GalleryViewModel @Inject constructor(
 
     fun getPhotosCollaboration() {
         viewModelScope.launch {
+            _galleryUiStateFlow.emit(GalleryUiState.Loading)
             LogUtil.d("request photos collaboration")
-            val gettyImages = gettyImagesRepository.getPhotosCollaboration()
-            gettyImages.gallery.assets.toGalleryUiModel().run {
-                _galleryUiModelFlow.emit(this)
+            try {
+                val gettyImages = gettyImagesRepository.getPhotosCollaboration()
+                gettyImages.gallery.assets.toGalleryUiModel().run {
+                    _galleryUiStateFlow.emit(this)
+                }
+            } catch (e: Exception) {
+                LogUtil.e(e)
+                _galleryUiStateFlow.emit(GalleryUiState.Failure)
             }
         }
     }
 
-    private fun List<Asset>.toGalleryUiModel(): GalleryUiModel {
-        return GalleryUiModel(this.map { it.toGalleyItem() })
+    private fun List<Asset>.toGalleryUiModel(): GalleryUiState.Success {
+        return GalleryUiState.Success(this.map { it.toGalleyItem() })
     }
 
     private fun Asset.toGalleyItem(): GalleryItem {
