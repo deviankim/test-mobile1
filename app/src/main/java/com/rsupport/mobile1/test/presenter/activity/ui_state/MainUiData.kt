@@ -1,4 +1,4 @@
-package com.rsupport.mobile1.test.presenter.activity.data
+package com.rsupport.mobile1.test.presenter.activity.ui_state
 
 data class MainUiData(
     val author: String?,

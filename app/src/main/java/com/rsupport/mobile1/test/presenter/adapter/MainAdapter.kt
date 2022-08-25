@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.rsupport.mobile1.test.presenter.activity.data.MainUiData
+import com.rsupport.mobile1.test.presenter.activity.ui_state.MainUiData
 
 class MainAdapter: ListAdapter<MainUiData, RecyclerView.ViewHolder>(differCallback) {
 

@@ -9,6 +9,6 @@ data class GettyEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val author: String?,
-    val date: String,
+    val date: String?,
     val thumbnailUrl: String?
 )
