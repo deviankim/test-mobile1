@@ -3,56 +3,49 @@ package com.rsupport.mobile1.test.presenter.activity
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rsupport.mobile1.test.domain.GetGettyInfoUseCase
 import com.rsupport.mobile1.test.domain.cache.GetCacheGettyInfoUseCase
 import com.rsupport.mobile1.test.presenter.activity.ui_state.MainUiState
-import com.rsupport.mobile1.test.util.Constants
+import com.rsupport.mobile1.test.util.Constants.PAGE_SIZE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.jsoup.Jsoup
 import javax.inject.Inject
 
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val getGettyInformationUseCase: GetGettyInfoUseCase,
     private val getCacheGettyInfoUseCase: GetCacheGettyInfoUseCase,
 ) : ViewModel() {
 
     private val TAG = this::class.java.simpleName
 
+    private var loadPage = 1
+
     private var _mainState: MutableStateFlow<MainUiState> = MutableStateFlow(MainUiState.None)
     val mainState get() = _mainState.asStateFlow()
 
 
-    fun callGettyImage() = viewModelScope.launch(Dispatchers.IO) {
-        Log.d(TAG, "callGettyImage-()")
+    // 1. Room 조회
+    fun callGettyDatabase() = viewModelScope.launch(Dispatchers.IO) {
+        Log.d(TAG, "callGettyDatabase: page = $loadPage")
         runCatching {
-            val elements = Jsoup.connect(String.format(Constants.WEB_URL, 1)).get()
-                .select("div.gallery-asset-schema div")
-            getGettyInformationUseCase.invoke(elements)
-                .collect {
-                    updateMainState(it)
-                }
-        }.onFailure { throwable ->
-            try {
-                getCacheGettyInfoUseCase.invoke().collect {
-                    Log.i(TAG, "callGettyImage: ${it::class.java.simpleName}")
-                    if (it is MainUiState.Success) {
-                        if (it.uiDataList.isNotEmpty()) {
-                            updateMainState(it)
-                        } else {
-                            updateMainState(MainUiState.Fail(throwable))
-                        }
+            var prevPage = if (loadPage <= 1) 1 else loadPage - 1
+            getCacheGettyInfoUseCase.invoke(prevPage, loadPage).collect {
+                if (it is MainUiState.Success) {
+                    if (it.uiDataList.isNotEmpty()) {
+                        loadPage = it.uiDataList.size / PAGE_SIZE
+                        prevPage = loadPage - 1
                     }
+                    loadPage++
                 }
-            } catch (e: Exception) {
-                updateMainState(MainUiState.Fail(e))
+                updateMainState(it)
             }
+
+        }.onFailure {
+            updateMainState(MainUiState.Fail(it))
         }
     }
 

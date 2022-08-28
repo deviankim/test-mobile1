@@ -3,35 +3,66 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
 
     <ImageView
         android:id="@+id/itemImageView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/itemAuthor"
+        android:layout_marginBottom="4dp"
+        android:scaleType="matrix"
+        app:layout_constraintBottom_toTopOf="@+id/itemAuthorLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/itemAuthor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/itemDate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemImageView"
-        tools:text="alvarzez" />
 
-    <TextView
-        android:id="@+id/itemDate"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/itemAuthorLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/itemDateLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemImageView">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Author: " />
+
+        <TextView
+            android:id="@+id/itemAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            tools:text="alvarzez" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/itemDateLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemAuthor"
-        tools:text="2022-07-12" />
+        app:layout_constraintTop_toBottomOf="@+id/itemAuthorLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date: " />
+
+        <TextView
+            android:id="@+id/itemDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="2022-07-12" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

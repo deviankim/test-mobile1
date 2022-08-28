@@ -1,21 +1,21 @@
 package com.rsupport.mobile1.test.presenter.activity
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.flowWithLifecycle
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.rsupport.mobile1.test.databinding.ActivityMainBinding
 import com.rsupport.mobile1.test.presenter.activity.ui_state.MainUiState
+import com.rsupport.mobile1.test.presenter.adapter.MainAdapter
+import com.rsupport.mobile1.test.util.CustomDecoration
+import com.rsupport.mobile1.test.util.toDp
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -23,6 +23,9 @@ class MainActivity : AppCompatActivity() {
     private val TAG = this::class.java.simpleName
 
     private val viewModel by viewModels<MainViewModel>()
+    private val mainAdapter by lazy { MainAdapter() }
+
+
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
 
@@ -33,30 +36,73 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
+        binding.btnMainError.setOnClickListener {
+            viewModel.callGettyDatabase()
+        }
+
+        setRecyclerView()
         renderUiState()
+    }
+
+    private fun setRecyclerView() {
+        binding.recyclerView.apply {
+            adapter = mainAdapter
+            layoutManager = LinearLayoutManager(context)
+
+            addItemDecoration(CustomDecoration(height = 1.toDp(),
+                paddingLeft = 8.toDp(),
+                paddingRight = 8.toDp(),
+                color = Color.parseColor("#FFEFEFEF")))
+
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+
+                    val lastItemPosition = (this@apply.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                    val itemTotalCount = this@apply.adapter?.let { it.itemCount - 1 } ?: 0
+
+
+                    if (lastItemPosition + 5 > itemTotalCount && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                        if (viewModel.mainState.value is MainUiState.Success) {
+                            viewModel.callGettyDatabase()
+                        }
+                    }
+                }
+            })
+        }
     }
 
     private fun renderUiState() = lifecycleScope.launchWhenStarted {
         Log.d(TAG, "renderUiState() called")
-        viewModel.mainState.collect {
+        viewModel.mainState.collectLatest {
             Log.w(TAG, "renderUiState: ${it::class.java.simpleName}")
+
+            stateByVisible(it)
+
             when (it) {
-                is MainUiState.None -> viewModel.callGettyImage()
+                is MainUiState.None -> viewModel.callGettyDatabase()
                 is MainUiState.Success -> {
-                    binding.iconLoading.visibility = View.GONE
-                    Log.i(TAG, "Data size: ${it.uiDataList.size}")
-                    Toast.makeText(this@MainActivity, "Data size: ${it.uiDataList.size}", Toast.LENGTH_SHORT).show()
+                    if (it.uiDataList.isNotEmpty()) {
+                        mainAdapter.submitList(it.uiDataList)
+                    }
+                    Log.d(TAG, "renderUiState: Success --> Size[${it.uiDataList.size}]")
                 }
                 is MainUiState.Fail -> {
-                    binding.iconLoading.visibility = View.GONE
-                    Log.e(TAG, "renderUiState: ${it.e.message}", it.e)
-                    Toast.makeText(this@MainActivity, "Fail: ${it.e.message}", Toast.LENGTH_SHORT).show()
+                    it.e.printStackTrace()
+                    Log.e(TAG, "renderUiState: Fail", it.e)
                 }
                 is MainUiState.Loading -> {
-                    binding.iconLoading.visibility = View.VISIBLE
+                    // Handle loading state..
                 }
             }
+
         }
+    }
+
+    private fun stateByVisible(state: MainUiState) {
+        binding.tvMainEmpty.isVisible = if (state is MainUiState.Success) state.uiDataList.isEmpty() else false
+        binding.iconLoading.isVisible = state is MainUiState.Loading
+        binding.errorGroup.isVisible = state is MainUiState.Fail
     }
 
     override fun onDestroy() {

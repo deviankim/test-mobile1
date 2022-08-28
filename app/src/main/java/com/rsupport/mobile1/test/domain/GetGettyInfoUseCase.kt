@@ -30,16 +30,12 @@ class GetGettyInfoUseCase @Inject constructor(
         private const val META_DATA_THUMBNAIL_URL = "meta[itemprop=thumbnailUrl]"
     }
 
-    suspend fun invoke(crawlingElements: Elements): Flow<MainUiState> {
+    suspend operator fun invoke(crawlingElements: Elements): Flow<MainUiState> {
         Log.d(TAG, "invoke() called")
         return flow {
             var mainUiState: MainUiState = MainUiState.Loading
 
             emit(mainUiState)
-
-            val cacheData = gettyDao.getGettyImage().map {
-                mapper.map(it)
-            }
 
             try {
                 val crawlingData = crawlingElements
@@ -68,29 +64,9 @@ class GetGettyInfoUseCase @Inject constructor(
                 })
 
             } catch (httpException: HttpException) {
-                mainUiState = if (cacheData.isNotEmpty()) {
-                    MainUiState.Success(cacheData.map {
-                        MainUiData(
-                            author = it.author,
-                            date = it.date,
-                            thumbnailUrl = it.thumbnailUrl
-                        )
-                    })
-                } else {
-                    MainUiState.Fail(httpException)
-                }
+                mainUiState = MainUiState.Fail(httpException)
             } catch (e: Exception) {
-                mainUiState = if (cacheData.isNotEmpty()) {
-                    MainUiState.Success(cacheData.map {
-                        MainUiData(
-                            author = it.author,
-                            date = it.date,
-                            thumbnailUrl = it.thumbnailUrl
-                        )
-                    })
-                } else {
-                    MainUiState.Fail(e)
-                }
+                mainUiState = MainUiState.Fail(e)
             }
             emit(mainUiState)
         }.flowOn(Dispatchers.Main)
