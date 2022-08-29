@@ -12,8 +12,19 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     override val layoutResourceId: Int
         get() = R.layout.fragment_main
     override val viewModel: MainViewModel by viewModels()
+    private var page = 1
 
     override fun initView() {
+        val adapter = PhotoListAdapter()
+        binding.recyclerView.adapter = adapter
 
+        viewModel.crawlFromWeb(page)
+        subscribeUi(adapter)
+    }
+
+    private fun subscribeUi(adapter: PhotoListAdapter) {
+        viewModel.photos.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
     }
 }
