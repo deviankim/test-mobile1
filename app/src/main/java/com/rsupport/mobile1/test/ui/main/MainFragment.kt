@@ -20,11 +20,26 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
         viewModel.crawlFromWeb(page)
         subscribeUi(adapter)
+        setPage()
     }
 
     private fun subscribeUi(adapter: PhotoListAdapter) {
         viewModel.photos.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+        }
+    }
+
+    private fun setPage() {
+        binding.imgBack.setOnClickListener {
+            if (page <= 1)
+                return@setOnClickListener
+            page--
+            viewModel.crawlFromWeb(page)
+        }
+
+        binding.imgForward.setOnClickListener {
+            page++
+            viewModel.crawlFromWeb(page)
         }
     }
 }
