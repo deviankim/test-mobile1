@@ -1,5 +1,0 @@
-package di
-
-object MobileModule {
-
-}
