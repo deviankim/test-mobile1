@@ -6,7 +6,6 @@ buildscript {
         hiltVersion = "2.38.1"
         gsonVersion = "2.9.1"
         okhttpLoggingVersion = "4.10.0"
-        retrofitVersion = "2.9.0"
         coroutinesVersion = "1.6.4"
     }
     repositories {
