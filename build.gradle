@@ -8,6 +8,7 @@ buildscript {
         okhttpLoggingVersion = "4.10.0"
         coroutinesVersion = "1.6.4"
         lifecycleVersion = "2.4.1"
+        pagingVersion = '3.1.1'
     }
     repositories {
         google()

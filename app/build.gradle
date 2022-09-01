@@ -51,7 +51,7 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
 
     // ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmode`l-ktx:$lifecycleVersion"
     // ViewModel utilities for Compose
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion"
     // LiveData
@@ -62,4 +62,10 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycleVersion"
     // Annotation processor
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycleVersion"
+
+    implementation("androidx.paging:paging-runtime:$pagingVersion")
+
+    // alternatively - without Android dependencies for tests
+    testImplementation("androidx.paging:paging-common:$pagingVersion")
+
 }
