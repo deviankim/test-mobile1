@@ -11,8 +11,17 @@ import kotlinx.coroutines.flow.flowOn
 import org.jsoup.Jsoup
 import java.io.IOException
 
-@ExperimentalCoroutinesApi
 class RemoteGettyImage() : DataSource {
+
+    companion object {
+        @Volatile private var instance: RemoteGettyImage? = null
+
+        fun getInstance() =
+            instance ?: synchronized(this) {
+                instance ?: RemoteGettyImage().also { instance = it}
+            }
+    }
+
     override fun getGettyImage(page: Int): Flow<MutableList<GettyImage>?> = flow {
         val url = Constants.GETTY_IMAGE_URL + "?page=$page"
         val list =  getGettyImagesFromUrl(url)
