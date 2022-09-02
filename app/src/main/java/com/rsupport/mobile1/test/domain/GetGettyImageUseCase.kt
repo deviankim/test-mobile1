@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class GetGettyImageUseCase @Inject constructor(private val gettyImageRepository: GettyImageRepository){
 
-    suspend fun getGettyImages(page: Int): Flow<MutableList<GettyImage>?> {
+    suspend fun getGettyImages(page: Int): MutableList<GettyImage> {
       return  gettyImageRepository.getGettyImage(page)
     }
 }

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.flow
 import org.jsoup.select.Elements
 
 class GettyImageRepository constructor(private val remoteGettyImage: RemoteGettyImage): DataSource{
-    override fun getGettyImage(page: Int): Flow<MutableList<GettyImage>?> {
+    override suspend fun getGettyImage(page: Int): MutableList<GettyImage> {
         return remoteGettyImage.getGettyImage(page)
     }
 
