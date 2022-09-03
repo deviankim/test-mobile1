@@ -23,7 +23,6 @@ class GettyImageViewModel @Inject constructor(
 
     private fun loadImages(page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            //로딩 시작 - view에서 옵저빙
             _uiStateLiveData.postValue(Uistate.Loading)
             try {
                 val data = getGettyImageUseCase.getGettyImages(page).toList()
