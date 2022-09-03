@@ -1,14 +1,17 @@
 package com.rsupport.mobile1.test.domain
 
-import androidx.lifecycle.LiveData
 import com.rsupport.mobile1.test.data.GettyImage
 import com.rsupport.mobile1.test.data.repository.GettyImageRepository
-import kotlinx.coroutines.flow.Flow
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
 
-class GetGettyImageUseCase @Inject constructor(private val gettyImageRepository: GettyImageRepository){
+@InstallIn(SingletonComponent::class)
+@Module
+class GetGettyImageUseCase @Inject constructor(private val gettyImageRepository: GettyImageRepository) {
 
     suspend fun getGettyImages(page: Int): MutableList<GettyImage> {
-      return  gettyImageRepository.getGettyImage(page)
+        return gettyImageRepository.getGettyImage(page)
     }
 }
