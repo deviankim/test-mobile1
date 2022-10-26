@@ -15,4 +15,6 @@ object ApiConst {
 
     internal const val API_SIGN_IN = "$API_VER_4/oauth2/token"
     internal const val API_SEARCH_IMAGES = "$API_VER_3/search/images"
+
+    internal const val API_TIMEOUT: Long = 30
 }
