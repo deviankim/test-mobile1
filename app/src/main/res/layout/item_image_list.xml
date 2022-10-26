@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.rsupport.mobile1.test.server.resp.ImageData"/>
+        <import type="com.rsupport.mobile1.test.server.resp.ImageDataDownloads"/>
+        <import type="com.rsupport.mobile1.test.adapter.ImageListAdapter.ViewHolder"/>
+        <import type="android.view.View"/>
+
+        <variable
+            name="item"
+            type="ImageData" />
+        <variable
+            name="viewHolder"
+            type="ViewHolder" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:onClick="@{() -> viewHolder.onItemClick()}">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            imageUrl="@{item.downloads.url}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

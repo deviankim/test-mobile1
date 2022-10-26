@@ -4,37 +4,45 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
+import android.widget.GridLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.rsupport.mobile1.test.R
+import com.rsupport.mobile1.test.adapter.ImageListAdapter
 import com.rsupport.mobile1.test.databinding.ActivityMainBinding
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import java.net.URL
+import com.rsupport.mobile1.test.server.resp.ImageData
+import com.rsupport.mobile1.test.viewmodel.MainViewModel
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val mViewModel: MainViewModel by lazy {
+        ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application))
+            .get(MainViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.viewModel = mViewModel
+        binding.lifecycleOwner = this
 
-        Single.create<Bitmap> {
-            var url = URL("https://www.gettyimages.com/detail/photo/colleagues-problem-solving-at-computer-together-royalty-free-image/1028772240?adppopup=true")
-            val bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
-            it.onSuccess(bmp)
-        }// 생산자 : 데이터를 생산하여 전달
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe (
-                { bmp ->
-                    binding.imageView.setImageBitmap(bmp)
-                },
-                { error ->
-                    Log.e("Main", error.toString())
-                })// 소비자 : 데이터를 받아서 처리 (println)
+        setImageListAdapter()
+        mViewModel.getImageList()
+    }
+
+    fun setImageListAdapter() {
+        binding.recyclerImageList.layoutManager = GridLayoutManager(this, 3, RecyclerView.VERTICAL, false)
+        var imageListAdapter: ImageListAdapter = ImageListAdapter()
+        imageListAdapter.setOnItemClickListener(object : ImageListAdapter.OnItemClickListener {
+            override fun onItemClick(position: Int, item: ImageData) {
+                var url = item.downloads?.url
+            }
+        })
+        binding.recyclerImageList.adapter = imageListAdapter
     }
 }
