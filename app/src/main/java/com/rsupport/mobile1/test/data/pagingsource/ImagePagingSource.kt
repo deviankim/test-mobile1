@@ -9,6 +9,7 @@ import com.rsupport.mobile1.test.domain.repository.ImageRepository
 class ImagePagingSource (
     private val imageRepository: ImageRepository
 ) : PagingSource<Int, Image>() {
+    private val LAST_PAGE = 100
 
     override fun getRefreshKey(state: PagingState<Int, Image>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -24,7 +25,7 @@ class ImagePagingSource (
             val result = imageRepository.getImageList(page)
             val data = result.getOrThrow()
 
-            LoadResult.Page(data = data, prevKey = null, nextKey = if(data.isEmpty()) null else page + 1)
+            LoadResult.Page(data = data, prevKey = null, nextKey = if(page == LAST_PAGE || data.isEmpty()) null else page + 1)
 
         } catch (e: Exception) {
             Log.e("pagingSource Error", Log.getStackTraceString(e))

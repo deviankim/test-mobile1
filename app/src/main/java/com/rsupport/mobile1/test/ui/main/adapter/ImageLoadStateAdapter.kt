@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.rsupport.mobile1.test.R
 import com.rsupport.mobile1.test.databinding.ItemLoadStateBinding
 
@@ -21,6 +22,8 @@ class ImageLoadStateAdapter(
 
     override fun onBindViewHolder(holder: LoadStateViewHolder, loadState: LoadState) {
         holder.bind(loadState)
+        val layoutParams = holder.itemView.layoutParams as StaggeredGridLayoutManager.LayoutParams
+        layoutParams.isFullSpan = true
     }
 
     class LoadStateViewHolder(
