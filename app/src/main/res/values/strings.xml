@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Mobile1TestApp</string>
+    <string name="load_error">이미지를 불러오는데 실패하였습니다.</string>
+    <string name="retry">다시 시도</string>
 </resources>

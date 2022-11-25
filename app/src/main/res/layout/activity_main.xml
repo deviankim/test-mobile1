@@ -1,20 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <data>
+        <variable
+            name="vm"
+            type="com.rsupport.mobile1.test.ui.main.MainViewModel" />
+
+        <variable
+            name="imageAdapter"
+            type="com.rsupport.mobile1.test.ui.main.adapter.ImageAdapter" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:initPagingAdapter="@{imageAdapter}"/>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_load_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello RSUPPORT"
+            app:layout_constraintBottom_toTopOf="@id/btn_retry"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="10dp"
+            android:text="@string/load_error"/>
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/btn_retry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-    />
+            android:onClick="@{() -> imageAdapter.retry()}"
+            android:text="@string/retry"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/pb_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
