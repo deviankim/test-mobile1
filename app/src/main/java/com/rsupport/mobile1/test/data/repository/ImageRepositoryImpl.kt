@@ -1,20 +1,24 @@
 package com.rsupport.mobile1.test.data.repository
 
-import android.util.Log
+import com.rsupport.mobile1.test.data.datasource.remote.GettyImageHTMLParser
 import com.rsupport.mobile1.test.domain.model.Image
 import com.rsupport.mobile1.test.domain.repository.ImageRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.jsoup.Jsoup
 import javax.inject.Inject
 
-class ImageRepositoryImpl @Inject constructor() : ImageRepository {
+class ImageRepositoryImpl @Inject constructor(
+    private val gettyImageHTMLParser: GettyImageHTMLParser
+) : ImageRepository {
 
     override suspend fun getImageList(page: Int): Result<List<Image>> {
         return try {
             withContext(Dispatchers.IO) {
-                val document = Jsoup.connect("https://www.gettyimages.com/photos/collaboration?page=${page}").get()
-                val elements = document.select("[class~=^MosaicAsset-module__thumb]")
+                val elements = gettyImageHTMLParser.getPhotosResult(
+                    keyword = "collaboration",
+                    selector = "[class~=^MosaicAsset-module__thumb]",
+                    page = page
+                )
 
                 if(elements == null) {
                     Result.success(emptyList())
