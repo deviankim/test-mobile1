@@ -7,7 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-class GettyImageViewModel(private val gettyImageRepository: GettyImageRepository) : ViewModel() {
+class GettyImageViewModel : ViewModel() {
+
+    // TODO
+    private val gettyImageRepository = GettyImageRepository()
 
     private var _loadImageList = MutableLiveData<Resource<List<GettyImage>>>()
     val loadImageList: LiveData<Resource<List<GettyImage>>> = _loadImageList

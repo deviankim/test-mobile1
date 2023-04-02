@@ -61,8 +61,7 @@ class GettyImageFragment : Fragment() {
                     binding.noticeTextView.visibility = View.GONE
                     (binding.gettyImageRecyclerView.adapter as GettyImageAdapter).let {
                         Log.d("jenny", "observing, success result.data.toList().size: ${result.data.toList().size}")
-                        it.setImageList(result.data.toList())
-                        it.notifyDataSetChanged()
+                        it.submitList(result.data.toList())
                     }
                 }
 

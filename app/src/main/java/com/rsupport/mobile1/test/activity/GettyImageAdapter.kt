@@ -3,16 +3,16 @@ package com.rsupport.mobile1.test.activity
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.rsupport.mobile1.test.R
 import com.rsupport.mobile1.test.databinding.ItemGettyImageBinding
 
-class GettyImageAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class GettyImageAdapter : ListAdapter<GettyImage, GettyImageAdapter.GettyImageViewHolder>(DiffCallback) {
 
-    private var imageList: List<GettyImage> = arrayListOf()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GettyImageViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemGettyImageBinding.inflate(inflater, parent, false)
 
@@ -25,17 +25,11 @@ class GettyImageAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return GettyImageViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = imageList.size
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as GettyImageViewHolder).bind(imageList[position])
+    override fun onBindViewHolder(holder: GettyImageViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 
-    fun setImageList(imageList: List<GettyImage>) {
-        this.imageList = imageList
-    }
-
-    private inner class GettyImageViewHolder(private val binding: ItemGettyImageBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class GettyImageViewHolder(private val binding: ItemGettyImageBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(image: GettyImage) {
             Glide.with(binding.root.context)
                 .load(image.thumbUrl)
@@ -43,5 +37,15 @@ class GettyImageAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 .error(R.drawable.ic_launcher_background)
                 .into(binding.gettyImageView)
         }
+    }
+}
+
+object DiffCallback : DiffUtil.ItemCallback<GettyImage>() {
+    override fun areItemsTheSame(oldItem: GettyImage, newItem: GettyImage): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: GettyImage, newItem: GettyImage): Boolean {
+        return oldItem == newItem
     }
 }
