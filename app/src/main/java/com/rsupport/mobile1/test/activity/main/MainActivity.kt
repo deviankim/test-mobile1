@@ -3,7 +3,6 @@ package com.rsupport.mobile1.test.activity.main
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.commit
 import com.rsupport.mobile1.test.activity.GettyImageViewModel
 import com.rsupport.mobile1.test.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,9 +18,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        supportFragmentManager.commit(true) {
-            add(binding.fragmentContainerView.id, GettyImageFragment.newInstance())
-        }
     }
 }
