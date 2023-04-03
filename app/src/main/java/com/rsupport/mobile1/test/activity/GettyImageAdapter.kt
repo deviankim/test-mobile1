@@ -6,8 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.rsupport.mobile1.test.R
 import com.rsupport.mobile1.test.databinding.ItemGettyImageBinding
 
 class GettyImageAdapter : ListAdapter<GettyImage, GettyImageAdapter.GettyImageViewHolder>(DiffCallback) {
@@ -31,11 +29,7 @@ class GettyImageAdapter : ListAdapter<GettyImage, GettyImageAdapter.GettyImageVi
 
     inner class GettyImageViewHolder(private val binding: ItemGettyImageBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(image: GettyImage) {
-            Glide.with(binding.root.context)
-                .load(image.thumbUrl)
-                .centerInside()
-                .error(R.drawable.ic_launcher_background)
-                .into(binding.gettyImageView)
+            binding.image = image
         }
     }
 }
