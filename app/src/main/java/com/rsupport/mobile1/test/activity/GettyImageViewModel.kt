@@ -5,12 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class GettyImageViewModel : ViewModel() {
-
-    // TODO
-    private val gettyImageRepository = GettyImageRepository()
+@HiltViewModel
+class GettyImageViewModel @Inject constructor(
+    private val gettyImageRepository: GettyImageRepository
+) : ViewModel() {
 
     private var _loadImageList = MutableLiveData<Resource<List<GettyImage>>>()
     val loadImageList: LiveData<Resource<List<GettyImage>>> = _loadImageList

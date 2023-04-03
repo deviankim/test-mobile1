@@ -1,8 +1,9 @@
 package com.rsupport.mobile1.test.activity
 
 import org.jsoup.Jsoup
+import javax.inject.Inject
 
-class GettyImageHTMLParser {
+class GettyImageHTMLParser @Inject constructor() {
 
     fun getHTMLData(): String {
         val baseUrl = "https://www.gettyimages.com/photos"

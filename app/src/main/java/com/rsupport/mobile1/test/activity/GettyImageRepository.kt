@@ -5,11 +5,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONException
 import org.json.JSONObject
+import javax.inject.Inject
 
-class GettyImageRepository {
-
-    // TODO
-    private val gettyImageHTMLParser = GettyImageHTMLParser()
+class GettyImageRepository @Inject constructor(
+    private val gettyImageHTMLParser: GettyImageHTMLParser
+) {
 
     suspend fun fetchGettyImageList(): List<GettyImage> = withContext(Dispatchers.IO) {
         val jsonData = gettyImageHTMLParser.getHTMLData()

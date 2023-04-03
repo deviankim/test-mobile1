@@ -11,7 +11,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.rsupport.mobile1.test.R
 import com.rsupport.mobile1.test.databinding.FragmentGettyImageBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class GettyImageFragment : Fragment() {
 
     private lateinit var binding: FragmentGettyImageBinding
