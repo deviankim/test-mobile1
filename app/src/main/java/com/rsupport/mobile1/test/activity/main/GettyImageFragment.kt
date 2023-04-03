@@ -19,6 +19,13 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class GettyImageFragment : Fragment() {
 
+    companion object {
+        private const val TAG = "GettyImageFragment"
+
+        @JvmStatic
+        fun newInstance() = GettyImageFragment()
+    }
+
     private lateinit var binding: FragmentGettyImageBinding
 
     private val gettyImageViewModel: GettyImageViewModel by activityViewModels()
@@ -55,7 +62,7 @@ class GettyImageFragment : Fragment() {
         gettyImageViewModel.loadImageList.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Resource.Loading -> {
-                    Log.d("jenny", "observing, loading")
+                    Log.d(TAG, "observing, loading")
                     binding.gettyImageRecyclerView.visibility = View.GONE
                     binding.noticeTextView.visibility = View.VISIBLE
                     binding.noticeTextView.text = getString(R.string.loading_data)
@@ -65,13 +72,13 @@ class GettyImageFragment : Fragment() {
                     binding.gettyImageRecyclerView.visibility = View.VISIBLE
                     binding.noticeTextView.visibility = View.GONE
                     (binding.gettyImageRecyclerView.adapter as GettyImageAdapter).let {
-                        Log.d("jenny", "observing, success result.data.toList().size: ${result.data.toList().size}")
+                        Log.d(TAG, "observing, success result.data.toList().size: ${result.data.toList().size}")
                         it.submitList(result.data.toList())
                     }
                 }
 
                 is Resource.Failure -> {
-                    Log.d("jenny", "observing, failure: ${result.e}")
+                    Log.d(TAG, "observing, failure: ${result.e}")
                     binding.gettyImageRecyclerView.visibility = View.GONE
                     binding.noticeTextView.visibility = View.VISIBLE
                     binding.noticeTextView.text = getString(R.string.failed_load_data)
@@ -86,10 +93,5 @@ class GettyImageFragment : Fragment() {
 
     private fun loadData() {
         gettyImageViewModel.loadGettyImageList()
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = GettyImageFragment()
     }
 }

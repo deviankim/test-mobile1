@@ -13,6 +13,10 @@ class GettyImageRepository @Inject constructor(
     private val gettyImageHTMLParser: GettyImageHTMLParser
 ) {
 
+    companion object {
+        private const val TAG = "GettyImageRepository"
+    }
+
     suspend fun fetchGettyImageList(): List<GettyImage> = withContext(Dispatchers.IO) {
         val jsonData = gettyImageHTMLParser.getHTMLData()
         val gettyImageList = arrayListOf<GettyImage>()
@@ -24,7 +28,7 @@ class GettyImageRepository @Inject constructor(
             for (i in 0 until assetsArray.length()) {
                 val id = assetsArray.getJSONObject(i).getString("id")
                 val thumbUrl = assetsArray.getJSONObject(i).getString("thumbUrl")
-                Log.d("jenny", "id: $id, thumbUrl: $thumbUrl")
+                Log.d(TAG, "id: $id, thumbUrl: $thumbUrl")
 
                 gettyImageList.add(GettyImage(id, thumbUrl))
             }

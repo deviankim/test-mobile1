@@ -11,6 +11,10 @@ import com.rsupport.mobile1.test.databinding.ItemGettyImageBinding
 
 class GettyImageAdapter : ListAdapter<GettyImage, GettyImageAdapter.GettyImageViewHolder>(DiffCallback) {
 
+    companion object {
+        private const val TAG = "GettyImageAdapter"
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GettyImageViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemGettyImageBinding.inflate(inflater, parent, false)
@@ -19,7 +23,7 @@ class GettyImageAdapter : ListAdapter<GettyImage, GettyImageAdapter.GettyImageVi
         val itemWidth = deviceWidth / 3
 
         binding.root.layoutParams.width = itemWidth
-        Log.d("jenny", "onCreateViewHolder, screenWidth: $deviceWidth, itemWidth: $itemWidth")
+        Log.d(TAG, "onCreateViewHolder, screenWidth: $deviceWidth, itemWidth: $itemWidth")
 
         return GettyImageViewHolder(binding)
     }

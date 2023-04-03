@@ -17,6 +17,10 @@ class GettyImageViewModel @Inject constructor(
     private val gettyImageRepository: GettyImageRepository
 ) : ViewModel() {
 
+    companion object {
+        private const val TAG = "GettyImageViewModel"
+    }
+
     private var _loadImageList = MutableLiveData<Resource<List<GettyImage>>>()
     val loadImageList: LiveData<Resource<List<GettyImage>>> = _loadImageList
 
@@ -24,7 +28,7 @@ class GettyImageViewModel @Inject constructor(
         try {
             _loadImageList.postValue(Resource.Loading)
             val gettyImageList = gettyImageRepository.fetchGettyImageList()
-            Log.d("jenny", "loadGettyImageList, gettyImageList.size: ${gettyImageList.size}")
+            Log.d(TAG, "loadGettyImageList, gettyImageList.size: ${gettyImageList.size}")
             _loadImageList.postValue(Resource.Success(gettyImageList))
         } catch (e: Exception) {
             _loadImageList.postValue(Resource.Failure(e))
