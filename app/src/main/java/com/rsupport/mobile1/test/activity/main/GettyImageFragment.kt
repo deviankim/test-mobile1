@@ -1,4 +1,4 @@
-package com.rsupport.mobile1.test.activity
+package com.rsupport.mobile1.test.activity.main
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -10,6 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.rsupport.mobile1.test.R
+import com.rsupport.mobile1.test.activity.GettyImageViewModel
+import com.rsupport.mobile1.test.activity.main.adapter.GettyImageAdapter
+import com.rsupport.mobile1.test.activity.data.Resource
 import com.rsupport.mobile1.test.databinding.FragmentGettyImageBinding
 import dagger.hilt.android.AndroidEntryPoint
 

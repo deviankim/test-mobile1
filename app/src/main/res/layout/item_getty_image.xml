@@ -8,7 +8,7 @@
 
         <variable
             name="image"
-            type="com.rsupport.mobile1.test.activity.GettyImage" />
+            type="com.rsupport.mobile1.test.activity.data.model.GettyImage" />
     </data>
 
     <FrameLayout

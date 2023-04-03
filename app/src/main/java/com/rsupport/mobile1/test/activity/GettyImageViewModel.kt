@@ -5,6 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.rsupport.mobile1.test.activity.data.model.GettyImage
+import com.rsupport.mobile1.test.activity.data.repository.GettyImageRepository
+import com.rsupport.mobile1.test.activity.data.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

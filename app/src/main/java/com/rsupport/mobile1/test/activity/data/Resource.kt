@@ -1,4 +1,4 @@
-package com.rsupport.mobile1.test.activity
+package com.rsupport.mobile1.test.activity.data
 
 sealed class Resource<out T> {
     object Loading : Resource<Nothing>()

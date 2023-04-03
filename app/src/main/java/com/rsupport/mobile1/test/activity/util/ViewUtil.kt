@@ -1,4 +1,4 @@
-package com.rsupport.mobile1.test.activity
+package com.rsupport.mobile1.test.activity.util
 
 import android.content.res.Resources
 import android.util.DisplayMetrics

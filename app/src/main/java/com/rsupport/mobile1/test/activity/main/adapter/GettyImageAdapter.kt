@@ -1,4 +1,4 @@
-package com.rsupport.mobile1.test.activity
+package com.rsupport.mobile1.test.activity.main.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.rsupport.mobile1.test.activity.data.model.GettyImage
 import com.rsupport.mobile1.test.databinding.ItemGettyImageBinding
 
 class GettyImageAdapter : ListAdapter<GettyImage, GettyImageAdapter.GettyImageViewHolder>(DiffCallback) {

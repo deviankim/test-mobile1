@@ -1,4 +1,4 @@
-package com.rsupport.mobile1.test.activity
+package com.rsupport.mobile1.test.activity.data.remote
 
 import org.jsoup.Jsoup
 import javax.inject.Inject

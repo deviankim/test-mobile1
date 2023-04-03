@@ -1,6 +1,8 @@
-package com.rsupport.mobile1.test.activity
+package com.rsupport.mobile1.test.activity.data.repository
 
 import android.util.Log
+import com.rsupport.mobile1.test.activity.data.remote.GettyImageHTMLParser
+import com.rsupport.mobile1.test.activity.data.model.GettyImage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONException

@@ -4,7 +4,7 @@ import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class GettyImageApplication : Application() {
+class Mobile1TestApp : Application() {
 
     init {
         instance = this
@@ -12,6 +12,6 @@ class GettyImageApplication : Application() {
 
     companion object {
         @JvmStatic
-        lateinit var instance: GettyImageApplication
+        lateinit var instance: Mobile1TestApp
     }
 }

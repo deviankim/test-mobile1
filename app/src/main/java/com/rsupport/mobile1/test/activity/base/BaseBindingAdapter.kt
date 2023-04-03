@@ -1,4 +1,4 @@
-package com.rsupport.mobile1.test.activity
+package com.rsupport.mobile1.test.activity.base
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
