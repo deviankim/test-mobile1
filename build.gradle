@@ -1,13 +1,36 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.5.31"
+    ext {
+        // Kotlin
+        kotlin_version = '1.5.31'
+
+        // Jsoup
+        jsoup_version = '1.13.1'
+
+        // Rx
+        rxAndroidVersion = '2.1.1'
+        rxJavaVersion = '2.2.17'
+        rxKotlinVersion = '2.4.0'
+
+        viewModel_version = '2.4.1'
+
+        fragment_ktx_version = '1.4.1'
+        activity_ktx_version = '1.4.0'
+
+        // Koin
+        koin_version = "3.1.4"
+
+        // Glide
+        glide_version = "4.12.0"
+    }
+
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.2.0"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.android.tools.build:gradle:4.2.2"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -18,7 +41,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
     }
 }
 
