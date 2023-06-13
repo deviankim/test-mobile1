@@ -19,6 +19,7 @@
 2. 안드로이드 이해도
 3. git 능숙도
 4. 오픈 소스 활용도
+5. github actions 활용
 
 ## github PR 제출 방법
 1. 우측 Fork 버튼을 눌러 자신의 github 공간으로 fork 합니다.
