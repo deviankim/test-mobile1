@@ -7,6 +7,12 @@
         <variable
             name="viewmodel"
             type="com.rsupport.mobile1.test.activity.MainViewModel" />
+        <variable
+            name="adapter"
+            type="com.rsupport.mobile1.test.activity.ImageAdapter" />
+        <variable
+            name="layoutManager"
+            type="androidx.recyclerview.widget.GridLayoutManager" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,16 +20,18 @@
             android:layout_height="match_parent"
             android:gravity="center"
     >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adapter="@{adapter}"
+            app:layoutManager="@{layoutManager}">
 
-        <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hello RSUPPORT"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-        />
+        </androidx.recyclerview.widget.RecyclerView>
+    </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
