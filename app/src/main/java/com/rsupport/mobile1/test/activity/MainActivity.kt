@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.rsupport.mobile1.test.R
 import com.rsupport.mobile1.test.databinding.ActivityMainBinding
 import com.rsupport.mobile1.test.util.BaseActivity
+import com.rsupport.mobile1.test.util.ScrollListener
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -22,12 +23,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             viewmodel = viewModel
             adapter = ImageAdapter()
             layoutManager = GridLayoutManager(this@MainActivity, 3)
+            recyclerview.addOnScrollListener(ScrollListener() {
+                viewModel.fetchNextImageList()
+            })
         }
 
         viewModel.imageFlow.observe(this) {
             Timber.d("list : $it")
             binding.adapter?.addImageList(it)
         }
-        viewModel.fetchNextImageList()
     }
 }
