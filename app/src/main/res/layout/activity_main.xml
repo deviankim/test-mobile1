@@ -20,18 +20,27 @@
             android:layout_height="match_parent"
             android:gravity="center"
     >
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adapter="@{adapter}"
-            app:layoutManager="@{layoutManager}">
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adapter="@{adapter}"
+                app:layoutManager="@{layoutManager}">
 
-        </androidx.recyclerview.widget.RecyclerView>
-    </ScrollView>
+            </androidx.recyclerview.widget.RecyclerView>
+        </ScrollView>
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/loading_indicator"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:indeterminate="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

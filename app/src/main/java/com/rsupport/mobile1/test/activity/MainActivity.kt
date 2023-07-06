@@ -1,6 +1,7 @@
 package com.rsupport.mobile1.test.activity
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
@@ -31,6 +32,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         viewModel.imageFlow.observe(this) {
             Timber.d("list : $it")
             binding.adapter?.addImageList(it)
+        }
+
+        viewModel.isLoading.observe(this) {isLoading ->
+            if (isLoading)
+                binding.loadingIndicator.visibility = View.VISIBLE
+            else
+                binding.loadingIndicator.visibility = View.INVISIBLE
         }
     }
 }

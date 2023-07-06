@@ -1,7 +1,10 @@
 package com.rsupport.mobile1.test.activity
 
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -21,21 +24,21 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val gettyRepository: GettyRepository
 ): ViewModel() {
-    val isLoading: MutableStateFlow<Boolean> = MutableStateFlow(true)
-    val imageFetchIndex: MutableStateFlow<Int> = MutableStateFlow(1)
+    val isLoading: MutableLiveData<Boolean> = MutableLiveData(true)
+    private val imageFetchIndex: MutableStateFlow<Int> = MutableStateFlow(1)
 
     val imageFlow: LiveData<List<ImageSrc>> = imageFetchIndex.flatMapLatest {page ->
         Timber.d("page index : $page")
         gettyRepository.getImages(
             page = page,
         onStart = {
-            isLoading.value = true
+            isLoading.postValue(true)
         },
         onComplete = {
-            isLoading.value = false
+            isLoading.postValue(false)
         },
         onError = {
-            isLoading.value = false
+            isLoading.postValue(false)
         })
     }.asLiveData()
 
