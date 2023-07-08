@@ -29,16 +29,24 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             })
         }
 
-        viewModel.imageFlow.observe(this) {
-            Timber.d("list : $it")
+        viewModel.imageLiveData.observe(this) {
             binding.adapter?.addImageList(it)
         }
 
-        viewModel.isLoading.observe(this) {isLoading ->
+        viewModel.isLoading.observe(this) { isLoading ->
             if (isLoading)
                 binding.loadingIndicator.visibility = View.VISIBLE
             else
                 binding.loadingIndicator.visibility = View.INVISIBLE
+        }
+        viewModel.isError.observe(this) { isError ->
+            if (isError) {
+                binding.errorLayout.visibility = View.VISIBLE
+                binding.recyclerview.visibility = View.INVISIBLE
+            } else {
+                binding.errorLayout.visibility = View.INVISIBLE
+                binding.recyclerview.visibility = View.VISIBLE
+            }
         }
     }
 }
