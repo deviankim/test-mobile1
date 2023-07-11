@@ -1,7 +1,6 @@
 package com.rsupport.mobile1.test.network
 
 import com.rsupport.mobile1.test.model.ImageSrc
-import okhttp3.OkHttpClient
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
