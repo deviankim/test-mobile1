@@ -13,6 +13,7 @@ import com.rsupport.mobile1.test.repository.GettyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -55,6 +56,7 @@ class MainViewModel @Inject constructor(
                         Timber.d("Exception Occurred : $it")
                         isLoading.postValue(false)
                         isError.postValue(true)
+                        coroutineContext.cancel()
                     })
             }.collectLatest {
                 Timber.d("collected list : $it")
