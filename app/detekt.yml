@@ -23,4 +23,4 @@ output-reports:
 
 style:
   NewLineAtEndOfFile:
-    active: true
+    active: false
