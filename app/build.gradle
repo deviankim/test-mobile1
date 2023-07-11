@@ -43,6 +43,7 @@ android {
 
 detekt {
     config = files("detekt.yml")
+    basePath = rootProject.projectDir.absolutePath
 }
 
 dependencies {
