@@ -6,7 +6,7 @@ import org.jsoup.select.Elements
 
 fun Element.toUiGettyModel() : List<UiGettyModel> {
 
-    val elements: Elements = this.select("img")
+    val elements: List<Element> = this.select("img").drop(2) // 2번째부터 보여지게.
 
     return elements.map {
         UiGettyModel(

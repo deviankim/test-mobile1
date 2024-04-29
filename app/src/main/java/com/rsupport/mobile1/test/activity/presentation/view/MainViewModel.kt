@@ -28,19 +28,25 @@ class MainViewModel @Inject constructor(
 ): ViewModel() {
 
 
-    private var _page = MutableLiveData<Int>()
-    val page: LiveData<Int> get() = page
+    // 현재 page
+    private var _page = MutableLiveData<Int>(1)
+    val page: LiveData<Int> get() = _page
 
+    // 검색 단어
+    private var _phrase = MutableLiveData<String>("collaboration")
+    val phrase: LiveData<String> get() = _phrase
 
-    private var _getExtData = MutableLiveData<ExtData>()
-    val getExtData: LiveData<ExtData> get() = _getExtData
-    
+    // 이미지 속성 정보들
     private var _gettyList = MutableLiveData<List<UiGettyModel>>()
     val gettyList: LiveData<List<UiGettyModel>> get() = _gettyList
 
-    // 설정 페이지
+    // 이미지 불러오기
     private var _getImage = MutableEventFlow<Boolean>()
     val getImage: EventFlow<Boolean> get() = _getImage
+
+
+    // 검색 단어 Text
+    var inputPhrase = MutableLiveData<String>("")
 
     init{
         doTask()
@@ -48,9 +54,10 @@ class MainViewModel @Inject constructor(
 
     // 크롤링 하기
     fun doTask() {
-        loadWebPage(buildGettyImagesUrl(page, phrase))
+        loadWebPage(buildGettyImagesUrl(_page.value!!, _phrase.value!!))
     }
     fun loadWebPage(url: String) {
+        Timber.e("hello? ${url}")
         viewModelScope.launch(Dispatchers.IO) {
             gettyItemUseCase(url).onSuccess {
                 _gettyList.postValue(it)
@@ -64,8 +71,24 @@ class MainViewModel @Inject constructor(
         val baseUrl = "https://www.gettyimages.com/photos/collaboration"
         val assetType = "image"
         val sort = "best"
-        val license = "rf,rm"
 
-        return "$baseUrl?assettype=$assetType&sort=$sort&phrase=${phrase.replace(" ", "+")}&license=$license&page=$page"
+        return "$baseUrl?assettype=$assetType&sort=$sort&phrase=${phrase.replace(" ", "+")}&page=$page"
+    }
+    fun onClickPreviousPage()
+    {
+        _page.value = _page.value?.minus(1)
+        doTask()
+    }
+    fun onClickNextPage(){
+        _page.value = _page.value?.plus(1)
+        doTask()
+    }
+    fun onClickSearch(){
+        Timber.e("hello ${inputPhrase.value}")
+        if(inputPhrase.value!!.isNotEmpty()) {
+            _page.value = 1 // 1로 초기화
+            loadWebPage(buildGettyImagesUrl(_page.value!!, inputPhrase.value!!))
+        }
+
     }
 }
