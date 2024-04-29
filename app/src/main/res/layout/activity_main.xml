@@ -4,9 +4,15 @@
     xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View" />
+        <import type="com.rsupport.mobile1.test.activity.domain.model.UiGettyModel" />
+        <variable
+            name="eventHolder"
+            type="com.rsupport.mobile1.test.activity.domain.model.UiGettyModel" />
+
         <variable
             name="vm"
-            type="com.rsupport.mobile1.test.activity.view.MainViewModel" />
+            type="com.rsupport.mobile1.test.activity.presentation.view.MainViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -23,12 +29,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:spanCount="3"
-            bind:diffCallback="@{(Object)UiBookMonthModel.Companion}"
-            bind:eventHolder="@{eventHolder}"
-            bind:itemLayout="@{@layout/item_getty}"
-            bind:items="@{vm.getCalendarList}"
-            bind:viewModel="@{vm}" />
+            app:spanCount="3"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

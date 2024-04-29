@@ -19,8 +19,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:onClick="@{() -> eventHolder.onItemClick(item)}">
+        android:layout_height="200dp">
 
         <ImageView
             android:id="@+id/iv_getty_image"
@@ -33,7 +32,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/iv_getty_image_title"
+            android:id="@+id/tv_getty_image_title"
             android:layout_width="match_parent"
             android:layout_height="28dp"
             android:fontFamily="@font/pretendard_regular"
