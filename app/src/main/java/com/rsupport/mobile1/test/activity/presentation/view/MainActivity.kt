@@ -1,6 +1,10 @@
 package com.rsupport.mobile1.test.activity.presentation.view
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.webkit.URLUtil
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelLazy
 import androidx.lifecycle.lifecycleScope
@@ -30,11 +34,19 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
         lifecycleScope.launch {
             viewModel.getImage.collect(){
                 if(it){
-                    adapter = GettyAdapter(){
-
+                    adapter = GettyAdapter { link ->
+                        if (URLUtil.isValidUrl(link)) {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+                            startActivity(intent)
+                        } else {
+                            Toast.makeText(this@MainActivity, "유효하지 않은 링크입니다.", Toast.LENGTH_LONG).show()
+                        }
                     }
                     binding.rvCalendar.adapter = adapter
                     adapter.submitList(viewModel.gettyList.value!!)
+                }
+                else {
+                    Toast.makeText(this@MainActivity, "이미지를 찾지 못했습니다.", Toast.LENGTH_LONG).show()
                 }
             }
         }

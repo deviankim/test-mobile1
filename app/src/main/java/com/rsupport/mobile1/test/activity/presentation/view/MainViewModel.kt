@@ -63,7 +63,7 @@ class MainViewModel @Inject constructor(
                 _gettyList.postValue(it)
                 _getImage.emit(true)
             }.onFailure {
-
+                _getImage.emit(false)
             }
         }
     }

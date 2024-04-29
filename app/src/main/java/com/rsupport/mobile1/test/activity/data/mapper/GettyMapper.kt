@@ -12,7 +12,7 @@ fun Element.toUiGettyModel() : List<UiGettyModel> {
         UiGettyModel(
             src = it.attr("src"),
             title = it.attr("alt"),
-            link = ""
+            link = "https://www.gettyimages.com${it.parentNode()!!.parentNode()!!.parentNode()!!.attr("href")}"
         )
     }
 }

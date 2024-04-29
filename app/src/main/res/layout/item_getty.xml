@@ -11,14 +11,15 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="200dp"
+        android:padding="5dp">
 
         <ImageView
             android:id="@+id/iv_getty_image"
             android:layout_width="match_parent"
             android:layout_height="100dp"
+            android:layout_marginTop="20dp"
             android:clipToOutline="true"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,10 +27,12 @@
             android:id="@+id/tv_getty_image_title"
             android:layout_width="match_parent"
             android:layout_height="28dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/pretendard_regular"
             android:gravity="center"
             android:textSize="12dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_getty_image" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
