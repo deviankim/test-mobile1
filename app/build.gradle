@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -39,7 +40,8 @@ android {
 }
 
 dependencies {
-
+    kapt "com.google.dagger:hilt-compiler:2.51.1"
+    implementation "com.google.dagger:hilt-android:2.51.1"
     implementation "io.coil-kt:coil:2.6.0"
     implementation "org.jsoup:jsoup:1.17.2"
     implementation "androidx.paging:paging-runtime-ktx:3.2.1"
@@ -52,4 +54,8 @@ dependencies {
     testImplementation "junit:junit:4.13.2"
     androidTestImplementation "androidx.test.ext:junit:1.1.5"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
+}
+
+kapt {
+    correctErrorTypes true
 }

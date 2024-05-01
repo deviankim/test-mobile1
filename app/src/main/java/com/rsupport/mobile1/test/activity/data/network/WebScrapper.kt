@@ -6,6 +6,7 @@ import kotlinx.coroutines.withContext
 import org.jsoup.HttpStatusException
 import org.jsoup.Jsoup
 import org.jsoup.select.Elements
+import javax.inject.Inject
 
 private const val BASE_URL =
     "https://www.gettyimages.com/photos/collaboration?assettype=image&page="
@@ -13,7 +14,7 @@ private const val URL_SUFFIX = "&phrase=collaboration&sort=mostpopular&license=r
 private const val GALLERY_MOSAIC_ASSET_SELECTOR = "div[data-testid=galleryMosaicAsset]"
 private const val MOSAIC_ASSET_TITLE_SELECTOR = "a[data-testid=mosaicAssetTitle]"
 
-class WebScrapper {
+class WebScrapper @Inject constructor() {
 
     suspend fun getImageInformation(pageId: Int): Result<List<ImageInformation>> =
         withContext(Dispatchers.IO) {

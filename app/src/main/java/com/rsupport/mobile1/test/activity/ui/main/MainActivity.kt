@@ -8,26 +8,28 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.paging.map
 import androidx.recyclerview.widget.GridLayoutManager
+import coil.ImageLoader
 import coil.request.CachePolicy
 import coil.request.ImageRequest
-import com.rsupport.mobile1.test.activity.App.Companion.imageLoader
-import com.rsupport.mobile1.test.activity.data.network.WebScrapper
-import com.rsupport.mobile1.test.activity.data.repository.MainRepository
 import com.rsupport.mobile1.test.activity.ui.main.adapters.MainLoadStateAdapter
 import com.rsupport.mobile1.test.activity.ui.main.adapters.MainPagingAdapter
 import com.rsupport.mobile1.test.activity.util.Constants
 import com.rsupport.mobile1.test.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val viewModel by viewModels<MainViewModel> {
-        MainViewModel.provideFactory(repository = MainRepository(WebScrapper()))
-    }
+    private val viewModel: MainViewModel by viewModels()
     private val pagingAdapter: MainPagingAdapter by lazy { MainPagingAdapter() }
+
+    @Inject
+    lateinit var coilImageLoader: ImageLoader
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +76,7 @@ class MainActivity : AppCompatActivity() {
             .memoryCacheKey(imageUrl)
             .diskCacheKey(imageUrl)
             .build()
-        imageLoader.enqueue(request)
+        coilImageLoader.enqueue(request)
     }
 
     private fun setRecyclerViewAdapter() {

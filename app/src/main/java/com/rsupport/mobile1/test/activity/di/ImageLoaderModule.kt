@@ -1,13 +1,23 @@
-package com.rsupport.mobile1.test.activity.ui.util
+package com.rsupport.mobile1.test.activity.di
 
 import android.content.Context
 import coil.ImageLoader
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
-class CoilImageLoader {
+@Module
+@InstallIn(SingletonComponent::class)
+object ImageLoaderModule {
 
-    fun getImageLoader(context: Context): ImageLoader {
+    @Singleton
+    @Provides
+    fun provideImageLoader(@ApplicationContext context: Context): ImageLoader {
         return ImageLoader.Builder(context)
             .memoryCache {
                 MemoryCache.Builder(context)
