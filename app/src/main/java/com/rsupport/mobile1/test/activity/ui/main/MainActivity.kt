@@ -6,7 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import androidx.paging.map
 import androidx.recyclerview.widget.GridLayoutManager
+import coil.request.CachePolicy
+import coil.request.ImageRequest
+import com.rsupport.mobile1.test.activity.App.Companion.imageLoader
 import com.rsupport.mobile1.test.activity.data.network.WebScrapper
 import com.rsupport.mobile1.test.activity.data.repository.MainRepository
 import com.rsupport.mobile1.test.activity.ui.main.adapters.MainLoadStateAdapter
@@ -14,6 +18,7 @@ import com.rsupport.mobile1.test.activity.ui.main.adapters.MainPagingAdapter
 import com.rsupport.mobile1.test.activity.util.Constants
 import com.rsupport.mobile1.test.databinding.ActivityMainBinding
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -48,11 +53,28 @@ class MainActivity : AppCompatActivity() {
     private fun setListAdapter() {
         setRecyclerViewAdapter()
         setRecyclerView()
+
         lifecycleScope.launch {
-            viewModel.items.collectLatest {
-                pagingAdapter.submitData(it)
+            viewModel.items.map { pagingData ->
+                pagingData.map { imageInfo ->
+                    preloadImage(imageInfo.imageUrl)
+                    imageInfo
+                }
+            }.collectLatest { pagingData ->
+                pagingAdapter.submitData(pagingData)
             }
         }
+    }
+
+    private fun preloadImage(imageUrl: String) {
+        val request = ImageRequest.Builder(this)
+            .data(imageUrl)
+            .memoryCachePolicy(CachePolicy.ENABLED)
+            .diskCachePolicy(CachePolicy.ENABLED)
+            .memoryCacheKey(imageUrl)
+            .diskCacheKey(imageUrl)
+            .build()
+        imageLoader.enqueue(request)
     }
 
     private fun setRecyclerViewAdapter() {
