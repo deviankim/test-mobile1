@@ -6,10 +6,19 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rsupport.mobile1.test.activity.data.model.ImageInformation
 import com.rsupport.mobile1.test.activity.ui.common.ImageListDiffUtil
+import com.rsupport.mobile1.test.activity.util.Constants
 import com.rsupport.mobile1.test.databinding.ItemImageInformationBinding
 
 class MainPagingAdapter :
     PagingDataAdapter<ImageInformation, MainPagingAdapter.MainViewHolder>(ImageListDiffUtil()) {
+
+    override fun getItemViewType(position: Int): Int {
+        return if (position == itemCount) {
+            Constants.CONTENTS_TYPE
+        } else {
+            Constants.LOAD_STATE_TYPE
+        }
+    }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         getItem(position)?.let { holder.bind(it) }

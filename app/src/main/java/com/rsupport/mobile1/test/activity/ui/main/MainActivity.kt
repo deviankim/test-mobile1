@@ -9,7 +9,9 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.rsupport.mobile1.test.activity.data.network.WebScrapper
 import com.rsupport.mobile1.test.activity.data.repository.MainRepository
+import com.rsupport.mobile1.test.activity.ui.main.adapters.MainLoadStateAdapter
 import com.rsupport.mobile1.test.activity.ui.main.adapters.MainPagingAdapter
+import com.rsupport.mobile1.test.activity.util.Constants
 import com.rsupport.mobile1.test.databinding.ActivityMainBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -54,12 +56,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setRecyclerViewAdapter() {
-        binding.rvImageList.adapter = pagingAdapter
+        binding.rvImageList.adapter =
+            pagingAdapter.withLoadStateFooter(MainLoadStateAdapter { pagingAdapter.retry() })
     }
 
     private fun setRecyclerView() {
         binding.rvImageList.apply {
-            layoutManager = GridLayoutManager(baseContext, 3)
+            layoutManager = GridLayoutManager(baseContext, 3).apply {
+                spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        return when (pagingAdapter.getItemViewType(position)) {
+                            Constants.CONTENTS_TYPE -> 3
+                            Constants.LOAD_STATE_TYPE -> 1
+                            else -> 1
+                        }
+                    }
+                }
+            }
         }
     }
 }
