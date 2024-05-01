@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Mobile1TestApp</string>
+    <string name="error_occur">네트워크 연결이 원활하지 않습니다.</string>
+    <string name="please_check_again">네트워크 연결 상태를 확인하신 후 다시 시도 해주세요.</string>
+    <string name="retry">재시도</string>
+    <string name="image">이미지</string>
 </resources>
