@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.rsupport.mobile1.test.domain.model.ImageList" />
+            type="com.rsupport.mobile1.test.domain.model.MainItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

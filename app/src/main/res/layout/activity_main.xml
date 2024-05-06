@@ -14,7 +14,7 @@
         android:gravity="center">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_image_list"
+            android:id="@+id/rv_main_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -31,7 +31,7 @@
             android:layout_marginTop="34dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_image_list">
+            app:layout_constraintTop_toBottomOf="@id/rv_main_list">
 
             <EditText
                 android:id="@+id/et_page_number"

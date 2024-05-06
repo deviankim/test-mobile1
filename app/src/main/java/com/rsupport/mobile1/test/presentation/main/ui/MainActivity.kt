@@ -5,13 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.rsupport.mobile1.test.R
 import com.rsupport.mobile1.test.databinding.ActivityMainBinding
-import com.rsupport.mobile1.test.presentation.main.ui.list.ImageListAdapter
+import com.rsupport.mobile1.test.presentation.main.ui.list.MainListAdapter
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private lateinit var imageListAdapter: ImageListAdapter
+    private lateinit var mainListAdapter: MainListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initTodoListRecyclerView() {
-        imageListAdapter = ImageListAdapter()
-        binding.rvImageList.adapter = imageListAdapter
+        mainListAdapter = MainListAdapter()
+        binding.rvMainList.adapter = mainListAdapter
     }
 }
