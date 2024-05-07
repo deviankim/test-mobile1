@@ -1,3 +1,5 @@
+[![Android CI](https://github.com/wnsgml517/mobile1-coding-test/actions/workflows/android.yml/badge.svg)](https://github.com/wnsgml517/mobile1-coding-test/actions/workflows/android.yml)
+
 # RSUPPORT mobile1 coding test
 
     알서포트 코딩 테스트 참여에 감사 드립니다.
