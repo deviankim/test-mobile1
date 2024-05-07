@@ -11,6 +11,7 @@ object BindingAdapter {
     fun setImage(imageView: ImageView, imageUrl: String) {
         Glide.with(imageView.context)
             .load(imageUrl)
+            .centerCrop()
             .into(imageView)
     }
 }
