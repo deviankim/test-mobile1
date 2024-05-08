@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.rsupport.mobile1.test.domain.model.MainItem" />
+            type="com.rsupport.mobile1.test.domain.model.MainRecyclerViewItem.MainItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

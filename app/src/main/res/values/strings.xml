@@ -2,8 +2,8 @@
     <string name="app_name">Mobile1TestApp</string>
 
     <!-- MainActivity -->
-    <string name="main_page_number">1</string>
+    <string name="main_previous">PREVIOUS</string>
     <string name="main_of">of</string>
     <string name="main_next">NEXT</string>
-    <string name="main_total_page_number">1</string>
+    <string name="main_total_page_number">100</string>
 </resources>

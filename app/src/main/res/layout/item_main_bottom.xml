@@ -4,6 +4,15 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="item"
+            type="com.rsupport.mobile1.test.domain.model.MainRecyclerViewItem.PageNumber" />
+
+        <variable
+            name="listener"
+            type="com.rsupport.mobile1.test.presentation.main.ui.list.MainRecyclerViewAdapter.MainBottomListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -11,20 +20,47 @@
         android:layout_height="wrap_content"
         android:paddingVertical="20dp">
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@color/bg_white_to_black"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:onClick="@{() -> listener.goToPreviousPage()}"
+            android:paddingVertical="15dp"
+            android:stateListAnimator="@null"
+            android:text="@string/main_previous"
+            android:textColor="@color/bg_black_to_white"
+            android:textSize="14sp"
+            app:icon="@drawable/ic_previous_20dp"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconTint="@color/bg_black_to_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/et_page_number"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:rippleColor="@android:color/transparent"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp" />
+
         <EditText
             android:id="@+id/et_page_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_stroke_080808"
+            android:imeOptions="actionDone"
+            android:inputType="number"
             android:paddingHorizontal="14dp"
             android:paddingVertical="7dp"
-            android:text="@string/main_page_number"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tv_of"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_previous"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -57,11 +93,12 @@
             android:id="@+id/btn_next"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="10dp"
             android:backgroundTint="@color/bg_white_to_black"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:paddingHorizontal="50dp"
+            android:onClick="@{() -> listener.goToNextPage()}"
+            android:paddingHorizontal="35dp"
             android:paddingVertical="15dp"
             android:stateListAnimator="@null"
             android:text="@string/main_next"

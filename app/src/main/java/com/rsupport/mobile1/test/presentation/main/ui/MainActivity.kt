@@ -55,7 +55,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initMainRecyclerView() {
-        mainRecyclerViewAdapter = MainRecyclerViewAdapter()
+        mainRecyclerViewAdapter = MainRecyclerViewAdapter(
+            mainBottomListener = object : MainRecyclerViewAdapter.MainBottomListener {
+                override fun goToPreviousPage() {
+                    viewModel.decreasePageNumber()
+                }
+
+                override fun goToNextPage() {
+                    viewModel.increasePageNumber()
+                }
+
+                override fun goToSetPage(pageNumber: Int) {
+                    viewModel.setPageNumber(pageNumber)
+                }
+
+            }
+        )
         binding.rvMainList.adapter = mainRecyclerViewAdapter
         binding.rvMainList.layoutManager = createGridLayoutManager()
     }
