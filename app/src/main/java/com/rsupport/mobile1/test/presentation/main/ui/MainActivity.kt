@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         initMainRecyclerView()
+        setViewModelObserve()
         observeMainUiState()
     }
 
@@ -54,6 +55,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setViewModelObserve() = with(viewModel) {
+        currentPage.observe(this@MainActivity) {
+            viewModel.getMainInfo(it)
+        }
+    }
+
     private fun initMainRecyclerView() {
         mainRecyclerViewAdapter = MainRecyclerViewAdapter(
             mainBottomListener = object : MainRecyclerViewAdapter.MainBottomListener {
@@ -68,7 +75,6 @@ class MainActivity : AppCompatActivity() {
                 override fun goToSetPage(pageNumber: Int) {
                     viewModel.setPageNumber(pageNumber)
                 }
-
             }
         )
         binding.rvMainList.adapter = mainRecyclerViewAdapter

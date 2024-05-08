@@ -13,19 +13,18 @@ import javax.inject.Inject
 
 class MainDataSourceImpl @Inject constructor() : MainDataSource {
 
-    override fun getMainList(): Flow<HtmlParseResult<MainResponse>> = flow {
+    override fun getMainList(pageNumber: Int): Flow<HtmlParseResult<MainResponse>> = flow {
         try {
-            val url = "https://www.gettyimages.com/photos/collaboration?assettype=image&sort=mostpopular&phrase=collaboration&license=rf,rm&page=1"
-            val document = fetchDocumentFromUrl(url)
-            val imageList = parseImagesFromDocument(document)
-
-            emit(HtmlParseResult.Success(MainResponse(imageList)))
+            val document = fetchDocumentFromUrl(pageNumber)
+            val mainList = parseImagesFromDocument(document)
+            emit(HtmlParseResult.Success(MainResponse(mainList)))
         } catch (e: Exception) {
             emit(HtmlParseResult.Error(e))
         }
     }.flowOn(Dispatchers.IO)
 
-    private fun fetchDocumentFromUrl(url: String): Document {
+    private fun fetchDocumentFromUrl(pageNumber: Int): Document {
+        val url = "https://www.gettyimages.com/photos/collaboration?assettype=image&sort=mostpopular&phrase=collaboration&license=rf,rm&page=$pageNumber"
         return Jsoup.connect(url).get()
     }
 

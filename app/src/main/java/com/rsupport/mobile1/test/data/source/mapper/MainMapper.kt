@@ -3,7 +3,7 @@ package com.rsupport.mobile1.test.data.source.mapper
 import com.rsupport.mobile1.test.data.model.main.MainDTO
 import com.rsupport.mobile1.test.data.model.main.MainResponse
 import com.rsupport.mobile1.test.domain.model.HtmlParseResult
-import com.rsupport.mobile1.test.domain.model.MainItem
+import com.rsupport.mobile1.test.domain.model.MainRecyclerViewItem
 import com.rsupport.mobile1.test.domain.model.MainList
 
 object MainMapper {
@@ -11,7 +11,9 @@ object MainMapper {
     fun HtmlParseResult<MainResponse>.toMainDomain(): HtmlParseResult<MainList> {
         return when (this) {
             is HtmlParseResult.Success -> {
-                HtmlParseResult.Success(MainList(data.contents.map { it.toItem() }))
+                val mainItems = data.contents.map { it.toItem() }
+                val combinedList = mainItems + MainRecyclerViewItem.PageNumber(pageNumber = 1)
+                HtmlParseResult.Success(MainList(combinedList))
             }
 
             is HtmlParseResult.Error -> {
@@ -20,8 +22,8 @@ object MainMapper {
         }
     }
 
-    private fun MainDTO.toItem(): MainItem {
-        return MainItem(
+    private fun MainDTO.toItem(): MainRecyclerViewItem.MainItem {
+        return MainRecyclerViewItem.MainItem(
             url = this.url,
             title = this.title
         )

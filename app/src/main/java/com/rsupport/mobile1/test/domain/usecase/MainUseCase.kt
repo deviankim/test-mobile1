@@ -10,5 +10,6 @@ class MainUseCase @Inject constructor(
     private val mainRepository: MainRepository,
 ) {
 
-    operator fun invoke(): Flow<HtmlParseResult<MainList>> = mainRepository.getMainList()
+    operator fun invoke(pageNumber: Int): Flow<HtmlParseResult<MainList>> =
+        mainRepository.getMainList(pageNumber)
 }

@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface MainRepository {
 
-    fun getMainList(): Flow<HtmlParseResult<MainList>>
+    fun getMainList(pageNumber: Int): Flow<HtmlParseResult<MainList>>
 }

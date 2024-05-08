@@ -13,7 +13,7 @@ class MainRepositoryImpl @Inject constructor(
     private val mainDataSource: MainDataSource
 ) : MainRepository {
 
-    override fun getMainList(): Flow<HtmlParseResult<MainList>> {
-        return mainDataSource.getMainList().map { it.toMainDomain() }
+    override fun getMainList(pageNumber: Int): Flow<HtmlParseResult<MainList>> {
+        return mainDataSource.getMainList(pageNumber).map { it.toMainDomain() }
     }
 }
