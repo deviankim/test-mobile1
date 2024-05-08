@@ -1,6 +1,8 @@
 package com.rsupport.mobile1.test.presentation.main.ui
 
+import android.content.Context
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -58,7 +60,17 @@ class MainActivity : AppCompatActivity() {
     private fun setViewModelObserve() = with(viewModel) {
         currentPage.observe(this@MainActivity) {
             viewModel.getMainInfo(it)
+            hideKeyboard()
         }
+    }
+
+    private fun hideKeyboard() {
+        if (currentFocus == null) return
+        val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(
+            currentFocus?.windowToken,
+            InputMethodManager.HIDE_NOT_ALWAYS
+        )
     }
 
     private fun initMainRecyclerView() {
