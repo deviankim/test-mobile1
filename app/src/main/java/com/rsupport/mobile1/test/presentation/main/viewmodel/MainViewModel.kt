@@ -32,28 +32,21 @@ class MainViewModel @Inject constructor(
 
         viewModelScope.launch {
             mainUseCase(pageNumber).collectLatest { htmlParseResult ->
-                when (htmlParseResult) {
-                    is HtmlParseResult.Success -> {
-                        val updatedContents = htmlParseResult.data.contents.map { item ->
-                            when (item) {
-                                is MainRecyclerViewItem.PageNumber -> item.copy(
-                                    pageNumber = _currentPage.value ?: 1
-                                )
-
-                                else -> item
-                            }
-                        }
-                        htmlParseResult.data.copy(contents = updatedContents).also { updatedData ->
-                            _mainUiState.value = MainUiState.Success(updatedData)
-                        }
-                    }
-
-                    is HtmlParseResult.Error -> {
-                        _mainUiState.value = MainUiState.Error(htmlParseResult.exception)
-                    }
+                _mainUiState.value = when (htmlParseResult) {
+                    is HtmlParseResult.Success -> MainUiState.Success(htmlParseResult.data.updateCurrentPage())
+                    is HtmlParseResult.Error -> MainUiState.Error(htmlParseResult.exception)
                 }
             }
         }
+    }
+
+    private fun MainList.updateCurrentPage(): MainList {
+        val updatedContents = contents.map { item ->
+            if (item is MainRecyclerViewItem.PageNumber) {
+                item.copy(pageNumber = _currentPage.value ?: 1)
+            } else item
+        }
+        return copy(contents = updatedContents)
     }
 
     fun decreasePageNumber() {
