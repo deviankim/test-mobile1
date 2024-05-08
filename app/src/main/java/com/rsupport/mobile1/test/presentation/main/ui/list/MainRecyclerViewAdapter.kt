@@ -35,16 +35,9 @@ class MainRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (getItemViewType(position)) {
-            VIEW_TYPE_LIST -> {
-                val item = getItem(position) as MainRecyclerViewItem.MainItem
-                (holder as MainListViewHolder).bind(item)
-            }
-
-            VIEW_TYPE_BOTTOM -> {
-                val item = getItem(position) as MainRecyclerViewItem.PageNumber
-                (holder as MainBottomViewHolder).bind(item)
-            }
+        when (val item = getItem(position)) {
+            is MainRecyclerViewItem.MainItem -> (holder as MainListViewHolder).bind(item)
+            is MainRecyclerViewItem.PageNumber -> (holder as MainBottomViewHolder).bind(item)
         }
     }
 
