@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -23,13 +24,12 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_previous"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:backgroundTint="@color/bg_white_to_black"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:onClick="@{() -> listener.goToPreviousPage()}"
-            android:paddingVertical="15dp"
             android:stateListAnimator="@null"
             android:text="@string/main_previous"
             android:textColor="@color/bg_black_to_white"
@@ -63,7 +63,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tv_of"
             app:layout_constraintStart_toEndOf="@id/btn_previous"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1" />
 
         <TextView
             android:id="@+id/tv_of"
@@ -94,14 +95,13 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_next"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:backgroundTint="@color/bg_white_to_black"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:onClick="@{() -> listener.goToNextPage()}"
             android:paddingHorizontal="35dp"
-            android:paddingVertical="15dp"
             android:stateListAnimator="@null"
             android:text="@string/main_next"
             android:textColor="@color/bg_black_to_white"

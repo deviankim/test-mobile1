@@ -2,7 +2,9 @@ package com.rsupport.mobile1.test.presentation.main.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -18,6 +20,9 @@ import com.rsupport.mobile1.test.presentation.main.ui.list.MainRecyclerViewAdapt
 import com.rsupport.mobile1.test.presentation.main.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.jsoup.HttpStatusException
+import java.io.IOException
+import java.net.UnknownHostException
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -30,9 +35,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.lifecycleOwner = this
         initMainRecyclerView()
         setViewModelObserve()
         observeMainUiState()
+
+        binding.btnRetry.setOnClickListener {
+            viewModel.currentPage.value?.let { viewModel.getMainInfo(it) }
+        }
     }
 
     private fun observeMainUiState() {
@@ -42,15 +52,36 @@ class MainActivity : AppCompatActivity() {
                 .collect { uiState ->
                     when (uiState) {
                         is MainUiState.Loading -> {
-
+                            binding.pbLoading.visibility = View.VISIBLE
                         }
 
                         is MainUiState.Success -> {
                             mainRecyclerViewAdapter.submitList(uiState.data.contents)
+
+                            binding.pbLoading.visibility = View.GONE
+                            binding.clWifiInstability.visibility = View.GONE
                         }
 
                         is MainUiState.Error -> {
+                            binding.pbLoading.visibility = View.GONE
 
+                            when (uiState.error) {
+                                is HttpStatusException -> {
+                                    Toast.makeText(
+                                        this@MainActivity,
+                                        "원하시는 페이지를 찾을 수 없습니다.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+
+                                is UnknownHostException -> {
+                                    binding.clWifiInstability.visibility = View.VISIBLE
+                                }
+
+                                else -> {
+                                    throw IOException()
+                                }
+                            }
                         }
                     }
                 }

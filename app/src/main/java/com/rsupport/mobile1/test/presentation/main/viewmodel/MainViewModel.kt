@@ -49,8 +49,7 @@ class MainViewModel @Inject constructor(
                     }
 
                     is HtmlParseResult.Error -> {
-                        _mainUiState.value =
-                            MainUiState.Error(IllegalStateException(htmlParseResult.exception.message))
+                        _mainUiState.value = MainUiState.Error(htmlParseResult.exception)
                     }
                 }
             }
