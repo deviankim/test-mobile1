@@ -1,5 +1,7 @@
 package com.rsupport.mobile1.test.presentation.main.ui.list.viewholder
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.RecyclerView
 import com.rsupport.mobile1.test.databinding.ItemMainBottomBinding
@@ -25,6 +27,17 @@ class MainBottomViewHolder(
             } else {
                 false
             }
+        }
+    }
+
+    companion object {
+        fun create(
+            parent: ViewGroup,
+            mainBottomListener: MainRecyclerViewAdapter.MainBottomListener
+        ): MainBottomViewHolder {
+            val inflater = LayoutInflater.from(parent.context)
+            val binding = ItemMainBottomBinding.inflate(inflater, parent, false)
+            return MainBottomViewHolder(binding, mainBottomListener)
         }
     }
 }

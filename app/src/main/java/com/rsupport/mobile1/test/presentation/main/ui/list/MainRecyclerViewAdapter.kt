@@ -1,13 +1,10 @@
 package com.rsupport.mobile1.test.presentation.main.ui.list
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rsupport.mobile1.test.R
-import com.rsupport.mobile1.test.databinding.ItemMainBottomBinding
-import com.rsupport.mobile1.test.databinding.ItemMainListBinding
 import com.rsupport.mobile1.test.domain.model.MainRecyclerViewItem
 import com.rsupport.mobile1.test.presentation.main.ui.list.viewholder.MainBottomViewHolder
 import com.rsupport.mobile1.test.presentation.main.ui.list.viewholder.MainListViewHolder
@@ -24,14 +21,9 @@ class MainRecyclerViewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == R.layout.item_main_list) {
-            MainListViewHolder(
-                ItemMainListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            )
+            MainListViewHolder.create(parent)
         } else {
-            MainBottomViewHolder(
-                ItemMainBottomBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-                mainBottomListener
-            )
+            MainBottomViewHolder.create(parent, mainBottomListener)
         }
     }
 
