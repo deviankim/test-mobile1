@@ -16,8 +16,6 @@ import com.rsupport.mobile1.test.R
 import com.rsupport.mobile1.test.databinding.ActivityMainBinding
 import com.rsupport.mobile1.test.domain.model.MainList
 import com.rsupport.mobile1.test.presentation.main.ui.list.MainRecyclerViewAdapter
-import com.rsupport.mobile1.test.presentation.main.ui.list.MainRecyclerViewAdapter.Companion.VIEW_TYPE_BOTTOM
-import com.rsupport.mobile1.test.presentation.main.ui.list.MainRecyclerViewAdapter.Companion.VIEW_TYPE_LIST
 import com.rsupport.mobile1.test.presentation.main.viewmodel.MainViewModel
 import com.rsupport.mobile1.test.presentation.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
@@ -147,8 +145,8 @@ class MainActivity : AppCompatActivity() {
         return object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return when (mainRecyclerViewAdapter.getItemViewType(position)) {
-                    VIEW_TYPE_LIST -> 1
-                    VIEW_TYPE_BOTTOM -> spanCount
+                    R.layout.item_main_list -> 1
+                    R.layout.item_main_bottom -> spanCount
                     else -> throw IllegalArgumentException("ViewType is not valid")
                 }
             }

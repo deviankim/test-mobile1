@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.rsupport.mobile1.test.R
 import com.rsupport.mobile1.test.databinding.ItemMainBottomBinding
 import com.rsupport.mobile1.test.databinding.ItemMainListBinding
 import com.rsupport.mobile1.test.domain.model.MainRecyclerViewItem
@@ -22,7 +23,7 @@ class MainRecyclerViewAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == VIEW_TYPE_LIST) {
+        return if (viewType == R.layout.item_main_list) {
             MainListViewHolder(
                 ItemMainListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             )
@@ -43,15 +44,12 @@ class MainRecyclerViewAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
-            is MainRecyclerViewItem.MainItem -> VIEW_TYPE_LIST
-            is MainRecyclerViewItem.PageNumber -> VIEW_TYPE_BOTTOM
+            is MainRecyclerViewItem.MainItem -> R.layout.item_main_list
+            is MainRecyclerViewItem.PageNumber -> R.layout.item_main_bottom
         }
     }
 
     companion object {
-        const val VIEW_TYPE_LIST = 0
-        const val VIEW_TYPE_BOTTOM = 1
-
         private val diffCallback = object : DiffUtil.ItemCallback<MainRecyclerViewItem>() {
             override fun areItemsTheSame(
                 oldItem: MainRecyclerViewItem,
