@@ -21,6 +21,8 @@ class MainViewModel @Inject constructor(
     private val mainUseCase: MainUseCase,
 ) : ViewModel() {
 
+    var previousPage = MutableLiveData<Int>()
+
     private val _currentPage = MutableLiveData<Int>(1)
     val currentPage: LiveData<Int> = _currentPage
 

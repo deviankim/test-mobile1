@@ -1,10 +1,10 @@
 package com.rsupport.mobile1.test.presentation.main.ui
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -14,14 +14,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.rsupport.mobile1.test.R
 import com.rsupport.mobile1.test.databinding.ActivityMainBinding
+import com.rsupport.mobile1.test.domain.model.MainList
 import com.rsupport.mobile1.test.presentation.main.ui.list.MainRecyclerViewAdapter
 import com.rsupport.mobile1.test.presentation.main.ui.list.MainRecyclerViewAdapter.Companion.VIEW_TYPE_BOTTOM
 import com.rsupport.mobile1.test.presentation.main.ui.list.MainRecyclerViewAdapter.Companion.VIEW_TYPE_LIST
 import com.rsupport.mobile1.test.presentation.main.viewmodel.MainViewModel
+import com.rsupport.mobile1.test.presentation.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.jsoup.HttpStatusException
-import java.io.IOException
 import java.net.UnknownHostException
 
 @AndroidEntryPoint
@@ -39,9 +40,14 @@ class MainActivity : AppCompatActivity() {
         initMainRecyclerView()
         setViewModelObserve()
         observeMainUiState()
+        setClickListener()
+    }
 
-        binding.btnRetry.setOnClickListener {
-            viewModel.currentPage.value?.let { viewModel.getMainInfo(it) }
+    private fun setClickListener() = with(binding) {
+        btnRetry.setOnClickListener {
+            viewModel.currentPage.value?.let {
+                viewModel.getMainInfo(it)
+            }
         }
     }
 
@@ -50,42 +56,49 @@ class MainActivity : AppCompatActivity() {
             viewModel.mainUiState
                 .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .collect { uiState ->
-                    when (uiState) {
-                        is MainUiState.Loading -> {
-                            binding.pbLoading.visibility = View.VISIBLE
-                        }
-
-                        is MainUiState.Success -> {
-                            mainRecyclerViewAdapter.submitList(uiState.data.contents)
-
-                            binding.pbLoading.visibility = View.GONE
-                            binding.clWifiInstability.visibility = View.GONE
-                        }
-
-                        is MainUiState.Error -> {
-                            binding.pbLoading.visibility = View.GONE
-
-                            when (uiState.error) {
-                                is HttpStatusException -> {
-                                    Toast.makeText(
-                                        this@MainActivity,
-                                        "원하시는 페이지를 찾을 수 없습니다.",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-
-                                is UnknownHostException -> {
-                                    binding.clWifiInstability.visibility = View.VISIBLE
-                                }
-
-                                else -> {
-                                    throw IOException()
-                                }
-                            }
-                        }
-                    }
+                    handleUiState(uiState)
                 }
         }
+    }
+
+    private fun handleUiState(uiState: MainUiState<MainList>) {
+        when (uiState) {
+            is MainUiState.Loading -> handleLoadingState()
+            is MainUiState.Success -> handleSuccessState(uiState)
+            is MainUiState.Error -> handleErrorState(uiState)
+        }
+    }
+
+    private fun handleErrorState(uiState: MainUiState.Error) {
+        binding.pbLoading.visibility = View.GONE
+
+        when (uiState.error) {
+            is HttpStatusException -> {
+                showToast("원하시는 페이지를 찾을 수 없습니다.")
+                viewModel.previousPage.value?.let { viewModel.setPageNumber(it) }
+            }
+
+            is UnknownHostException -> {
+                binding.clWifiInstability.visibility = View.VISIBLE
+            }
+
+            else -> {
+                binding.clWifiInstability.visibility = View.VISIBLE
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
+        }
+    }
+
+    private fun handleSuccessState(uiState: MainUiState.Success<MainList>) {
+        viewModel.previousPage.value = viewModel.currentPage.value
+        mainRecyclerViewAdapter.submitList(uiState.data.contents)
+        binding.pbLoading.visibility = View.GONE
+        binding.clWifiInstability.visibility = View.GONE
+    }
+
+    private fun handleLoadingState() {
+        binding.pbLoading.visibility = View.VISIBLE
     }
 
     private fun setViewModelObserve() = with(viewModel) {
