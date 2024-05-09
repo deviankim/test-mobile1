@@ -10,7 +10,7 @@ import com.rsupport.mobile1.test.presentation.main.ui.list.MainRecyclerViewAdapt
 
 class MainBottomViewHolder(
     private val binding: ItemMainBottomBinding,
-    private val mainBottomListener: MainRecyclerViewAdapter.MainBottomListener
+    private val mainBottomListener: MainRecyclerViewAdapter.MainBottomListener,
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: MainRecyclerViewItem.PageNumber) {

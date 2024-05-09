@@ -35,14 +35,14 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             mainUseCase(pageNumber).collectLatest { htmlParseResult ->
                 _mainUiState.value = when (htmlParseResult) {
-                    is HtmlParseResult.Success -> MainUiState.Success(htmlParseResult.data.updateCurrentPage())
+                    is HtmlParseResult.Success -> MainUiState.Success(htmlParseResult.data.updateToCurrentPage())
                     is HtmlParseResult.Error -> MainUiState.Error(htmlParseResult.exception)
                 }
             }
         }
     }
 
-    private fun MainList.updateCurrentPage(): MainList {
+    private fun MainList.updateToCurrentPage(): MainList {
         val updatedContents = contents.map { item ->
             if (item is MainRecyclerViewItem.PageNumber) {
                 item.copy(pageNumber = _currentPage.value ?: 1)

@@ -30,8 +30,8 @@ class MainDataSourceImpl @Inject constructor() : MainDataSource {
 
     private fun parseImagesFromDocument(document: Document): List<MainDTO> {
         return document.select("div[data-testid=galleryMosaicAsset]").map {
-            val title = it.select("a[data-testid=mosaicAssetTitle]").text()
             val imageUrl = it.select("img").attr("src")
+            val title = it.select("a[data-testid=mosaicAssetTitle]").text()
             MainDTO(imageUrl, title)
         }
     }

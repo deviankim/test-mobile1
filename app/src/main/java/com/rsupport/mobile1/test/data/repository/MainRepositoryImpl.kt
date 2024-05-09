@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class MainRepositoryImpl @Inject constructor(
-    private val mainDataSource: MainDataSource
+    private val mainDataSource: MainDataSource,
 ) : MainRepository {
 
     override fun getMainList(pageNumber: Int): Flow<HtmlParseResult<MainList>> {

@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         initMainRecyclerView()
         setViewModelObserve()
-        observeMainUiState()
         setClickListener()
     }
 
@@ -49,14 +48,27 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun observeMainUiState() {
+    private fun setViewModelObserve() = with(viewModel) {
+        currentPage.observe(this@MainActivity) {
+            viewModel.getMainInfo(it)
+            hideKeyboard()
+        }
+
         lifecycleScope.launch {
-            viewModel.mainUiState
-                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            mainUiState.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .collect { uiState ->
                     handleUiState(uiState)
                 }
         }
+    }
+
+    private fun hideKeyboard() {
+        if (currentFocus == null) return
+        val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(
+            currentFocus?.windowToken,
+            InputMethodManager.HIDE_NOT_ALWAYS
+        )
     }
 
     private fun handleUiState(uiState: MainUiState<MainList>) {
@@ -97,22 +109,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleLoadingState() {
         binding.pbLoading.visibility = View.VISIBLE
-    }
-
-    private fun setViewModelObserve() = with(viewModel) {
-        currentPage.observe(this@MainActivity) {
-            viewModel.getMainInfo(it)
-            hideKeyboard()
-        }
-    }
-
-    private fun hideKeyboard() {
-        if (currentFocus == null) return
-        val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputManager.hideSoftInputFromWindow(
-            currentFocus?.windowToken,
-            InputMethodManager.HIDE_NOT_ALWAYS
-        )
     }
 
     private fun initMainRecyclerView() {

@@ -7,7 +7,7 @@ import com.rsupport.mobile1.test.databinding.ItemMainListBinding
 import com.rsupport.mobile1.test.domain.model.MainRecyclerViewItem
 
 class MainListViewHolder(
-    private val binding: ItemMainListBinding
+    private val binding: ItemMainListBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: MainRecyclerViewItem.MainItem) {
