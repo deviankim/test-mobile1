@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.rsupport.mobile1.test.domain.model.HtmlParseResult
 import com.rsupport.mobile1.test.domain.model.MainList
 import com.rsupport.mobile1.test.domain.model.MainRecyclerViewItem
-import com.rsupport.mobile1.test.domain.usecase.MainUseCase
+import com.rsupport.mobile1.test.domain.usecase.GetMainContentsUseCase
 import com.rsupport.mobile1.test.presentation.main.ui.MainUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val mainUseCase: MainUseCase,
+    private val getMainContentsUseCase: GetMainContentsUseCase,
 ) : ViewModel() {
 
     var previousPage = MutableLiveData<Int>()
@@ -33,7 +33,7 @@ class MainViewModel @Inject constructor(
         _mainUiState.value = MainUiState.Loading
 
         viewModelScope.launch {
-            mainUseCase(pageNumber).collectLatest { htmlParseResult ->
+            getMainContentsUseCase(pageNumber).collectLatest { htmlParseResult ->
                 _mainUiState.value = when (htmlParseResult) {
                     is HtmlParseResult.Success -> MainUiState.Success(htmlParseResult.data.updateToCurrentPage())
                     is HtmlParseResult.Error -> MainUiState.Error(htmlParseResult.exception)

@@ -6,7 +6,7 @@ import com.rsupport.mobile1.test.domain.repository.MainRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class MainUseCase @Inject constructor(
+class GetMainContentsUseCase @Inject constructor(
     private val mainRepository: MainRepository,
 ) {
 
