@@ -1,4 +1,4 @@
-package com.example.feature_crawling
+package com.rsupport.core
 
 import org.junit.Test
 

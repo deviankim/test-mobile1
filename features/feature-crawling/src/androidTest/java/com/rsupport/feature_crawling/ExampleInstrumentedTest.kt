@@ -1,4 +1,4 @@
-package com.example.feature_crawling
+package com.rsupport.feature_crawling
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
