@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace 'com.example.Mobile1TestApp'
+    namespace 'com.rsupport.mobile1.test'
 }
 
 apply from: "../base-build.gradle"
