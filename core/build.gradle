@@ -5,7 +5,7 @@ plugins {
 apply from: "../base-build.gradle"
 
 android {
-    namespace 'com.example.core'
+    namespace 'com.rsupport.mobile1.test.core'
 }
 
 dependencies {

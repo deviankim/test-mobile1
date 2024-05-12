@@ -17,3 +17,5 @@ rootProject.name = "Mobile1TestApp"
 include ':app'
 include ':core'
 include 'features:feature-crawling'
+include ':libraries:network'
+include ':libraries:network-api'

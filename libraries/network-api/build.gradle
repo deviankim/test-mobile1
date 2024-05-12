@@ -1,13 +1,11 @@
 plugins {
     id 'com.android.library'
 }
-
 apply from: "../../base-build.gradle"
 
 android {
-    namespace 'com.rsupport.mobile1.test.feature_crawling'
+    namespace 'com.rsupport.mobile1.test.network_api'
 }
 
 dependencies {
-    implementation project(':core')
 }
