@@ -11,4 +11,6 @@ apply from: "../base-build.gradle"
 dependencies {
     implementation project(':features:feature-crawling')
     implementation project(':core')
+    implementation project(':libraries:network')
+    implementation project(':libraries:network-api')
 }
