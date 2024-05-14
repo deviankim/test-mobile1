@@ -25,7 +25,7 @@ fun MainNavigation(
         composable(Route.CRAWLING) {
             CrawlingScreen(
                 navController,
-                crawlingViewModel.imageUrlList.collectAsState(),
+                crawlingViewModel.imageLoadState.collectAsState(),
                 onClick = {crawlingViewModel.getImage(it)}
             )
         }

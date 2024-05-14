@@ -1,6 +1,7 @@
 package com.rsupport.mobile1.test.feature_crawling.presentation.screen
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -13,6 +14,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,47 +26,75 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.rsupport.mobile1.test.core.ImageLoadState
 
 @Composable
 fun CrawlingScreen(
     navHostController: NavHostController,
-    imageUrls: State<List<String>>,
+    imageLoadState: State<ImageLoadState>,
     onClick: (Int) -> Unit
 ) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(3),
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
-            verticalArrangement = Arrangement.spacedBy(4.dp),
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
-            contentPadding = PaddingValues(4.dp)
-        ) {
-            items(imageUrls.value.size) { index ->
-                AsyncImage(
-                    model = imageUrls.value[index],
-                    contentDescription = "Loaded image",
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(1f),
-                    contentScale = ContentScale.Crop
-                )
-            }
+    var imageUrls: List<String> = emptyList()
+    val context = LocalContext.current
+    when (imageLoadState.value) {
+        is ImageLoadState.Success -> {
+            imageUrls = (imageLoadState.value as ImageLoadState.Success).images
         }
-        PageInputField(onNumberChange = onClick)
+
+        is ImageLoadState.Empty -> {
+            Text("이미지가 없습니다.")
+        }
+
+        is ImageLoadState.Failure -> {
+            Text("이미지 크롤링 실패: ${(imageLoadState.value as ImageLoadState.Failure).error.message}")
+        }
+
+        else -> {}
     }
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(3),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                contentPadding = PaddingValues(4.dp)
+            ) {
+                items(imageUrls.size) { index ->
+                    AsyncImage(
+                        model = imageUrls[index],
+                        contentDescription = "Loaded image",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(1f),
+                        contentScale = ContentScale.Crop
+                    )
+                }
+            }
+            PageInputField(onNumberChange = onClick)
+        }
+        if (imageLoadState.value is ImageLoadState.Loading) {
+            CircularProgressIndicator(
+                modifier = Modifier.align(Alignment.Center)
+            )
+        }
+    }
+
 }
+
 
 @Composable
 fun PageInputField(onNumberChange: (Int) -> Unit) {
