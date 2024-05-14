@@ -26,7 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.rsupport.mobile1.test.core.ImageLoadState
+import com.rsupport.mobile1.test.ui_component.R
 
 @Composable
 fun CrawlingScreen(
@@ -42,18 +43,17 @@ fun CrawlingScreen(
     onClick: (Int) -> Unit
 ) {
     var imageUrls: List<String> = emptyList()
-    val context = LocalContext.current
     when (imageLoadState.value) {
         is ImageLoadState.Success -> {
             imageUrls = (imageLoadState.value as ImageLoadState.Success).images
         }
 
         is ImageLoadState.Empty -> {
-            Text("이미지가 없습니다.")
+            Text(text = stringResource(id = R.string.empty_image))
         }
 
         is ImageLoadState.Failure -> {
-            Text("이미지 크롤링 실패: ${(imageLoadState.value as ImageLoadState.Failure).error.message}")
+            Text(text = stringResource(id = R.string.fail_crawling_image) + " ${(imageLoadState.value as ImageLoadState.Failure).error.message}")
         }
 
         else -> {}
@@ -76,7 +76,7 @@ fun CrawlingScreen(
                 items(imageUrls.size) { index ->
                     AsyncImage(
                         model = imageUrls[index],
-                        contentDescription = "Loaded image",
+                        contentDescription = R.string.loaded_image.toString(),
                         modifier = Modifier
                             .fillMaxWidth()
                             .aspectRatio(1f),
@@ -113,7 +113,7 @@ fun PageInputField(onNumberChange: (Int) -> Unit) {
                 }
             }
         ) {
-            Text("-")
+            Text(text = stringResource(id = R.string.minus))
         }
 
         OutlinedTextField(
@@ -136,7 +136,7 @@ fun PageInputField(onNumberChange: (Int) -> Unit) {
                 onNumberChange(number)
             }
         ) {
-            Text("+")
+            Text(text = stringResource(id = R.string.plus))
         }
     }
 }
