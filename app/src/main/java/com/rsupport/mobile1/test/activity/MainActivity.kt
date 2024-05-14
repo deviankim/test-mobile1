@@ -1,4 +1,4 @@
-package com.rsupport.mobile1.test
+package com.rsupport.mobile1.test.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
