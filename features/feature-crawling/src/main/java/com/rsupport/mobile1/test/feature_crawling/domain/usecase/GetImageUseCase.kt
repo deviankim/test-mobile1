@@ -6,5 +6,7 @@ import javax.inject.Inject
 class GetImageUseCase @Inject constructor(
     private val imageRepository: ImageRepository
 ) {
-    suspend operator fun invoke(page: Int): List<String> = imageRepository.getImage(page)
+    suspend operator fun invoke(page: Int): List<String> {
+        return imageRepository.getImage(page).map { it.url }
+    }
 }
