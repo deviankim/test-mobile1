@@ -1,6 +1,10 @@
 package com.blue.domain.repo
 
+import com.blue.domain.model.PhotoData
+import kotlinx.coroutines.flow.Flow
+
 interface FavoriteRepo {
-    suspend fun addFavoriteRepo(id: Int)
+    fun getFavoriteRepo(): Flow<List<PhotoData>>
+    suspend fun addFavoriteRepo(data: PhotoData)
     suspend fun deleteFavoriteRepo(id: Int)
 }

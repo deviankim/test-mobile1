@@ -4,6 +4,7 @@ import com.blue.domain.repo.FavoriteRepo
 import com.blue.domain.repo.PhotoRepo
 import com.blue.domain.usecase.favorite.AddFavoriteUseCase
 import com.blue.domain.usecase.favorite.DeleteFavoriteUseCase
+import com.blue.domain.usecase.favorite.GetFavoriteUseCase
 import com.blue.domain.usecase.photo.GetPhotoUseCase
 import dagger.Module
 import dagger.Provides
@@ -18,6 +19,11 @@ object UseCaseModule {
     @Singleton
     fun provideGetPhotoUseCase(repo: PhotoRepo): GetPhotoUseCase =
         GetPhotoUseCase(repo)
+
+    @Provides
+    @Singleton
+    fun provideGetFavoriteUseCase(repo: FavoriteRepo): GetFavoriteUseCase =
+        GetFavoriteUseCase(repo)
 
     @Provides
     @Singleton

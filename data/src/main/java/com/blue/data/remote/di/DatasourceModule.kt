@@ -20,7 +20,7 @@ import javax.inject.Singleton
 object DatasourceModule {
     @Singleton
     @Provides
-    fun providePhotoDatasource(retrofit: Retrofit): PhotoDataSource =
+    fun providePhotoDatasource(retrofit: Retrofit): PhotoDataSourceImpl =
         PhotoDataSourceImpl(retrofit)
 
 

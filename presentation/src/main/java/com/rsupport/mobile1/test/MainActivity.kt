@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.rsupport.mobile1.test.screen.HomeScreen
 import com.rsupport.mobile1.test.ui.theme.Mobile1TestAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,30 +26,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    HomeScreen()
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(
-    name: String,
-    modifier: Modifier = Modifier,
-    viewModel: MainViewModel = hiltViewModel()
-) {
-    viewModel
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    Mobile1TestAppTheme {
-        Greeting("Android")
     }
 }

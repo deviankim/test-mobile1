@@ -8,5 +8,5 @@ import retrofit2.http.Streaming
 interface PhotoDataSource {
     @Streaming
     @GET("photos/collaboration")
-    suspend fun getPhotoDataSource()
+    suspend fun getPhotoDataSource(): String
 }
