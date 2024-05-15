@@ -1,5 +1,6 @@
 package com.rsupport.mobile1.test.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.blue.domain.model.PhotoData

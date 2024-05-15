@@ -13,16 +13,14 @@ class FavoriteRepoImpl @Inject constructor(
     private val dao: FavoriteDao
 ): FavoriteRepo {
     override fun getFavoriteRepo(): Flow<List<PhotoData>> =
-        dao.getFavorite().map {
-            it.asDomain()
-        }
+        dao.getFavorite().map { it.asDomain() }
 
 
     override suspend fun addFavoriteRepo(data: PhotoData) {
         dao.addFavorite(data.asEntity())
     }
 
-    override suspend fun deleteFavoriteRepo(id: Int) {
-        dao.deleteFavorite(id)
+    override suspend fun deleteFavoriteRepo(photoId: Int) {
+        dao.deleteFavorite(photoId)
     }
 }

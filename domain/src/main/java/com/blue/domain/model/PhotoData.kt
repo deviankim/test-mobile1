@@ -1,7 +1,7 @@
 package com.blue.domain.model
 
 data class PhotoData(
-    val id: Int,
+    val photoId: Int,
     val photoURL: String,
     val favorite: Boolean,
     val title: String,

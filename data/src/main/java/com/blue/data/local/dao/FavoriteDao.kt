@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FavoriteDao {
-    @Query("SELECT * From favorite")
-    fun getFavoriteID(): Flow<List<FavoriteEntity>>
+    @Query("SELECT id From favorite")
+    fun getFavoriteID(): Flow<List<Int>>
 
     @Query("SELECT * From favorite")
     fun getFavorite(): Flow<List<FavoriteEntity>>
