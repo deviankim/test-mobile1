@@ -86,7 +86,7 @@ object Mapper {
     fun ServerResponse.asDomain(state: Boolean): PhotoData =
             PhotoData(
                 id = id?.toInt() ?: 0,
-                photoUrl = thumbUrl ?: "",
+                photoURL = thumbUrl ?: "",
                 favorite = false,
                 title = title ?: "",
                 artist = artist ?: "",
@@ -97,7 +97,7 @@ object Mapper {
         this.map {
             PhotoData(
                 id = it.id,
-                photoUrl = it.photoUrl,
+                photoURL = it.photoUrl,
                 favorite = it.favorite,
                 title = it.title,
                 artist = it.artist,
@@ -108,7 +108,7 @@ object Mapper {
     fun PhotoData.asEntity(): FavoriteEntity =
         FavoriteEntity(
             photoId = id,
-            photoUrl = photoUrl,
+            photoUrl = photoURL,
             favorite = favorite,
             title = title,
             artist = artist,
