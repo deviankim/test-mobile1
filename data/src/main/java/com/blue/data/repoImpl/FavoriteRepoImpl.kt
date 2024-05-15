@@ -15,6 +15,8 @@ class FavoriteRepoImpl @Inject constructor(
     override fun getFavoriteRepo(): Flow<List<PhotoData>> =
         dao.getFavorite().map { it.asDomain() }
 
+    override fun getFavoriteIdRepo(): Flow<List<Int>> =
+        dao.getFavoriteID()
 
     override suspend fun addFavoriteRepo(data: PhotoData) {
         dao.addFavorite(data.asEntity())

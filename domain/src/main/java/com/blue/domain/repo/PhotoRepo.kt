@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface PhotoRepo {
-    fun getPhotoData(): Flow<List<PhotoData>>
+    suspend fun getPhotoData(): List<PhotoData>
 }

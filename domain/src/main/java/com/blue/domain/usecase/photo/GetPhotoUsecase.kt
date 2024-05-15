@@ -11,6 +11,6 @@ import kotlinx.coroutines.withContext
 class GetPhotoUseCase(
     private val photoRepo: PhotoRepo
 ) {
-    operator fun invoke(): Flow<List<PhotoData>> =
+    suspend operator fun invoke(): List<PhotoData> =
         photoRepo.getPhotoData()
 }

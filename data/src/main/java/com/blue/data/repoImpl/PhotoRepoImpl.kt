@@ -19,14 +19,15 @@ class PhotoRepoImpl @Inject constructor(
     private val photoDataSource: PhotoDataSourceImpl,
     private val favoriteDao: FavoriteDao
 ): PhotoRepo {
-    override fun getPhotoData(): Flow<List<PhotoData>> {
-        return favoriteDao.getFavoriteID().map { idList ->
-            val favoriteId = idList.toMutableList()
-            photoDataSource.getPhotoDataSource().map { data ->
-                val id = data.id?.toInt() ?: -1
-                data.asDomain(favoriteId.contains(id))
-            }
-        }
+    override suspend fun getPhotoData(): List<PhotoData> {
+        return photoDataSource.getPhotoDataSource().map { it.asDomain(false) }
+//        return favoriteDao.getFavoriteID().map { idList ->
+//            val favoriteId = idList.toMutableList()
+//            photoDataSource.getPhotoDataSource().map { data ->
+//                val id = data.id?.toInt() ?: -1
+//                data.asDomain(favoriteId.contains(id))
+//            }
+//        }
 //        return flow {
 //            val favoriteId = favoriteDao.getFavoriteID().first().map { it.photoId }.toMutableList()
 //            Log.e("TAG", "getPhotoData: $favoriteId", )
