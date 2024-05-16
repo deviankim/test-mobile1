@@ -3,7 +3,7 @@ package com.rsupport.mobile1.test.ui.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.rsupport.mobile1.test.common.LruLoader
 import com.rsupport.mobile1.test.databinding.AdapterHomeItemBinding
 import com.rsupport.mobile1.test.model.GettyItem
 
@@ -21,7 +21,11 @@ class HomeAdapter(gettyItem: MutableList<GettyItem>): RecyclerView.Adapter<HomeA
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        Glide.with(holder.binding.imgGetty.context).load(items[position].img).into(holder.binding.imgGetty)
+        LruLoader.loadImage(items[position].img, completed = {
+            it?.let {
+                holder.binding.imgGetty.setImageBitmap(it)
+            }
+        })
         holder.binding.item = items[position]
     }
 
