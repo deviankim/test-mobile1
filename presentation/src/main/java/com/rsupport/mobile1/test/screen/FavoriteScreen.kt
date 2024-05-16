@@ -5,10 +5,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,65 +20,66 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rsupport.mobile1.test.R
-import com.rsupport.mobile1.test.state.UIState
-import com.rsupport.mobile1.test.ui.theme.TestColor
+import com.rsupport.mobile1.test.state.FavoriteUIState
+import com.rsupport.mobile1.test.state.HomeUIState
+import com.rsupport.mobile1.test.ui.theme.RColor
 import com.rsupport.mobile1.test.viewmodel.FavoriteViewModel
 
 @Composable
 fun FavoriteScreen(
     viewModel: FavoriteViewModel = hiltViewModel()
 ) {
-    val uiState = viewModel.favoriteUIState.collectAsStateWithLifecycle()
+    val uiState = viewModel.favoriteHomeUIState.collectAsStateWithLifecycle()
 
     Log.e("TAG", "FavoriteScreen: $uiState")
 
     FavoriteContentWithState(
-        uiState = uiState.value,
+        homeUiState = uiState.value,
         deleteFavorite = viewModel::deleteFavorite
     )
 }
 
 @Composable
 fun FavoriteContentWithState(
-    uiState: UIState,
+    homeUiState: FavoriteUIState,
     deleteFavorite: (Int) -> Unit
 ) {
-    when (uiState) {
-        is UIState.Success -> FavoriteContent(
-            uiState = uiState,
+    when (homeUiState) {
+        is FavoriteUIState.Success -> FavoriteContent(
+            homeUiState = homeUiState,
             deleteFavorite = deleteFavorite
         )
 
-        is UIState.Error -> {
+        is FavoriteUIState.Error -> {
             FavoriteErrorContent(
-                uiState = uiState
+                homeUiState = homeUiState
             )
         }
 
-        is UIState.Loading -> {}
+        is FavoriteUIState.Loading -> {}
     }
 }
 
 @Composable
 fun FavoriteContent(
-    uiState: UIState.Success,
+    homeUiState: FavoriteUIState.Success,
     deleteFavorite: (Int) -> Unit
 ) {
     RLazyColumn(
-        uiState = uiState,
-        refresh = false,
+        photoList = homeUiState.data,
+        refreshAble = false,
         deleteFavorite = deleteFavorite
     )
 }
 
 @Composable
 fun FavoriteErrorContent(
-    uiState: UIState.Error
+    homeUiState: FavoriteUIState.Error
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(TestColor.BackGround),
+            .background(RColor.BackGround),
         verticalArrangement = Arrangement.spacedBy(
             space = 6.dp,
             alignment = Alignment.CenterVertically
@@ -94,13 +93,13 @@ fun FavoriteErrorContent(
             contentDescription = "rsupport_icon"
         )
         Text(
-            text = uiState.mainMassage,
+            text = homeUiState.mainMassage,
             fontWeight = FontWeight.Black,
-            color = TestColor.Primary,
+            color = RColor.Primary,
             fontSize = 16.sp
         )
         Text(
-            text = uiState.subMassage,
+            text = homeUiState.subMassage,
             fontSize = 14.sp
         )
     }
@@ -109,5 +108,5 @@ fun FavoriteErrorContent(
 @Preview
 @Composable
 fun FavoriteErrorContentPreview(){
-    FavoriteErrorContent(uiState = UIState.Error("캡쳐한 이미지가 없어요.", "캡쳐한 이미지가 없어요."))
+    FavoriteErrorContent(homeUiState = FavoriteUIState.Error("캡쳐한 이미지가 없어요.", "캡쳐한 이미지가 없어요."))
 }

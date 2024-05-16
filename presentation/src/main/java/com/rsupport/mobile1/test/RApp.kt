@@ -23,7 +23,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.rsupport.mobile1.test.navigation.Destination
 import com.rsupport.mobile1.test.navigation.TestNavHost
-import com.rsupport.mobile1.test.ui.theme.TestColor
+import com.rsupport.mobile1.test.ui.theme.RColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -56,9 +56,9 @@ fun RTopBar(){
         title = { Text(
             text = "RSupport Test",
             fontSize = 20.sp,
-            color = TestColor.BackGround
+            color = RColor.BackGround
         ) },
-        colors = TopAppBarDefaults.topAppBarColors(containerColor = TestColor.Primary)
+        colors = TopAppBarDefaults.topAppBarColors(containerColor = RColor.Primary)
     )
 }
 
@@ -72,20 +72,22 @@ fun RBottomBar(
     }
 
     NavigationBar(
-        containerColor = TestColor.Primary,
-        contentColor = TestColor.Primary
+        containerColor = RColor.Primary,
+        contentColor = RColor.Primary
     ) {
         barItems.forEachIndexed { index, barItem ->
             NavigationBarItem(
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = TestColor.BackGround,
-                    unselectedIconColor = TestColor.LightPrimary,
-                    indicatorColor = TestColor.Primary
+                    selectedIconColor = RColor.BackGround,
+                    unselectedIconColor = RColor.LightPrimary,
+                    indicatorColor = RColor.Primary
                 ),
                 selected = selectedIndex == index,
                 onClick = {
-                    selectedIndex = index
-                    navController.navigate(barItem.title)
+                    if(selectedIndex != index) {
+                        selectedIndex = index
+                        navController.navigate(barItem.title)
+                    }
                 },
                 label = { Text(text = barItem.title) },
                 icon = {

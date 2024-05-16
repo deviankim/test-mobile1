@@ -1,16 +1,12 @@
 package com.rsupport.mobile1.test.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.blue.domain.model.PhotoData
-import com.blue.domain.usecase.favorite.AddFavoriteUseCase
 import com.blue.domain.usecase.favorite.DeleteFavoriteUseCase
 import com.blue.domain.usecase.favorite.GetFavoriteUseCase
-import com.blue.domain.usecase.photo.GetPhotoUseCase
-import com.rsupport.mobile1.test.state.UIState
+import com.rsupport.mobile1.test.state.FavoriteUIState
+import com.rsupport.mobile1.test.state.HomeUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -25,25 +21,25 @@ class FavoriteViewModel @Inject constructor(
     private val deleteFavoriteUseCase: DeleteFavoriteUseCase
 ): ViewModel() {
 
-    val favoriteUIState: StateFlow<UIState> = getFavoriteUseCase().map {
+    val favoriteHomeUIState: StateFlow<FavoriteUIState> = getFavoriteUseCase().map {
         if(it.isEmpty())
-            UIState.Error(
+            FavoriteUIState.Error(
                 mainMassage = "저장한 이미지가 없어요.",
-                subMassage = "Home 화면에서 이미지의 하트를 눌러봐요!"
+                subMassage = "Home 화면에서 이미지의 하트를 눌러보세요!"
             )
         else
-            UIState.Success(
+            FavoriteUIState.Success(
                 data = it
             )
     }.catch {
-        UIState.Error(
+        FavoriteUIState.Error(
             mainMassage = it.message ?: "Error",
             subMassage = ""
         )
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = UIState.Loading
+        initialValue = FavoriteUIState.Loading
     )
 
     fun deleteFavorite(id: Int){

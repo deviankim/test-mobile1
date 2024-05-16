@@ -1,5 +1,6 @@
 package com.rsupport.mobile1.test.screen
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,14 +16,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import com.blue.domain.model.PhotoData
-import com.rsupport.mobile1.test.state.UIState
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RLazyColumn(
-    uiState: UIState.Success,
-    refresh: Boolean,
+    photoList: List<PhotoData>,
+    refreshAble: Boolean,
     addFavorite: (PhotoData) -> Unit = {},
     deleteFavorite: (Int) -> Unit,
     getPhotoData: () -> Unit = {}
@@ -31,7 +31,6 @@ fun RLazyColumn(
     if (pullRefreshState.isRefreshing) {
         LaunchedEffect(true) {
             getPhotoData()
-            delay(1000)
             pullRefreshState.endRefresh()
         }
     }
@@ -44,8 +43,8 @@ fun RLazyColumn(
             verticalArrangement = Arrangement.spacedBy(14.dp),
             contentPadding = PaddingValues(start = 30.dp, end = 30.dp, top = 14.dp)
         ) {
-            items(uiState.data.size) { index ->
-                val data = uiState.data[index]
+            items(photoList.size) { index ->
+                val data = photoList[index]
                 RPhotoCard(
                     photoURL = data.photoURL,
                     title = data.title,
@@ -60,7 +59,7 @@ fun RLazyColumn(
                 }
             }
         }
-        if(refresh)
+        if(refreshAble)
             PullToRefreshContainer(
                 state = pullRefreshState,
                 modifier = Modifier.align(Alignment.TopCenter)

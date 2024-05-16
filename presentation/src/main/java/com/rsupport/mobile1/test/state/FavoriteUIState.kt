@@ -2,15 +2,15 @@ package com.rsupport.mobile1.test.state
 
 import com.blue.domain.model.PhotoData
 
-sealed interface UIState {
-    data object Loading: UIState
+sealed interface FavoriteUIState {
+    data object Loading: FavoriteUIState
 
     data class Error(
         val mainMassage: String,
         val subMassage: String,
-    ) : UIState
+    ) : FavoriteUIState
 
     data class Success(
-        val data: List<PhotoData>
-    ) : UIState
+        val data: List<PhotoData>,
+    ) : FavoriteUIState
 }

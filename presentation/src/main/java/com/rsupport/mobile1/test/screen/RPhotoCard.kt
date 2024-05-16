@@ -5,6 +5,7 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -33,7 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.rsupport.mobile1.test.ui.theme.TestColor
+import com.rsupport.mobile1.test.ui.theme.RColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -48,10 +49,10 @@ fun RPhotoCard(
 
     var isExpanded by remember { mutableStateOf(false) }
     Surface(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
     ) {
         Card(
-            onClick = { isExpanded = !isExpanded }
+            onClick = { isExpanded = !isExpanded },
         ) {
             AsyncImage(
                 modifier = Modifier
@@ -64,10 +65,11 @@ fun RPhotoCard(
             AnimatedVisibility(
                 visible = isExpanded,
                 enter = fadeIn() + expandVertically(),
-                exit = fadeOut() + shrinkVertically()
+                exit = fadeOut() + shrinkVertically(),
+                modifier = Modifier.background(RColor.Gray)
             ) {
                 Column(
-                    modifier = Modifier.padding(vertical = 10.dp, horizontal = 14.dp)
+                    modifier = Modifier.padding(vertical = 10.dp, horizontal = 14.dp),
                 ) {
                     ExplainRow("title ", title)
                     ExplainRow("Artist", artist)
@@ -85,7 +87,7 @@ fun RPhotoCard(
                 Icon(
                     modifier = Modifier.size(30.dp),
                     imageVector = Icons.Default.Favorite,
-                    tint = if (favorite) TestColor.Primary else TestColor.BackGround,
+                    tint = if (favorite) RColor.Primary else RColor.BackGround,
                     contentDescription = ""
                 )
             }
@@ -101,7 +103,7 @@ fun ExplainRow(
     Row {
         Text(
             text = rowTitle,
-            color = TestColor.Primary,
+            color = RColor.Primary,
             fontSize = 14.sp,
         )
         Text(
