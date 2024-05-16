@@ -17,11 +17,7 @@ import javax.inject.Singleton
 object RepoModule {
     @Singleton
     @Provides
-    fun providePhotoRepo(
-        dataSource: PhotoDataSourceImpl,
-        dao: FavoriteDao
-    ): PhotoRepo =
-        PhotoRepoImpl(dataSource, dao)
+    fun providePhotoRepo(dataSource: PhotoDataSourceImpl): PhotoRepo = PhotoRepoImpl(dataSource)
 
     @Singleton
     @Provides

@@ -30,6 +30,7 @@ fun RLazyColumn(
     val pullRefreshState = rememberPullToRefreshState()
     if (pullRefreshState.isRefreshing) {
         LaunchedEffect(true) {
+            delay(200)
             getPhotoData()
             pullRefreshState.endRefresh()
         }

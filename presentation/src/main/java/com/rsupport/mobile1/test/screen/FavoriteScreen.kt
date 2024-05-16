@@ -31,8 +31,6 @@ fun FavoriteScreen(
 ) {
     val uiState = viewModel.favoriteHomeUIState.collectAsStateWithLifecycle()
 
-    Log.e("TAG", "FavoriteScreen: $uiState")
-
     FavoriteContentWithState(
         homeUiState = uiState.value,
         deleteFavorite = viewModel::deleteFavorite

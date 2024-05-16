@@ -83,11 +83,11 @@ object Mapper {
         }
     }
 
-    fun ServerResponse.asDomain(state: Boolean): PhotoData =
+    fun ServerResponse.asDomain(): PhotoData =
             PhotoData(
                 photoId = id?.toInt() ?: 0,
                 photoURL = thumbUrl ?: "",
-                favorite = state,
+                favorite = false,
                 title = title ?: "",
                 artist = artist ?: "",
                 uploadDate = uploadDate ?: ""

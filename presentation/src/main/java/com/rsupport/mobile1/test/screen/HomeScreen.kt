@@ -1,15 +1,15 @@
 package com.rsupport.mobile1.test.screen
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -21,8 +21,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.blue.domain.model.PhotoData
 import com.rsupport.mobile1.test.R
-import com.rsupport.mobile1.test.state.UIState
-import com.rsupport.mobile1.test.ui.theme.TestColor
+import com.rsupport.mobile1.test.state.HomeUIState
+import com.rsupport.mobile1.test.ui.theme.RColor
 import com.rsupport.mobile1.test.viewmodel.HomeViewModel
 
 @Composable
@@ -31,8 +31,12 @@ fun HomeScreen(
 ) {
     val uiState = viewModel.homeUIState.collectAsStateWithLifecycle()
 
+    LaunchedEffect(true){
+        viewModel.getPhotoData()
+    }
+
     HomeContentWithState(
-        uiState = uiState.value,
+        homeUiState = uiState.value,
         getPhotoData = viewModel::getPhotoData,
         addFavorite = viewModel::addFavorite,
         deleteFavorite = viewModel::deleteFavorite
@@ -41,46 +45,41 @@ fun HomeScreen(
 
 @Composable
 fun HomeContentWithState(
-    uiState: UIState,
+    homeUiState: HomeUIState,
     getPhotoData: () -> Unit,
     addFavorite: (PhotoData) -> Unit,
     deleteFavorite: (Int) -> Unit
 ) {
-
-
-    when (uiState) {
-        is UIState.Success -> {
+    when (homeUiState) {
+        is HomeUIState.Error -> {
+            HomeErrorContent(
+                homeUiState = homeUiState
+            )
+        }
+        is HomeUIState.Success -> {
             HomeContent(
-                uiState = uiState,
+                homeUiState = homeUiState,
                 getPhotoData = getPhotoData,
                 addFavorite = addFavorite,
                 deleteFavorite = deleteFavorite
             )
         }
-
-        is UIState.Error -> {
-            HomeErrorContent(
-                uiState = uiState
-            )
+        is HomeUIState.Loading -> {
+            LoadingProgress()
         }
-
-        is UIState.Loading -> {}
     }
 }
 
 @Composable
 fun HomeContent(
-    uiState: UIState.Success,
+    homeUiState: HomeUIState.Success,
     getPhotoData: () -> Unit,
     addFavorite: (PhotoData) -> Unit,
     deleteFavorite: (Int) -> Unit
 ) {
-
-    getPhotoData()
-
     RLazyColumn(
-        uiState = uiState,
-        refresh = true,
+        photoList = homeUiState.data,
+        refreshAble = true,
         addFavorite = addFavorite,
         deleteFavorite = deleteFavorite,
         getPhotoData = getPhotoData
@@ -89,12 +88,12 @@ fun HomeContent(
 
 @Composable
 fun HomeErrorContent(
-    uiState: UIState.Error
+    homeUiState: HomeUIState.Error
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(TestColor.BackGround),
+            .background(RColor.BackGround),
         verticalArrangement = Arrangement.spacedBy(
             space = 6.dp,
             alignment = Alignment.CenterVertically
@@ -108,14 +107,15 @@ fun HomeErrorContent(
             contentDescription = "rsupport_icon"
         )
         Text(
-            text = uiState.mainMassage,
+            text = homeUiState.mainMassage,
             fontWeight = FontWeight.Black,
-            color = TestColor.Primary,
+            color = RColor.Primary,
             fontSize = 16.sp
         )
         Text(
-            text = uiState.subMassage,
+            text = homeUiState.subMassage,
             fontSize = 14.sp
         )
     }
 }
+
