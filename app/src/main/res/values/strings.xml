@@ -1,3 +1,5 @@
 <resources>
+    <string name="service_url">https://www.gettyimages.com</string>
+
     <string name="app_name">Mobile1TestApp</string>
 </resources>
