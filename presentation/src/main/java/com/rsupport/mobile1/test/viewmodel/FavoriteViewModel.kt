@@ -26,11 +26,20 @@ class FavoriteViewModel @Inject constructor(
 ): ViewModel() {
 
     val favoriteUIState: StateFlow<UIState> = getFavoriteUseCase().map {
-        UIState.Success(
-            data = it
-        )
+        if(it.isEmpty())
+            UIState.Error(
+                mainMassage = "저장한 이미지가 없어요.",
+                subMassage = "Home 화면에서 이미지의 하트를 눌러봐요!"
+            )
+        else
+            UIState.Success(
+                data = it
+            )
     }.catch {
-        UIState.Error(it.message ?: "Error")
+        UIState.Error(
+            mainMassage = it.message ?: "Error",
+            subMassage = ""
+        )
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),

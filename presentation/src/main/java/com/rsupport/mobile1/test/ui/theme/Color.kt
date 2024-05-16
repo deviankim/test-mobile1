@@ -12,6 +12,7 @@ val Pink40 = Color(0xFF7D5260)
 
 object TestColor{
     val Primary = Color(0xFFF04A24)
+    val DarkPrimary = Color(0xFFC93F11)
     val LightPrimary = Color(0xFFF58368)
     val BackGround = Color(0xFFFFFFFF)
     val Gray = Color(0xFFE7EAF1)

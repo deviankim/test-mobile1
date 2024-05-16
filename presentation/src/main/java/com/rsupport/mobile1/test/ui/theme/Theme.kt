@@ -16,9 +16,9 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = TestColor.Primary,
+    secondary = TestColor.Primary,
+    tertiary = TestColor.Primary
 )
 
 @Composable
@@ -30,7 +30,7 @@ fun Mobile1TestAppTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = LightColorScheme.primary.toArgb()
+            window.statusBarColor = TestColor.DarkPrimary.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
         }
     }

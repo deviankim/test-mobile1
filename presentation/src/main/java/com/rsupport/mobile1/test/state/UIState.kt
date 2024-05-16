@@ -5,7 +5,10 @@ import com.blue.domain.model.PhotoData
 sealed interface UIState {
     data object Loading: UIState
 
-    data class Error(val msg: String) : UIState
+    data class Error(
+        val mainMassage: String,
+        val subMassage: String,
+    ) : UIState
 
     data class Success(
         val data: List<PhotoData>

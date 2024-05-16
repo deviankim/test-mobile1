@@ -5,7 +5,6 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,6 +17,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,7 +37,7 @@ import com.rsupport.mobile1.test.ui.theme.TestColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PhotoCard(
+fun RPhotoCard(
     photoURL: String,
     title: String,
     artist: String,
@@ -79,17 +79,16 @@ fun PhotoCard(
             contentAlignment = Alignment.TopEnd,
             modifier = Modifier.padding(6.dp)
         ) {
-            Icon(
-                imageVector = Icons.Default.Favorite,
-                tint = if(favorite) TestColor.Primary else TestColor.BackGround,
-                modifier = Modifier
-                    .size(30.dp)
-                    .clickable {
-                        onFavorite()
-                    }
-                ,
-                contentDescription = ""
-            )
+            IconButton(
+                onClick = { onFavorite() },
+            ) {
+                Icon(
+                    modifier = Modifier.size(30.dp),
+                    imageVector = Icons.Default.Favorite,
+                    tint = if (favorite) TestColor.Primary else TestColor.BackGround,
+                    contentDescription = ""
+                )
+            }
         }
     }
 }
@@ -117,5 +116,5 @@ fun ExplainRow(
 @Preview
 @Composable
 fun PhotoCardPreview() {
-    PhotoCard("", "", "", "", true, {})
+    RPhotoCard("", "", "", "", true, {})
 }

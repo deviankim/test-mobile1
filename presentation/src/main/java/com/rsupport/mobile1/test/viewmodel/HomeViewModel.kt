@@ -48,7 +48,10 @@ class HomeViewModel @Inject constructor(
             data = photoList.map { it.copy(favorite = idList.contains(it.photoId)) }
         )
     }.catch {
-        UIState.Error(it.message ?: "Error")
+        UIState.Error(
+            mainMassage = it.message ?: "Error",
+            subMassage = ""
+        )
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
