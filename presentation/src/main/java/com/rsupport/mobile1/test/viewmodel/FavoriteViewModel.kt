@@ -4,8 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.blue.domain.usecase.favorite.DeleteFavoriteUseCase
 import com.blue.domain.usecase.favorite.GetFavoriteUseCase
-import com.rsupport.mobile1.test.state.FavoriteUIState
-import com.rsupport.mobile1.test.state.HomeUIState
+import com.blue.domain.util.Constants.ERROR_MAIN_EMPTY_LIST
+import com.blue.domain.util.Constants.ERROR_SUB_EMPTY_LIST
+import com.blue.domain.util.Constants.ERROR_UNHANDLED
+import com.rsupport.mobile1.test.state.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -21,27 +23,28 @@ class FavoriteViewModel @Inject constructor(
     private val deleteFavoriteUseCase: DeleteFavoriteUseCase
 ): ViewModel() {
 
-    val favoriteHomeUIState: StateFlow<FavoriteUIState> = getFavoriteUseCase().map {
+    /**
+     * "좋아요"를 누른 Photo List를 통해 Compose에서 사용할 UI State를 생산합니다.
+     * Photo List가 비었을 경우, 예외가 발생한 경우 Error Type을 반환합니다.
+     */
+    val favoriteHomeUIState: StateFlow<UIState> = getFavoriteUseCase().map {
         if(it.isEmpty())
-            FavoriteUIState.Error(
-                mainMassage = "저장한 이미지가 없어요.",
-                subMassage = "Home 화면에서 이미지의 하트를 눌러보세요!"
-            )
+            UIState.Error(ERROR_MAIN_EMPTY_LIST, ERROR_SUB_EMPTY_LIST)
         else
-            FavoriteUIState.Success(
-                data = it
-            )
+            UIState.Success(data = it)
     }.catch {
-        FavoriteUIState.Error(
-            mainMassage = it.message ?: "Error",
-            subMassage = ""
-        )
+        UIState.Error(ERROR_UNHANDLED)
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = FavoriteUIState.Loading
+        initialValue = UIState.Loading
     )
 
+    /**
+     * Photo Id를 통해 내부 저장소에 존재하는 Photo를 삭제하는 함수입니다.
+     *
+     * @param "좋아요"를 누른 Photo ID를 받습니다.
+     */
     fun deleteFavorite(id: Int){
         viewModelScope.launch {
             deleteFavoriteUseCase(id)

@@ -1,6 +1,5 @@
-package com.rsupport.mobile1.test.screen
+package com.rsupport.mobile1.test.ui.screen
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,22 +20,23 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.blue.domain.model.PhotoData
 import com.rsupport.mobile1.test.R
-import com.rsupport.mobile1.test.state.HomeUIState
+import com.rsupport.mobile1.test.state.UIState
 import com.rsupport.mobile1.test.ui.theme.RColor
 import com.rsupport.mobile1.test.viewmodel.HomeViewModel
+
 
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    val uiState = viewModel.homeUIState.collectAsStateWithLifecycle()
+    val homeUIState = viewModel.homeUIState.collectAsStateWithLifecycle()
 
     LaunchedEffect(true){
         viewModel.getPhotoData()
     }
 
     HomeContentWithState(
-        homeUiState = uiState.value,
+        homeUIState = homeUIState.value,
         getPhotoData = viewModel::getPhotoData,
         addFavorite = viewModel::addFavorite,
         deleteFavorite = viewModel::deleteFavorite
@@ -45,26 +45,26 @@ fun HomeScreen(
 
 @Composable
 fun HomeContentWithState(
-    homeUiState: HomeUIState,
+    homeUIState: UIState,
     getPhotoData: () -> Unit,
     addFavorite: (PhotoData) -> Unit,
     deleteFavorite: (Int) -> Unit
 ) {
-    when (homeUiState) {
-        is HomeUIState.Error -> {
+    when (homeUIState) {
+        is UIState.Error -> {
             HomeErrorContent(
-                homeUiState = homeUiState
+                homeUIState = homeUIState
             )
         }
-        is HomeUIState.Success -> {
+        is UIState.Success -> {
             HomeContent(
-                homeUiState = homeUiState,
+                homeUIState = homeUIState,
                 getPhotoData = getPhotoData,
                 addFavorite = addFavorite,
                 deleteFavorite = deleteFavorite
             )
         }
-        is HomeUIState.Loading -> {
+        is UIState.Loading -> {
             LoadingProgress()
         }
     }
@@ -72,13 +72,13 @@ fun HomeContentWithState(
 
 @Composable
 fun HomeContent(
-    homeUiState: HomeUIState.Success,
+    homeUIState: UIState.Success,
     getPhotoData: () -> Unit,
     addFavorite: (PhotoData) -> Unit,
     deleteFavorite: (Int) -> Unit
 ) {
     RLazyColumn(
-        photoList = homeUiState.data,
+        photoList = homeUIState.data,
         refreshAble = true,
         addFavorite = addFavorite,
         deleteFavorite = deleteFavorite,
@@ -88,7 +88,7 @@ fun HomeContent(
 
 @Composable
 fun HomeErrorContent(
-    homeUiState: HomeUIState.Error
+    homeUIState: UIState.Error
 ) {
     Column(
         modifier = Modifier
@@ -107,13 +107,13 @@ fun HomeErrorContent(
             contentDescription = "rsupport_icon"
         )
         Text(
-            text = homeUiState.mainMassage,
+            text = homeUIState.mainMassage,
             fontWeight = FontWeight.Black,
             color = RColor.Primary,
             fontSize = 16.sp
         )
         Text(
-            text = homeUiState.subMassage,
+            text = homeUIState.subMassage,
             fontSize = 14.sp
         )
     }

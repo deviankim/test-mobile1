@@ -7,7 +7,7 @@ import com.blue.data.local.entity.FavoriteEntity
 
 @Database(
     entities = [FavoriteEntity::class],
-    version = 2,
+    version = 1,
     exportSchema = true
 )
 

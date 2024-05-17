@@ -1,6 +1,5 @@
-package com.rsupport.mobile1.test.screen
+package com.rsupport.mobile1.test.ui.screen
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues

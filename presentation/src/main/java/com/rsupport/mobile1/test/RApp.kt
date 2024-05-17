@@ -21,26 +21,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.rsupport.mobile1.test.navigation.Destination
-import com.rsupport.mobile1.test.navigation.TestNavHost
+import com.rsupport.mobile1.test.ui.navigation.Destination
+import com.rsupport.mobile1.test.ui.navigation.TestNavHost
 import com.rsupport.mobile1.test.ui.theme.RColor
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RApp(){
     val barItems = listOf(Destination.HOME, Destination.FAVORITE)
     val navController = rememberNavController()
 
     Scaffold(
-        topBar = {
-            RTopBar()
-        },
-        bottomBar = {
-            RBottomBar(
-                barItems,
-                navController
-            )
-        }
+        topBar = { RTopBar() },
+        bottomBar = { RBottomBar(barItems, navController) }
     ) { padding ->
         TestNavHost(
             modifier = Modifier.padding(padding),

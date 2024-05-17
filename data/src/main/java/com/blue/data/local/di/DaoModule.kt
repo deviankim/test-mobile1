@@ -15,7 +15,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DaoModule {
-
     @Singleton
     @Provides
     fun provideFavoriteDao(database: AppDataBase): FavoriteDao =

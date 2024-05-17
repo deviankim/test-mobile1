@@ -1,4 +1,4 @@
-package com.rsupport.mobile1.test.navigation
+package com.rsupport.mobile1.test.ui.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite

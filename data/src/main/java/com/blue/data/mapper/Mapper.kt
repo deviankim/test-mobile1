@@ -7,6 +7,38 @@ import com.blue.domain.model.PhotoData
 import org.json.JSONObject
 
 object Mapper {
+    fun ServerResponse.asDomain(): PhotoData =
+            PhotoData(
+                photoId = id?.toInt() ?: 0,
+                photoURL = thumbUrl ?: "",
+                favorite = false,
+                title = title ?: "",
+                artist = artist ?: "",
+                uploadDate = uploadDate ?: ""
+            )
+
+    fun List<FavoriteEntity>.asDomain(): List<PhotoData> =
+        this.map {
+            PhotoData(
+                photoId = it.id,
+                photoURL = it.photoUrl,
+                favorite = it.favorite,
+                title = it.title,
+                artist = it.artist,
+                uploadDate = it.uploadTime,
+            )
+        }
+
+    fun PhotoData.asEntity(): FavoriteEntity =
+        FavoriteEntity(
+            id = photoId,
+            photoUrl = photoURL,
+            favorite = favorite,
+            title = title,
+            artist = artist,
+            uploadTime = uploadDate,
+        )
+
     fun List<JSONObject>.asResponse(): List<ServerResponse> {
         return this.map {
             ServerResponse(
@@ -78,40 +110,7 @@ object Mapper {
                 usageInfo = it.optString("usageInfo"),
                 uploadDate = it.optString("uploadDate"),
                 videoUploadDate = it.optString("videoUploadDate")
-
             )
         }
     }
-
-    fun ServerResponse.asDomain(): PhotoData =
-            PhotoData(
-                photoId = id?.toInt() ?: 0,
-                photoURL = thumbUrl ?: "",
-                favorite = false,
-                title = title ?: "",
-                artist = artist ?: "",
-                uploadDate = uploadDate ?: ""
-            )
-
-    fun List<FavoriteEntity>.asDomain(): List<PhotoData> =
-        this.map {
-            PhotoData(
-                photoId = it.id,
-                photoURL = it.photoUrl,
-                favorite = it.favorite,
-                title = it.title,
-                artist = it.artist,
-                uploadDate = it.uploadTime,
-            )
-        }
-
-    fun PhotoData.asEntity(): FavoriteEntity =
-        FavoriteEntity(
-            id = photoId,
-            photoUrl = photoURL,
-            favorite = favorite,
-            title = title,
-            artist = artist,
-            uploadTime = uploadDate,
-        )
 }

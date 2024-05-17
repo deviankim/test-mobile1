@@ -19,21 +19,15 @@ import javax.inject.Singleton
 object RemoteModule {
 
     const val URL = "https://www.gettyimages.com/"
-
-    private var gson: Gson = GsonBuilder().setLenient().create()
-
     @Singleton
     @Provides
     fun provideRetrofit(): Retrofit =
         Retrofit.Builder()
             .baseUrl(URL)
-//            .client(okHttpClient)
-//            .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(okHttpClient)
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()
 
-
-    //네트워크 통신 과정을 보기 위한 클라이언트
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
@@ -48,5 +42,4 @@ object RemoteModule {
         .readTimeout(20, TimeUnit.SECONDS)
         .writeTimeout(20, TimeUnit.SECONDS)
         .build()
-
 }

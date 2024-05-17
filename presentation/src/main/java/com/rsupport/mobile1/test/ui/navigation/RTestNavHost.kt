@@ -1,12 +1,12 @@
-package com.rsupport.mobile1.test.navigation
+package com.rsupport.mobile1.test.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.rsupport.mobile1.test.screen.FavoriteScreen
-import com.rsupport.mobile1.test.screen.HomeScreen
+import com.rsupport.mobile1.test.ui.screen.FavoriteScreen
+import com.rsupport.mobile1.test.ui.screen.HomeScreen
 
 @Composable
 fun TestNavHost(
