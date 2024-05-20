@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="description_ic_top">탑 포지션 이동</string>
+
+    <string name="go_to_finish">한번 더 누르시면 앱을 종료 합니다.</string>
+
+    <string name="retry_button">Retry</string>
+    <string name="result_empty_text">검색 결과가 없습니다. 😓</string>
+    <string name="time_out">Time Out</string>
+    <string name="no_internet_connection">No Internet Connection!</string>
+</resources>

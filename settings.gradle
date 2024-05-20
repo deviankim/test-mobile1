@@ -1,2 +1,6 @@
 rootProject.name = "Mobile1TestApp"
 include ':app'
+include ':common'
+include ':domain'
+include ':data'
+include ':presentation'
