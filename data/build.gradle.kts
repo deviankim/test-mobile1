@@ -58,6 +58,8 @@ dependencies {
     implementation(Dependency.Room.KTX)
     kapt(Dependency.Room.APT)
 
+    implementation(Dependency.Scraping.JSOUP)
+
     implementation(Dependency.KTX.CORE)
     implementation(Dependency.AndroidX.APP_COMPAT)
     testImplementation(AndroidTestDependency.JUNIT)

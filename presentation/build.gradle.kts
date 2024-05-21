@@ -59,16 +59,10 @@ dependencies {
     implementation(Dependency.Navigation.FRAGMENT)
     implementation(Dependency.Navigation.UI)
 
-    implementation(Dependency.Paging3.RUNTIME)
-    implementation(Dependency.Paging3.COMMON)
-
-    implementation(Dependency.UI.SMOOTH_BOTTOM_BAR)
-
     implementation(Dependency.KTX.CORE)
     implementation(Dependency.KTX.FRAGMENT)
     implementation(Dependency.KTX.ACTIVITY)
     implementation(Dependency.KTX.LIFECYCLE_VIEWMODEL)
-    implementation(Dependency.KTX.LIFECYCLE_LIVEDATA)
     implementation(Dependency.AndroidX.APP_COMPAT)
     implementation(Dependency.Google.MATERIAL)
     testImplementation(AndroidTestDependency.JUNIT)

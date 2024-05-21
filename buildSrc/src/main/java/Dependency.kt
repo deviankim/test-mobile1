@@ -60,4 +60,8 @@ object Dependency {
         const val SMOOTH_BOTTOM_BAR = "com.github.ibrahimsn98:SmoothBottomBar:1.7.9"
         const val SWIPE_REFRESH_LAYOUT = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     }
+
+    object Scraping {
+        const val JSOUP = "org.jsoup:jsoup:1.14.3"
+    }
 }
