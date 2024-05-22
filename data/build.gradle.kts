@@ -46,18 +46,6 @@ dependencies {
     implementation(Dependency.Kotlin.COROUTINE_CORE)
     implementation(Dependency.Kotlin.COROUTINE_ANDROID)
 
-    implementation(Dependency.Paging3.RUNTIME)
-    implementation(Dependency.Paging3.COMMON)
-
-    implementation(Dependency.Retrofit.CORE)
-    implementation(Dependency.Retrofit.CONVERT_GSON)
-
-    implementation(Dependency.OkHttp.LOGGING_INTERCEPTOR)
-
-    implementation(Dependency.Room.RUNTIME)
-    implementation(Dependency.Room.KTX)
-    kapt(Dependency.Room.APT)
-
     implementation(Dependency.Scraping.JSOUP)
 
     implementation(Dependency.KTX.CORE)
