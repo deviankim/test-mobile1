@@ -5,8 +5,7 @@ import com.kimwijin.domain.model.ImageInfo
 import com.kimwijin.domain.repository.Repository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -26,7 +25,5 @@ class GetImageUseCase @Inject constructor(
     private val repository: Repository
 ) {
     suspend operator fun invoke(): Flow<Result<List<ImageInfo>>> =
-        withContext(ioDispatcher) {
-            repository.getImages()
-        }
+        repository.getImages().flowOn(ioDispatcher)
 }

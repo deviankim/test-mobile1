@@ -45,9 +45,6 @@ dependencies {
     implementation(Dependency.Kotlin.COROUTINE_CORE)
     implementation(Dependency.Kotlin.COROUTINE_ANDROID)
 
-    implementation(Dependency.Paging3.RUNTIME)
-    implementation(Dependency.Paging3.COMMON)
-
     implementation(Dependency.KTX.CORE)
     implementation(Dependency.AndroidX.APP_COMPAT)
     testImplementation(AndroidTestDependency.JUNIT)
