@@ -2,7 +2,7 @@ package com.kimwijin.data.repository
 
 import com.kimwijin.common.log.TestAppLogger
 import com.kimwijin.data.source.remote.WebService
-import com.kimwijin.data.util.URL
+import com.kimwijin.data.util.PAGE_URL
 import com.kimwijin.domain.base.Result
 import com.kimwijin.domain.model.ImageInfo
 import com.kimwijin.domain.repository.Repository
@@ -27,7 +27,7 @@ class RepositoryImpl @Inject constructor(
 ) : Repository {
     override suspend fun getImages(): Flow<Result<List<ImageInfo>>> = flow {
         try {
-            val doc: Document = webService.fetchWebPage(URL)
+            val doc: Document = webService.fetchWebPage(PAGE_URL)
             val images: Elements = doc.select("img")
             val imageInfoList = images.mapNotNull {
                 if (it.attr("class").isNullOrEmpty()) {
