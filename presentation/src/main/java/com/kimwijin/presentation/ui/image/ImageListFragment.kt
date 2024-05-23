@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kimwijin.domain.model.ImageInfo
@@ -12,6 +13,7 @@ import com.kimwijin.presentation.base.BaseFragment
 import com.kimwijin.presentation.databinding.FragmentImageListBinding
 import com.kimwijin.presentation.ui.image.adapter.ImageListAdpater
 import com.kimwijin.presentation.util.ext.gone
+import com.kimwijin.presentation.util.ext.invisible
 import com.kimwijin.presentation.util.ext.text
 import com.kimwijin.presentation.util.ext.visible
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,6 +44,7 @@ class ImageListFragment : BaseFragment<FragmentImageListBinding>(R.layout.fragme
     override fun initView() {
         initListView()
         initRetryView()
+        initPagingView()
         observeViewState()
     }
 
@@ -49,7 +52,7 @@ class ImageListFragment : BaseFragment<FragmentImageListBinding>(R.layout.fragme
         imageListAdapter = ImageListAdpater()
         binding.rvImages.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext())
+            layoutManager = GridLayoutManager(requireContext(), 3)
             adapter = imageListAdapter
         }
 
@@ -89,6 +92,33 @@ class ImageListFragment : BaseFragment<FragmentImageListBinding>(R.layout.fragme
     private fun initRetryView() {
         binding.btRetry.setOnClickListener {
             loadData()
+        }
+    }
+
+    private fun initPagingView() {
+        binding.apply {
+            btPrev.setOnClickListener {
+               updatePageNumber(tvCurrentPage.text.toString().toInt() - 1)
+            }
+            btNext.setOnClickListener {
+                updatePageNumber(tvCurrentPage.text.toString().toInt() + 1)
+            }
+
+            updatePrevButtonVisibility(tvCurrentPage.text.toString().toInt())
+        }
+    }
+
+    private fun updatePageNumber(page: Int) {
+        viewModel.getImages("$page")
+        binding.tvCurrentPage.text = "$page"
+        updatePrevButtonVisibility(page)
+    }
+
+    private fun updatePrevButtonVisibility(page: Int) {
+        if (page > 1) {
+            binding.btPrev.visible()
+        } else {
+            binding.btPrev.invisible()
         }
     }
 
@@ -133,6 +163,6 @@ class ImageListFragment : BaseFragment<FragmentImageListBinding>(R.layout.fragme
     }
 
     override fun loadData() {
-        viewModel.getImages()
+        viewModel.getImages("1")
     }
 }

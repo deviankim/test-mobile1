@@ -13,6 +13,6 @@ import org.jsoup.nodes.Document
  */
 class JsoupWebServiceImpl : WebService {
 
-    override suspend fun fetchWebPage(url: String): Document =
-        Jsoup.connect(url).get()
+    override suspend fun fetchWebPage(url: String, page: String): Document =
+        Jsoup.connect("$url&page=$page").get()
 }

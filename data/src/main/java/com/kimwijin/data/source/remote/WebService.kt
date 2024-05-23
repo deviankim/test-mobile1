@@ -11,5 +11,5 @@ import org.jsoup.nodes.Document
  * @since (2024-05-21)
  */
 interface WebService {
-    suspend fun fetchWebPage(url: String): Document
+    suspend fun fetchWebPage(url: String, page: String): Document
 }

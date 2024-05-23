@@ -17,5 +17,5 @@ import kotlinx.coroutines.flow.Flow
  * @since (2024-05-20)
  */
 interface Repository {
-    suspend fun getImages(): Flow<Result<List<ImageInfo>>>
+    suspend fun getImages(page: String): Flow<Result<List<ImageInfo>>>
 }

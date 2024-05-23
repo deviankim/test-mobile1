@@ -24,6 +24,6 @@ class GetImageUseCase @Inject constructor(
     @Named("IO") private val ioDispatcher: CoroutineDispatcher,
     private val repository: Repository
 ) {
-    suspend operator fun invoke(): Flow<Result<List<ImageInfo>>> =
-        repository.getImages().flowOn(ioDispatcher)
+    suspend operator fun invoke(page: String): Flow<Result<List<ImageInfo>>> =
+        repository.getImages(page).flowOn(ioDispatcher)
 }
