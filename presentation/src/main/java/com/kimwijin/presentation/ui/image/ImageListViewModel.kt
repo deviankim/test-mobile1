@@ -29,10 +29,10 @@ class ImageListViewModel @Inject constructor(
     private val _state = MutableStateFlow<ImageListViewState>(ImageListViewState.Empty)
     val state: StateFlow<ImageListViewState> = _state
 
-    fun getImages() {
+    fun getImages(page: String) {
         onMain {
             _state.value = ImageListViewState.Loading
-            getImageUseCase.invoke()
+            getImageUseCase.invoke(page)
                 .catch { caues ->
                     _state.value = ImageListViewState.Error(caues.message)
                     TestAppLogger.d("kwj ERROR = $caues")

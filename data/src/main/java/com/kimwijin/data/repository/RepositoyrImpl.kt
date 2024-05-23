@@ -25,9 +25,9 @@ import javax.inject.Inject
 class RepositoryImpl @Inject constructor(
     private val webService: WebService
 ) : Repository {
-    override suspend fun getImages(): Flow<Result<List<ImageInfo>>> = flow {
+    override suspend fun getImages(page: String): Flow<Result<List<ImageInfo>>> = flow {
         try {
-            val doc: Document = webService.fetchWebPage(PAGE_URL)
+            val doc: Document = webService.fetchWebPage(PAGE_URL, page)
             val images: Elements = doc.select("img")
             val imageInfoList = images.mapNotNull {
                 if (it.attr("class").isNullOrEmpty()) {
