@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.rsupport.mobile1.test.R
 
 class GettyAdapter(var items: ArrayList<GettyItem>) :RecyclerView.Adapter<GettyAdapter.ViewHolder>() {
@@ -28,7 +27,7 @@ class GettyAdapter(var items: ArrayList<GettyItem>) :RecyclerView.Adapter<GettyA
             val title = itemView.findViewById<TextView>(R.id.title)
 
             title.text = item.title
-            Glide.with(itemView).load(item.src).into(image)
+            ImageLoader.load(item.src, image)
         }
     }
 }
