@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Mobile1TestApp</string>
+    <string name="app_name">RSupportTestApp</string>
+    <string name="hello_rsupport">Hello RSUPPORT</string>
 </resources>
