@@ -23,4 +23,9 @@ class ImageAdapter(private var imgUrlData: List<String>) : RecyclerView.Adapter<
     }
 
     override fun getItemCount() = imgUrlData.size
+
+    fun updateData(newData: List<String>) {
+        imgUrlData = newData
+        notifyDataSetChanged()
+    }
 }
