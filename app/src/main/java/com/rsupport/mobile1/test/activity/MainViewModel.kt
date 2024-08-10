@@ -1,0 +1,57 @@
+package com.rsupport.mobile1.test.activity
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.jsoup.HttpStatusException
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
+import org.jsoup.select.Elements
+
+class MainViewModel : ViewModel() {
+    private val _imgUrlData = MutableLiveData<List<String>>()
+    val imgUrlData: LiveData<List<String>> get() = _imgUrlData
+
+    fun fetchIcons(searchWord: String) {
+        viewModelScope.launch {
+            try {
+                val iconUrls = getIconUrls(searchWord)
+                _imgUrlData.value = iconUrls
+            } catch (e: Exception) {
+                // Handle exception or update UI to show error
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private suspend fun getIconUrls(searchWord: String): List<String> =
+        withContext(Dispatchers.IO) {
+            val iconUrls = mutableListOf<String>()
+            try {
+                val url = "https://www.gettyimages.com/photos/$searchWord"
+                val userAgent =
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+
+                val doc: Document = Jsoup.connect(url).userAgent(userAgent).get()
+                val elements: Elements = doc.select("img")
+
+                for (element in elements) {
+                    val imgUrl = element.attr("src")
+                    if (imgUrl.isNotEmpty() && imgUrl.startsWith("http")) {
+                        iconUrls.add(imgUrl)
+                    }
+                }
+            } catch (e: HttpStatusException) {
+                // HTTP errors
+                e.printStackTrace()
+            } catch (e: Exception) {
+                // other exceptions
+                e.printStackTrace()
+            }
+            iconUrls
+        }
+}
