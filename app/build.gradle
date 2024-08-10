@@ -49,8 +49,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
     // livedata
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
-    // Fragment KTX for using viewModels in Fragments
-    implementation 'androidx.fragment:fragment-ktx:1.6.0'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.6.0'
