@@ -1,5 +1,6 @@
 package com.rsupport.mobile1.test.activity
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,6 +14,8 @@ import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
 
 class MainViewModel : ViewModel() {
+    private val TAG = MainViewModel::class.java.simpleName
+
     private val _imgUrlData = MutableLiveData<List<String>>()
     val imgUrlData: LiveData<List<String>> get() = _imgUrlData
 
@@ -22,7 +25,6 @@ class MainViewModel : ViewModel() {
                 val iconUrls = getIconUrls(searchWord)
                 _imgUrlData.value = iconUrls
             } catch (e: Exception) {
-                // Handle exception or update UI to show error
                 e.printStackTrace()
             }
         }
@@ -46,10 +48,10 @@ class MainViewModel : ViewModel() {
                     }
                 }
             } catch (e: HttpStatusException) {
-                // HTTP errors
+                Log.e(TAG, "HTTP error", e)
                 e.printStackTrace()
             } catch (e: Exception) {
-                // other exceptions
+                Log.e(TAG, "Other Error", e)
                 e.printStackTrace()
             }
             iconUrls
