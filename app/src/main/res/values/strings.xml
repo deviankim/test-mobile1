@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Mobile1TestApp</string>
+
+    <!--    MainActivity-->
+    <string name="txt_search_hint">단어를 입력해주세요.</string>
+    <string name="txt_search">검색</string>
 </resources>
