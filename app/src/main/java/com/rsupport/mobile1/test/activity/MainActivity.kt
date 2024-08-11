@@ -78,6 +78,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun searchImage(query: String) {
         Log.d(TAG, "searchImage: $query")
-        mainViewModel.fetchIcons(query)
+        if(query.isNotEmpty()) {
+            mainViewModel.fetchIcons(query)
+        }
     }
 }
