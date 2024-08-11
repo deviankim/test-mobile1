@@ -20,6 +20,9 @@
         android:padding="10dp"
         android:textColor="@color/black"
         android:textColorHint="@color/black30"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:maxLines="1"
         app:layout_constraintEnd_toStartOf="@id/btn_search"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,16 +43,36 @@
         app:layout_constraintStart_toEndOf="@id/edit_text_search"
         app:layout_constraintTop_toTopOf="@id/edit_text_search" />
 
-    <!-- RecyclerView to display images -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_image_list"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_search" />
+        app:layout_constraintTop_toBottomOf="@id/edit_text_search">
+
+        <!-- RecyclerView to display images -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_image_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <TextView
+        android:id="@+id/tv_network_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/txt_network_error"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
