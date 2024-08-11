@@ -5,4 +5,5 @@
     <string name="txt_search_hint">단어를 입력해주세요.</string>
     <string name="txt_search">검색</string>
     <string name="txt_image_item">이미지 아이템</string>
+    <string name="txt_network_error">네트워크 연결 상태를 확인해주세요.</string>
 </resources>
