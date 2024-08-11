@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.rsupport.mobile1.test.R
 import com.rsupport.mobile1.test.activity.adapter.ImageAdapter
 import com.rsupport.mobile1.test.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val TAG: String = MainActivity::class.java.simpleName
 
