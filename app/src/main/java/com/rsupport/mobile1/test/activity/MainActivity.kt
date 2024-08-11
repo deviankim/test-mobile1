@@ -1,5 +1,6 @@
 package com.rsupport.mobile1.test.activity
 
+import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -40,12 +41,13 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerImageList.adapter = adapter
 
         setObservers()
-        searchImage("collaboration")
+        networkCheck("collaboration")
     }
 
     private fun setObservers() {
         mainViewModel.imgUrlData.observe(this) { imgUrlData ->
             adapter.updateData(imgUrlData)
+            binding.swipeRefreshLayout.isRefreshing = false
         }
 
         binding.editTextSearch.addTextChangedListener(object : TextWatcher {
@@ -71,10 +73,21 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            networkCheck("collaboration")
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
     }
 
     fun requestImage(view: View) {
+        // 검색어가 없을 경우 버튼 클릭 무시
+        if(binding.editTextSearch.text.toString().trim().isEmpty()) {
+            return
+        }
+
         val query = binding.editTextSearch.text.toString().trim()
+        networkCheck(query)
         searchImage(query)
     }
 
@@ -83,5 +96,28 @@ class MainActivity : AppCompatActivity() {
         if(query.isNotEmpty()) {
             mainViewModel.fetchIcons(query)
         }
+    }
+
+    // Network Check
+    private fun networkCheck(query: String) {
+        var data = query
+
+        if(binding.editTextSearch.text.toString().trim().isNotEmpty())
+            data = binding.editTextSearch.text.toString().trim()
+
+        if(isNetworkAvailable()) {
+            mainViewModel.fetchIcons(data)
+            binding.tvNetworkError.visibility = View.GONE
+            binding.recyclerImageList.visibility = View.VISIBLE
+        } else {
+            binding.tvNetworkError.visibility = View.VISIBLE
+            binding.recyclerImageList.visibility = View.GONE
+        }
+    }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
     }
 }
