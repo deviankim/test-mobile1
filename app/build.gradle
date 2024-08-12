@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id "org.jlleitschuh.gradle.ktlint" version "11.1.0"
 }
 
 android {
@@ -69,3 +70,15 @@ dependencies {
 kapt {
     correctErrorTypes = true
 }
+
+ktlint {
+    android = true // Enable Android-specific linting rules
+    ignoreFailures = false // Fail the build if KtLint finds any issues
+    disabledRules = ["final-newline", "no-wildcard-imports", "max-line-length"] // Specify any rules to ignore
+    reporters {
+        reporter("plain") // Output KtLint results in plain text format
+        reporter("html") // Output KtLint results in HTML format
+    }
+}
+
+tasks.getByPath("preBuild").dependsOn("ktlintFormat")

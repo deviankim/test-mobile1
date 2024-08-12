@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {
                 // 텍스트가 변경된 후에 수행할 작업
                 s?.let {
-                    if(it.isNotEmpty()) {
+                    if (it.isNotEmpty()) {
                         binding.btnSearch.setBackgroundColor(getColor(R.color.flamingo))
                         binding.btnSearch.setTextColor(getColor(R.color.white))
                     } else {
@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
 
     fun requestImage(view: View) {
         // 검색어가 없을 경우 버튼 클릭 무시
-        if(binding.editTextSearch.text.toString().trim().isEmpty()) {
+        if (binding.editTextSearch.text.toString().trim().isEmpty()) {
             return
         }
 
@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun searchImage(query: String) {
         Log.d(TAG, "searchImage: $query")
-        if(query.isNotEmpty()) {
+        if (query.isNotEmpty()) {
             mainViewModel.fetchIcons(query)
         }
     }
@@ -103,10 +103,10 @@ class MainActivity : AppCompatActivity() {
     private fun networkCheck(query: String) {
         var data = query
 
-        if(binding.editTextSearch.text.toString().trim().isNotEmpty())
+        if (binding.editTextSearch.text.toString().trim().isNotEmpty())
             data = binding.editTextSearch.text.toString().trim()
 
-        if(isNetworkAvailable()) {
+        if (isNetworkAvailable()) {
             mainViewModel.fetchIcons(data)
             binding.tvNetworkError.visibility = View.GONE
             binding.recyclerImageList.visibility = View.VISIBLE
