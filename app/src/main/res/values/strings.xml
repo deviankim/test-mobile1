@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mobile1TestApp</string>
+    <string name="app_name">SearchImage</string>
 
     <!--    MainActivity-->
     <string name="txt_search_hint">단어를 입력해주세요.</string>
