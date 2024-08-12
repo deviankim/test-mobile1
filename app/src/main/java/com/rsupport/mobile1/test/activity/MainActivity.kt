@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val adapter = ImageAdapter(mutableListOf())
     private lateinit var mainViewModel: MainViewModel
+    private val defaultStr = "collaboration"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerImageList.adapter = adapter
 
         setObservers()
-        networkCheck("collaboration")
+        networkCheck(defaultStr)
     }
 
     private fun setObservers() {
@@ -75,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         binding.swipeRefreshLayout.setOnRefreshListener {
-            networkCheck("collaboration")
+            networkCheck(defaultStr)
             binding.swipeRefreshLayout.isRefreshing = false
         }
     }
