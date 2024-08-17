@@ -56,9 +56,11 @@ dependencies {
     def rxkotlin_version = "3.0.1"
     def retrofit_version = "2.9.0"
     def logging_interceptor_version = "4.9.3"
+    def activity_version = "1.9.1"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.13.1'
+    implementation "androidx.activity:activity-ktx:$activity_version"
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
 
