@@ -57,6 +57,7 @@ dependencies {
     def retrofit_version = "2.9.0"
     def logging_interceptor_version = "4.9.3"
     def activity_version = "1.9.1"
+    def jsoup_version = "1.17.2"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.13.1'
@@ -82,6 +83,9 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava3:$retrofit_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$logging_interceptor_version"
+
+    // Jsoup
+    implementation("org.jsoup:jsoup:$jsoup_version")
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
