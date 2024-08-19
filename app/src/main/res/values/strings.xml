@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Mobile1TestApp</string>
+    <string name="view_holder_image">이미지</string>
 </resources>
