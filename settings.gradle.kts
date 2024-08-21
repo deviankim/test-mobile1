@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "Mobile1TestApp"
 include(":app")
+include(":data")
