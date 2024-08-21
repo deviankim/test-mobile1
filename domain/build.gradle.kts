@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.data"
+    namespace = "com.example.domain"
     compileSdk = 34
 
     defaultConfig {
@@ -33,18 +33,15 @@ android {
 
 dependencies {
 
-    implementation(project(":domain"))
-
-    implementation("org.jsoup:jsoup:1.13.1")
-    implementation("androidx.paging:paging-runtime-ktx:3.3.2")
-    implementation("androidx.paging:paging-common-ktx:3.3.2")
+    implementation("androidx.core:core-ktx:1.13.1")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("com.google.android.material:material:1.12.0")
 
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
 
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("com.google.android.material:material:1.12.0")
+    implementation("androidx.paging:paging-common-ktx:3.3.2")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
