@@ -36,8 +36,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        binding.btnRetry.setOnClickListener {
-            gettyImageAdapter.retry()
+        with(binding) {
+            btnRetry.setOnClickListener {
+                gettyImageAdapter.retry()
+            }
+            srlGetty.setOnRefreshListener {
+                gettyImageAdapter.refresh()
+                srlGetty.isRefreshing = false
+            }
         }
     }
 
