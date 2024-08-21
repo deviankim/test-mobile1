@@ -36,6 +36,8 @@ dependencies {
     implementation(project(":domain"))
 
     implementation("org.jsoup:jsoup:1.13.1")
+    implementation("androidx.paging:paging-runtime-ktx:3.3.2")
+    implementation("androidx.paging:paging-common-ktx:3.3.2")
 
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
