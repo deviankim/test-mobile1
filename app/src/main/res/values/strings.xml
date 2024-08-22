@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Mobile1TestApp</string>
+    <string name="retry_msg">재시도</string>
+    <string name="no_internet_connection">인터넷에 연결되어 있지 않습니다.\n 네트워크 연결을 확인해주세요.</string>
+    <string name="no_search_results">검색 결과가 없습니다.</string>
+    <string name="getty_description">Getty image</string>
 </resources>
