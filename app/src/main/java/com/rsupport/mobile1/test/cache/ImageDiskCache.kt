@@ -63,6 +63,7 @@ class ImageDiskCache(@ApplicationContext context: Context) : ImageCache {
                     try {
                         editor?.abort()
                     } catch (ignored: IOException) {}
+                    println("Failed to add image to disk cache: ${e.message}")
                 }
 
         }
@@ -93,7 +94,7 @@ class ImageDiskCache(@ApplicationContext context: Context) : ImageCache {
             try {
                 diskLruCache?.delete()
             } catch (e: IOException) {
-                e.printStackTrace()
+                println("Failed to clear image disk cache: ${e.message}")
             }
         }
     }
