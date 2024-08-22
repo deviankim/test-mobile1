@@ -1,9 +1,12 @@
 package com.rsupport.mobile1.test.image
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.view.ViewTreeObserver.OnPreDrawListener
 import android.widget.ImageView
+import com.rsupport.mobile1.test.cache.ImageCacheHelper
+import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
@@ -14,10 +17,26 @@ object ImageLoader {
         OkHttpClient.Builder().build()
     }
 
+    private var imageCacheHelper: ImageCacheHelper? = null
+
+    /**
+     * Application 에 선언
+     */
+    fun init(@ApplicationContext context: Context) {
+        imageCacheHelper = ImageCacheHelper(context)
+    }
+
     fun load(view: ImageView, imageUrl: String) {
         view.viewTreeObserver?.addOnPreDrawListener(object : OnPreDrawListener {
             override fun onPreDraw(): Boolean {
-                downloadImage(imageUrl, view)
+                val bitmap = imageCacheHelper?.readFromCache(imageUrl)
+
+                if (bitmap == null) {
+                    downloadImage(imageUrl, view)
+                } else {
+                    view.post { view.setImageBitmap(bitmap) }
+                }
+
                 view.viewTreeObserver?.removeOnPreDrawListener(this)
                 return true
             }
@@ -36,7 +55,10 @@ object ImageLoader {
 
             override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
                 val byteArray = response.body?.bytes()
-                val bitmap = byteArray?.let { decodeSampledBitmapFromByteArray(it, view.width, view.height) }
+                val bitmap = byteArray?.let { decodeSampledBitmapFromByteArray(it, view.width, view.height) }?.also {
+                    imageCacheHelper?.writeToCache(imageUrl, it)
+                }
+
                 view.post { view.setImageBitmap(bitmap) }
             }
         })
@@ -79,5 +101,9 @@ object ImageLoader {
         }
 
         return inSampleSize
+    }
+
+    fun clearCache() {
+        imageCacheHelper?.clearCache()
     }
 }
