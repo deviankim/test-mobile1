@@ -66,17 +66,18 @@ class MainActivity : AppCompatActivity() {
 
                 is UiState.Empty -> {
 
-
+                    binding.activityMainRefreshLayout.isRefreshing = false
                 }
 
                 is UiState.Success -> {
                     pageScrollListener.pagingEnable = state.isMore
                     adapter?.submitList(state.data)
+                    binding.activityMainRefreshLayout.isRefreshing = false
                 }
 
                 is UiState.Error -> {
 
-
+                    binding.activityMainRefreshLayout.isRefreshing = false
                 }
             }
         }
@@ -86,6 +87,10 @@ class MainActivity : AppCompatActivity() {
         binding.activityMainTopScrollBtn.setOnClickListener {
             binding.activityMainRecyclerview.stopScroll()
             binding.activityMainRecyclerview.layoutManager?.scrollToPosition(0)
+        }
+
+        binding.activityMainRefreshLayout.setOnRefreshListener {
+            viewModel.refresh()
         }
     }
 }
