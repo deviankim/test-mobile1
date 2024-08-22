@@ -2,4 +2,6 @@
     <string name="app_name">Mobile1TestApp</string>
     <string name="view_holder_image">이미지</string>
     <string name="activity_main_top_scroll_icon">리스트 상단 이동 아이콘</string>
+    <string name="empty_view_icon">이미지 없음 아이콘</string>
+    <string name="empty_view_title">이미지가 없습니다.</string>
 </resources>

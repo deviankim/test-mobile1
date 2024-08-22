@@ -29,7 +29,11 @@ class MainViewModel @Inject constructor(private val repository: PhotoRepository)
     fun fetchCollaborationPhoto() {
         repository.fetchCollaborationPhoto(page)
             .subscribe({ response ->
-                _state.postValue(UiState.Success(response.data, response.isMore))
+                if (response.data.isEmpty()) {
+                    _state.postValue(UiState.Empty)
+                } else {
+                    _state.postValue(UiState.Success(response.data, response.isMore))
+                }
             }, { t: Throwable? ->
                 _state.postValue(UiState.Error())
             })

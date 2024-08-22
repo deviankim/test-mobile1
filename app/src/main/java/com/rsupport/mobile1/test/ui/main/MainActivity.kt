@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 is UiState.Empty -> {
-
+                    binding.activityMainEmptyView.visibility = View.VISIBLE
                     binding.activityMainRefreshLayout.isRefreshing = false
                     binding.activityMainSkeletonContainer.visibility = View.GONE
                 }
@@ -71,12 +71,13 @@ class MainActivity : AppCompatActivity() {
                 is UiState.Success -> {
                     pageScrollListener.pagingEnable = state.isMore
                     adapter?.submitList(state.data)
+                    binding.activityMainEmptyView.visibility = View.GONE
                     binding.activityMainRefreshLayout.isRefreshing = false
                     binding.activityMainSkeletonContainer.visibility = View.GONE
                 }
 
                 is UiState.Error -> {
-
+                    binding.activityMainEmptyView.visibility = View.GONE
                     binding.activityMainRefreshLayout.isRefreshing = false
                     binding.activityMainSkeletonContainer.visibility = View.GONE
                 }
