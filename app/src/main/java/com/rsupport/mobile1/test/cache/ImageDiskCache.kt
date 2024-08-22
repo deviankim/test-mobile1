@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Environment
+import android.util.Log
 import com.jakewharton.disklrucache.DiskLruCache
 import com.jakewharton.disklrucache.DiskLruCache.Snapshot
 import com.rsupport.mobile1.test.BuildConfig
@@ -27,6 +28,7 @@ class ImageDiskCache(@ApplicationContext context: Context) : ImageCache {
         private const val COMPRESS_QUALITY: Int = 100
     }
 
+    private val TAG = ImageDiskCache::class.simpleName
     private var diskLruCache: DiskLruCache? = null
     private val diskCacheLock = ReentrantLock()
     private val diskCacheLockCondition: Condition = diskCacheLock.newCondition()
@@ -43,7 +45,7 @@ class ImageDiskCache(@ApplicationContext context: Context) : ImageCache {
     }
 
     override fun add(url: String, bitmap: Bitmap) {
-        synchronized(diskCacheLock) {
+        diskCacheLock.withLock {
                 val key = url.hashSHA256()
                 var editor: DiskLruCache.Editor? = null
                 try {
@@ -61,6 +63,7 @@ class ImageDiskCache(@ApplicationContext context: Context) : ImageCache {
                     try {
                         editor?.abort()
                     } catch (ignored: IOException) {}
+                    println("Failed to add image to disk cache: ${e.message}")
                 }
 
         }
@@ -87,7 +90,13 @@ class ImageDiskCache(@ApplicationContext context: Context) : ImageCache {
     }
 
     override fun clear() {
-        diskLruCache?.delete()
+        diskCacheLock.withLock {
+            try {
+                diskLruCache?.delete()
+            } catch (e: IOException) {
+                println("Failed to clear image disk cache: ${e.message}")
+            }
+        }
     }
 
     /**

@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.view.ViewTreeObserver.OnPreDrawListener
 import android.widget.ImageView
+import com.rsupport.mobile1.test.R
 import com.rsupport.mobile1.test.cache.ImageCacheHelper
 import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.OkHttpClient
@@ -44,24 +45,45 @@ object ImageLoader {
     }
 
     private fun downloadImage(imageUrl: String, view: ImageView) {
-        val request = Request.Builder()
-            .url(imageUrl)
-            .build()
+        try {
+            val request = Request.Builder()
+                .url(imageUrl)
+                .build()
 
-        client.newCall(request).enqueue(object : okhttp3.Callback {
-            override fun onFailure(call: okhttp3.Call, e: IOException) {
-                e.printStackTrace()
-            }
-
-            override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
-                val byteArray = response.body?.bytes()
-                val bitmap = byteArray?.let { decodeSampledBitmapFromByteArray(it, view.width, view.height) }?.also {
-                    imageCacheHelper?.writeToCache(imageUrl, it)
+            client.newCall(request).enqueue(object : okhttp3.Callback {
+                override fun onFailure(call: okhttp3.Call, e: IOException) {
+                    e.printStackTrace()
+                    view.post {
+                        view.setImageResource(R.drawable.error_image_24)
+                    }
                 }
 
-                view.post { view.setImageBitmap(bitmap) }
+                override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
+                    val byteArray = response.body?.bytes()
+                    val bitmap = byteArray?.let {
+                        decodeSampledBitmapFromByteArray(
+                            it,
+                            view.width,
+                            view.height
+                        )
+                    }?.also {
+                        imageCacheHelper?.writeToCache(imageUrl, it)
+                    }
+
+                    view.post {
+                        if (view.isAttachedToWindow) {
+                            view.setImageBitmap(bitmap)
+                        }
+                    }
+                }
+            })
+
+        } catch (e: IllegalArgumentException) {
+            e.printStackTrace()
+            view.post {
+                view.setImageResource(R.drawable.error_image_24)
             }
-        })
+        }
     }
 
     private fun decodeSampledBitmapFromByteArray(
