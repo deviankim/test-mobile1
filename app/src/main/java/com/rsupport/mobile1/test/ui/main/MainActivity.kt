@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onTop(isTop: Boolean) {
+            binding.activityMainTopScrollBtn.visibility = if (isTop) View.GONE else View.VISIBLE
         }
     }
 
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setupRecyclerView()
+        listener()
         subscribe()
         viewModel.fetchCollaborationPhoto()
     }
@@ -77,6 +79,13 @@ class MainActivity : AppCompatActivity() {
 
                 }
             }
+        }
+    }
+
+    private fun listener() {
+        binding.activityMainTopScrollBtn.setOnClickListener {
+            binding.activityMainRecyclerview.stopScroll()
+            binding.activityMainRecyclerview.layoutManager?.scrollToPosition(0)
         }
     }
 }
