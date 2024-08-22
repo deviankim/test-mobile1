@@ -35,7 +35,7 @@ class MainViewModel @Inject constructor(private val repository: PhotoRepository)
                     _state.postValue(UiState.Success(response.data, response.isMore))
                 }
             }, { t: Throwable? ->
-                _state.postValue(UiState.Error())
+                _state.postValue(UiState.Error(exception=t))
             })
             .apply { compositeDisposable.add(this) }
     }

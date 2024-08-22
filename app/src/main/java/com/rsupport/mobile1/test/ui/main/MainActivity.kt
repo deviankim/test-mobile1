@@ -1,8 +1,8 @@
 package com.rsupport.mobile1.test.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 is UiState.Error -> {
-                    binding.activityMainEmptyView.visibility = View.GONE
+                    Toast.makeText(this, "${state.exception?.message}", Toast.LENGTH_SHORT).show()
                     binding.activityMainRefreshLayout.isRefreshing = false
                     binding.activityMainSkeletonContainer.visibility = View.GONE
                 }
