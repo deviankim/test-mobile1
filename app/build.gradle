@@ -58,6 +58,7 @@ dependencies {
     def logging_interceptor_version = "4.9.3"
     def activity_version = "1.9.1"
     def jsoup_version = "1.17.2"
+    def disk_lru_cache_version = "2.0.2"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.13.1'
@@ -86,6 +87,9 @@ dependencies {
 
     // Jsoup
     implementation("org.jsoup:jsoup:$jsoup_version")
+
+    // Disk LRU Cache
+    implementation "com.jakewharton:disklrucache:$disk_lru_cache_version"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
