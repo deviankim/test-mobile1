@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Mobile1TestApp</string>
     <string name="view_holder_image">이미지</string>
+    <string name="activity_main_top_scroll_icon">리스트 상단 이동 아이콘</string>
 </resources>

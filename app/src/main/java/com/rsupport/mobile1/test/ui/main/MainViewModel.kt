@@ -14,13 +14,24 @@ class MainViewModel @Inject constructor(private val repository: PhotoRepository)
 
     private val _state = MutableLiveData<UiState<List<Photo>>>(UiState.Uninitialized)
     val state: LiveData<UiState<List<Photo>>> get() = _state
+    private var page = 1
 
-    fun requestApi() {
+    fun nextPage() {
+        page++
+        fetchCollaborationPhoto()
+    }
+
+    fun refresh() {
+        page = 1
+        fetchCollaborationPhoto()
+    }
+
+    fun fetchCollaborationPhoto() {
         _state.postValue(UiState.Loading)
 
-        repository.fetchCollaborationPhoto()
-            .subscribe({ photoList ->
-                _state.postValue(UiState.Success(photoList))
+        repository.fetchCollaborationPhoto(page)
+            .subscribe({ response ->
+                _state.postValue(UiState.Success(response.data, response.isMore))
             }, { t: Throwable? ->
                 _state.postValue(UiState.Error())
             })

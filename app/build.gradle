@@ -59,6 +59,7 @@ dependencies {
     def activity_version = "1.9.1"
     def jsoup_version = "1.17.2"
     def disk_lru_cache_version = "2.0.2"
+    def swipe_refresh_version = "1.1.0"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.13.1'
@@ -90,6 +91,9 @@ dependencies {
 
     // Disk LRU Cache
     implementation "com.jakewharton:disklrucache:$disk_lru_cache_version"
+
+    //Swipe Refresh Layout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_refresh_version"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
