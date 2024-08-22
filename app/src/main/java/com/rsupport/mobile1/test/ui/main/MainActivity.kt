@@ -60,10 +60,6 @@ class MainActivity : AppCompatActivity() {
             when (state) {
                 is UiState.Uninitialized -> {}
 
-                is UiState.Loading -> {
-
-                }
-
                 is UiState.Empty -> {
 
                     binding.activityMainRefreshLayout.isRefreshing = false

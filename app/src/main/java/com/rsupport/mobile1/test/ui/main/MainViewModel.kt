@@ -27,8 +27,6 @@ class MainViewModel @Inject constructor(private val repository: PhotoRepository)
     }
 
     fun fetchCollaborationPhoto() {
-        _state.postValue(UiState.Loading)
-
         repository.fetchCollaborationPhoto(page)
             .subscribe({ response ->
                 _state.postValue(UiState.Success(response.data, response.isMore))
