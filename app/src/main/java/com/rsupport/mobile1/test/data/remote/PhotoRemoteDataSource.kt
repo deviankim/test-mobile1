@@ -4,5 +4,5 @@ import io.reactivex.rxjava3.core.Single
 
 interface PhotoRemoteDataSource {
 
-    fun fetchCollaborationPhotoHtml(): Single<String>
+    fun fetchCollaborationPhotoHtml(page: Int): Single<String>
 }
