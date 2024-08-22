@@ -58,22 +58,27 @@ class MainActivity : AppCompatActivity() {
     private fun subscribe() {
         viewModel.state.observe(this) { state ->
             when (state) {
-                is UiState.Uninitialized -> {}
+                is UiState.Uninitialized -> {
+                    binding.activityMainSkeletonContainer.visibility = View.VISIBLE
+                }
 
                 is UiState.Empty -> {
 
                     binding.activityMainRefreshLayout.isRefreshing = false
+                    binding.activityMainSkeletonContainer.visibility = View.GONE
                 }
 
                 is UiState.Success -> {
                     pageScrollListener.pagingEnable = state.isMore
                     adapter?.submitList(state.data)
                     binding.activityMainRefreshLayout.isRefreshing = false
+                    binding.activityMainSkeletonContainer.visibility = View.GONE
                 }
 
                 is UiState.Error -> {
 
                     binding.activityMainRefreshLayout.isRefreshing = false
+                    binding.activityMainSkeletonContainer.visibility = View.GONE
                 }
             }
         }
