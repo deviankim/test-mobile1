@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             gettyImageAdapter.loadStateFlow.collectLatest { loadStates ->
+                binding.rvGetty.isVisible = loadStates.refresh !is LoadState.Error
                 binding.pbGetty.isVisible = loadStates.refresh is LoadState.Loading
                 binding.llError.isVisible = loadStates.refresh is LoadState.Error
 

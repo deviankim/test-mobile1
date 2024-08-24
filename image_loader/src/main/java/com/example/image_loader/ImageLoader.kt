@@ -76,7 +76,9 @@ class ImageLoader private constructor(
                 diskImageLruCache.put(key, bitmap)
             }
         } catch (e: IOException) {
-            request.listener?.onError(e)
+            withContext(Dispatchers.Main) {
+                request.listener?.onError(e)
+            }
             null
         }
     }

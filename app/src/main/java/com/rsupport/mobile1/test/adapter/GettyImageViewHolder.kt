@@ -1,6 +1,8 @@
 package com.rsupport.mobile1.test.adapter
 
+import android.util.Log
 import android.view.View
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.entity.GettyImage
@@ -15,12 +17,15 @@ class GettyImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             listener(
                 onStart = {
                     binding.pbImage.isVisible = true
+                    binding.ivError.isGone = true
                 },
                 onSuccess = { _ ->
                     binding.pbImage.isVisible = false
+                    binding.ivError.isGone = true
                 },
                 onError = { _ ->
                     binding.pbImage.isVisible = false
+                    binding.ivError.isGone = false
                 }
             )
         }
