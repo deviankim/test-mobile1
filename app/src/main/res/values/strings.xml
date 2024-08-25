@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Mobile1TestApp</string>
+    <string name="confirm_cancel">취소</string>
+    <string name="confirm_ok">확인</string>
+    <string name="error_loading_images">Failed to load images</string>
+    <string name="exit_title">종료</string>
+    <string name="exit_content">정말 종료하시겠습니까?</string>
+    <string name="network_error_title">네트워크</string>
+    <string name="network_error_content">네트워크 상태를 확인해주세요.</string>
 </resources>

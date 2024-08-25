@@ -1,21 +1,72 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+# General ProGuard Rules
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# Preserve annotations
+-keepattributes *Annotation*
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# Preserve all class member names in classes that implement Parcelable.
+-keepclassmembers class * implements android.os.Parcelable {
+    public static final android.os.Parcelable$Creator CREATOR;
+}
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# Core Android Libraries
+-keep class androidx.** { *; }
+-dontwarn androidx.**
+
+# Preserve ViewBinding classes
+-keep class **ViewBinding { *; }
+
+# Preserve classes for lifecycle components
+-keepclassmembers class * {
+    @androidx.lifecycle.OnLifecycleEvent <methods>;
+}
+
+# OkHttp
+-keep class okhttp3.** { *; }
+-dontwarn okhttp3.**
+-dontwarn okio.**
+
+# Retrofit
+-keep class retrofit2.** { *; }
+-dontwarn retrofit2.**
+-dontwarn okio.**
+
+# Retrofit and Gson Converter
+-keepattributes Signature
+-keepattributes Exceptions
+-keep class com.google.gson.** { *; }
+-keep class **$$GsonTypes { *; }
+-keepclassmembers class * {
+    @retrofit2.http.* <methods>;
+}
+-dontwarn retrofit2.converter.gson.**
+
+# Jsoup
+-keep class org.jsoup.** { *; }
+-dontwarn org.jsoup.nodes.**
+
+# PhotoView
+-keep class com.github.chrisbanes.photoview.** { *; }
+-dontwarn com.github.chrisbanes.photoview.**
+
+# Google Play Services OSS licenses
+-keep class com.google.android.gms.oss.** { *; }
+-dontwarn com.google.android.gms.oss.**
+
+# Lifecycle Libraries
+-keep class androidx.lifecycle.** { *; }
+-dontwarn androidx.lifecycle.**
+
+# Testing Libraries
+-dontwarn androidx.test.**
+-keep class androidx.test.espresso.** { *; }
+-keep class androidx.test.runner.** { *; }
+-dontwarn androidx.test.espresso.**
+
+# Preserve the line number information for debugging stack traces.
+-keepattributes SourceFile,LineNumberTable
+
+# Optionally, hide the original source file name.
+-renamesourcefileattribute SourceFile
+
+# Additional custom rules (if any)
+# You can add custom rules specific to your project's unique requirements here.
