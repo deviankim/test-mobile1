@@ -18,3 +18,4 @@ rootProject.name = "Mobile1TestApp"
 include(":app")
 include(":data")
 include(":domain")
+include(":image_loader")

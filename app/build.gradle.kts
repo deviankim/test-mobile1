@@ -46,6 +46,7 @@ dependencies {
 
     implementation(project(":domain"))
     implementation(project(":data"))
+    implementation(project(":image_loader"))
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib:2.0.0")
     implementation("androidx.core:core-ktx:1.13.1")
