@@ -29,6 +29,8 @@ class ImageRequest(
         })
 
         fun build(): ImageRequest {
+            require(this::url.isInitialized) { "data is not initialized" }
+            require(this::target.isInitialized) { "target is not initialized" }
             return ImageRequest(
                 url = url,
                 target = target,
