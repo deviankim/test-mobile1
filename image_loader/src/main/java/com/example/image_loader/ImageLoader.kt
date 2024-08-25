@@ -3,34 +3,52 @@ package com.example.image_loader
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import com.example.image_loader.cache.disk.DiskImageLruCache
 import com.example.image_loader.cache.memory.MemoryImageLruCache
 import com.example.image_loader.request.ImageRequest
+import com.example.image_loader.request.ImageRequestJob
 import com.example.image_loader.util.hashSHA256
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.net.URL
+import kotlin.coroutines.coroutineContext
 
 class ImageLoader private constructor(
     private val memoryImageLruCache: MemoryImageLruCache,
     private val diskImageLruCache: DiskImageLruCache
 ) {
 
-    fun into(request: ImageRequest) {
+    fun enqueue(imageRequest: ImageRequest) {
         CoroutineScope(Dispatchers.Main).launch {
-            request.listener?.onStart()
+            execute(imageRequest)
+        }
+    }
+
+    private suspend fun execute(imageRequest: ImageRequest) {
+        val requestDelegate = ImageRequestJob(
+            imageRequest,
+            coroutineContext.job,
+            restartCallback = { request -> enqueue(request) },
+        )
+        try {
+            requestDelegate.setNewRequest()
+            requestDelegate.awaitStarted()
+            imageRequest.listener?.onStart()
+
             val bitmap = withContext(Dispatchers.IO) {
-                loadImage(request)
+                loadImage(imageRequest)
             }
+
             bitmap?.let {
-                val drawable = BitmapDrawable(request.target.resources, it)
-                request.target.setImageDrawable(drawable)
-                request.listener?.onSuccess(it)
+                imageRequest.target.into(it)
+                imageRequest.listener?.onSuccess(it)
             }
+        } finally {
+            requestDelegate.complete()
         }
     }
 
@@ -53,7 +71,7 @@ class ImageLoader private constructor(
         }
 
         return try {
-            downloadImage(imageUrl).also { bitmap ->
+            downloadImage(imageUrl)?.also { bitmap ->
                 memoryImageLruCache.put(key, bitmap)
                 diskImageLruCache.put(key, bitmap)
             }
@@ -63,7 +81,7 @@ class ImageLoader private constructor(
         }
     }
 
-    private suspend fun downloadImage(imageUrl: String): Bitmap = withContext(Dispatchers.IO) {
+    private suspend fun downloadImage(imageUrl: String): Bitmap? = withContext(Dispatchers.IO) {
         val url = URL(imageUrl)
         val connection = url.openConnection()
         connection.doInput = true
