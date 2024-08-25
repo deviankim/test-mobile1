@@ -13,6 +13,6 @@ fun ImageView.load(
         .apply(builder)
         .build()
 
-    val imageLoader = ImageLoader.getInstance()
+    val imageLoader = ImageLoader.getInstance(context)
     imageLoader.into(request)
 }

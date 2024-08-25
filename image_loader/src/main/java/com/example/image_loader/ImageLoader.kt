@@ -1,8 +1,10 @@
 package com.example.image_loader
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
+import com.example.image_loader.cache.disk.DiskImageLruCache
 import com.example.image_loader.cache.memory.MemoryImageLruCache
 import com.example.image_loader.request.ImageRequest
 import com.example.image_loader.util.hashSHA256
@@ -14,7 +16,8 @@ import java.io.IOException
 import java.net.URL
 
 class ImageLoader private constructor(
-    private val memoryLruCache: MemoryImageLruCache
+    private val memoryImageLruCache: MemoryImageLruCache,
+    private val diskImageLruCache: DiskImageLruCache
 ) {
 
     fun into(request: ImageRequest) {
@@ -31,12 +34,28 @@ class ImageLoader private constructor(
         }
     }
 
+    /**
+     * 1. Memory Cache에서 hit 시 해당 bitmap 사용
+     * 2. Memory Cache miss 시 Disk Cache에서 hit 시 해당 bitmap 사용 후 Memory Cache에 저장
+     * 3. Cache miss 시 url 소스를 통해 bitmap 생성 후 cache에 저장
+     * */
     private suspend fun loadImage(request: ImageRequest): Bitmap? {
         val imageUrl = request.data
         val key = imageUrl.hashSHA256()
-        return memoryLruCache.get(key) ?: try {
-            downloadImage(key).also { bitmap ->
-                memoryLruCache.put(key, bitmap)
+
+        memoryImageLruCache.get(key)?.let { bitmap ->
+            return bitmap
+        }
+
+        diskImageLruCache.get(key)?.let { bitmap ->
+            memoryImageLruCache.put(key, bitmap)
+            return bitmap
+        }
+
+        return try {
+            downloadImage(imageUrl).also { bitmap ->
+                memoryImageLruCache.put(key, bitmap)
+                diskImageLruCache.put(key, bitmap)
             }
         } catch (e: IOException) {
             request.listener?.onError(e)
@@ -56,9 +75,9 @@ class ImageLoader private constructor(
         @Volatile
         private var instance: ImageLoader? = null
 
-        fun getInstance(): ImageLoader {
+        fun getInstance(context: Context): ImageLoader {
             return instance ?: synchronized(this) {
-                instance ?: ImageLoader(MemoryImageLruCache())
+                instance ?: ImageLoader(MemoryImageLruCache(), DiskImageLruCache(context))
                     .also { instance = it }
             }
         }
