@@ -10,8 +10,8 @@ fun ImageView.load(
     builder: ImageRequest.Builder.() -> Unit = {},
 ) {
     val request = ImageRequest.Builder()
-        .data(data)
-        .target(this)
+        .setUrl(data)
+        .setTarget(this)
         .apply(builder)
         .build()
 

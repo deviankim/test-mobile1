@@ -58,7 +58,7 @@ class ImageLoader private constructor(
      * 3. Cache miss 시 url 소스를 통해 bitmap 생성 후 cache에 저장
      * */
     private suspend fun loadImage(request: ImageRequest): Bitmap? {
-        val imageUrl = request.data
+        val imageUrl = request.url
         val key = imageUrl.hashSHA256()
 
         memoryImageLruCache.get(key)?.let { bitmap ->
