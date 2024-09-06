@@ -23,18 +23,17 @@ class MainViewModel @Inject constructor(private val getImageUrlsUseCase: GetImag
 
     private fun getImageUrls(phrase: String){
         getImageUrlsUseCase(phrase = phrase).onEach { result ->
-            _state.value = MainState(errorMessage = ErrorMessages.UNKNOWN_EXCEPTION)
-//            when(result){
-//                is Resource.Success -> {
-//                    _state.value = MainState(urls = result.data.orEmpty())
-//                }
-//                is Resource.Error -> {
-//                    _state.value = MainState(errorMessage = result.message.orEmpty())
-//                }
-//                is Resource.Loading -> {
-//                    _state.value = MainState(isLoading = true)
-//                }
-//            }
+            when(result){
+                is Resource.Success -> {
+                    _state.value = MainState(urls = result.data.orEmpty())
+                }
+                is Resource.Error -> {
+                    _state.value = MainState(errorMessage = result.message.orEmpty())
+                }
+                is Resource.Loading -> {
+                    _state.value = MainState(isLoading = true)
+                }
+            }
         }.launchIn(viewModelScope)
     }
 
